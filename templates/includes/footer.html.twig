@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * Custom footer template for SACDA theme.
+ *
+ * Available variables:
+ * - page: The page render array containing footer regions.
+ * - footer_logo: Logo URL for the footer (if provided).
+ * - site_name: The site name.
+ * - current_year: The current year for copyright.
+ */
+#}
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-container">
+
+    {# Footer Top Section #}
+    <div class="footer-top">
+      <div class="footer-branding">
+        {% if footer_logo %}
+          <img src="{{ footer_logo }}" alt="{{ site_name }} logo" class="footer-logo">
+        {% endif %}
+        {% if site_name %}
+          <span class="footer-site-name">{{ site_name }}</span>
+        {% endif %}
+      </div>
+
+      {# Footer Navigation / Links #}
+      {% if page.footer_first %}
+        <div class="footer-column footer-first">
+          {{ page.footer_first }}
+        </div>
+      {% endif %}
+
+      {% if page.footer_second %}
+        <div class="footer-column footer-second">
+          {{ page.footer_second }}
+        </div>
+      {% endif %}
+
+      {% if page.footer_third %}
+        <div class="footer-column footer-third">
+          {{ page.footer_third }}
+        </div>
+      {% endif %}
+    </div>
+
+    {# Footer Bottom Section #}
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        <p>&copy; {{ current_year|default('now'|date('Y')) }} {{ site_name|default('South Asian Canadian Digital Archive') }}. All rights reserved.</p>
+      </div>
+
+      {# Social Media Links #}
+      <div class="footer-social">
+        {# Add your social media links here #}
+        <ul class="social-links">
+          {# Example social links - customize as needed
+          <li><a href="#" class="social-link social-facebook" aria-label="Facebook"><span class="visually-hidden">Facebook</span></a></li>
+          <li><a href="#" class="social-link social-twitter" aria-label="Twitter"><span class="visually-hidden">Twitter</span></a></li>
+          <li><a href="#" class="social-link social-instagram" aria-label="Instagram"><span class="visually-hidden">Instagram</span></a></li>
+          #}
+        </ul>
+      </div>
+
+      {% if page.footer %}
+        <div class="footer-main">
+          {{ page.footer }}
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</footer>
