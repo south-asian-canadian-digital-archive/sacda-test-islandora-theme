@@ -4,19 +4,181 @@
  * Custom header template for SACDA theme.
  *
  * Available variables:
- * - page: The page render array containing footer regions.
- * - logo: Logo URL for the footer (if provided).
+ * - page: The page render array containing header/menu regions.
+ * - logo: Logo URL for the header (if provided).
  * - site_name: The site name.
+ * - primary_color, secondary_color, light_color: Theme colors.
  */
 #}
 
+{% set primary = primary_color|default('#F99D2A') %}
+{% set secondary = secondary_color|default('#414042') %}
+{% set light = light_color|default('#FFEDC2') %}
 
-<header class="flex" role="banner">
-	{{ page.header }}
+<header role="navigation" aria-label="Main navigation" class="sacda-header relative top-0 z-999 mb-2 flex flex-col items-center justify-between bg-white px-10 pt-9 pb-6 font-semibold text-black shadow-md" style="--sacda-primary: {{ primary }}; --sacda-secondary: {{ secondary }}; --sacda-light: {{ light }};">
+	<div class="w-full flex items-center justify-between sacda-header-top">
+		<a href="{{ path('<front>') }}" class="inline-block">
+			{% if logo %}
+				<img src="{{ logo }}" alt="{{ site_name }}" class="w-64"/>
+			{% else %}
+				<span class="text-xl font-bold">{{ site_name }}</span>
+			{% endif %}
+		</a>
 
-	<div class="ml-auto flex flex-col">
-		{{ page.menu_top }}
-		{{ page.menu_bottom }}
+		<button class="sacda-mobile-nav-toggle inline-flex items-center justify-center border-none cursor-pointer transition-colors duration-200" style="position: absolute; top: 0; right: 2.5rem; padding: 2.5rem 2rem; background-color: {{ primary }};" aria-expanded="false" aria-controls="sacda-nav-content" id="sacda-mobile-toggle" type="button">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="sacda-toggle-icon fa fa-bars" style="transform: scale(1.5);"></span>
+		</button>
 	</div>
 
+	<div
+		id="sacda-nav-content" class="sacda-nav-content w-full flex-col items-end gap-4 mt-4" style="display: none;" aria-hidden="true">
+		{# Optional: Search area - uncomment if needed
+				<div class="flex flex-col items-center gap-4 py-8 sacda-search-wrap">
+					<div class="flex">
+						<input class="border border-black px-3 py-2 outline-none" placeholder="Search" />
+						<a 
+							href="https://sacda.ca/index.php/MultiSearch/Index" 
+							class="flex w-16 items-center justify-center text-lg transition-all duration-200"
+							style="border: 1px solid {{ secondary }}; background-color: {{ secondary }}; color: {{ light }};"
+						>></a>
+					</div>
+					<a 
+						class="sacda-advanced-search-btn px-6 py-2 text-white transition-colors duration-200"
+						style="background-color: {{ secondary }}; display: none;"
+						href="https://sacda.ca/index.php/Search/advanced/objects" 
+						role="button"
+					>ADVANCED SEARCH</a>
+				</div>
+				#}
+
+		<div class="sacda-nav-list-wrap flex flex-col items-center gap-4 w-full">
+			<div class="sacda-menu-top w-full">{{ page.menu_top }}</div>
+			<div class="sacda-menu-bottom sacda-main-links w-full">{{ page.menu_bottom }}</div>
+		</div>
+	</div>
 </header>
+
+<style>
+	/* =====================================================
+	   SACDA Header - Responsive Styles (Media Queries)
+	   Using breakpoints from sacda_test.breakpoints.yml
+	   ===================================================== */
+
+	/* Mobile toggle hover */
+	.sacda-mobile-nav-toggle:hover {
+		background-color: var(--sacda-secondary) !important;
+	}
+
+	/* Nav content open state */
+	.sacda-nav-content.is-open {
+		display: flex !important;
+	}
+
+	/* Desktop styles - md breakpoint (48rem / 768px) */
+	@media all and(min-width: 48rem) {
+		/* Header becomes row layout */
+		.sacda-header {
+			flex-direction: row;
+		}
+
+		/* Top section shrinks to fit */
+		.sacda-header-top {
+			width: auto;
+		}
+
+		/* Hide mobile toggle */
+		.sacda-mobile-nav-toggle {
+			display: none !important;
+		}
+
+		/* Nav content always visible, row layout */
+		.sacda-nav-content {
+			display: flex !important;
+			flex-direction: row;
+			align-items: flex-end;
+			gap: 1rem;
+			width: auto;
+			margin-top: 0;
+		}
+
+		/* Nav list wrapper */
+		.sacda-nav-list-wrap {
+			flex-direction: column;
+			align-items: flex-end;
+			width: auto;
+		}
+
+		/* Menu containers */
+		.sacda-menu-top,
+		.sacda-menu-bottom {
+			width: auto;
+		}
+
+		/* Show advanced search */
+		.sacda-advanced-search-btn {
+			display: inline-flex !important;
+		}
+
+		/* Search wrap layout */
+		.sacda-search-wrap {
+			flex-direction: row;
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+
+	/* Font Awesome icon */
+	.sacda-header .fa {
+		font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', FontAwesome;
+		font-weight: 900;
+	}
+
+</style>
+
+<script>
+	(function () {
+var toggle = document.getElementById('sacda-mobile-toggle');
+var nav = document.getElementById('sacda-nav-content');
+var icon = toggle ? toggle.querySelector('.sacda-toggle-icon') : null;
+
+if (! toggle || ! nav) 
+return;
+
+
+toggle.addEventListener('click', function () {
+var expanded = this.getAttribute('aria-expanded') === 'true';
+this.setAttribute('aria-expanded', String(! expanded));
+nav.classList.toggle('is-open');
+nav.setAttribute('aria-hidden', String(! nav.classList.contains('is-open')));
+
+// Toggle icon between bars and times (X)
+if (icon) {
+if (nav.classList.contains('is-open')) {
+icon.classList.remove('fa-bars');
+icon.classList.add('fa-times');
+} else {
+icon.classList.remove('fa-times');
+icon.classList.add('fa-bars');
+}
+}
+
+// Update button hover color
+if (nav.classList.contains('is-open')) {
+toggle.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--sacda-secondary').trim() || '#414042';
+} else {
+toggle.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--sacda-primary').trim() || '#F99D2A';
+}
+});
+
+// Handle hover states via JS since inline styles override CSS
+toggle.addEventListener('mouseenter', function () {
+this.style.backgroundColor = getComputedStyle(nav).getPropertyValue('--sacda-secondary').trim() || '#414042';
+});
+toggle.addEventListener('mouseleave', function () {
+if (! nav.classList.contains('is-open')) {
+this.style.backgroundColor = getComputedStyle(nav).getPropertyValue('--sacda-primary').trim() || '#F99D2A';
+}
+});
+})();
+</script>

@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the SACDA Test theme.
+ */
+
+use Drupal\block\Entity\Block;
+
+/**
+ * Implements hook_install().
+ *
+ * Ensures blocks are properly placed when the theme is installed.
+ */
+function sacda_test_install(): void {
+  // The block configurations in config/install will be automatically imported
+  // when the theme is installed. This hook can be used for additional setup.
+  
+  // Ensure the menus exist and have default items if needed.
+  _sacda_test_ensure_menus();
+}
+
+/**
+ * Helper function to ensure required menus exist.
+ */
+function _sacda_test_ensure_menus(): void {
+  $menu_storage = \Drupal::entityTypeManager()->getStorage('menu');
+  
+  // Main menu should exist by default, but verify.
+  if (!$menu_storage->load('main')) {
+    \Drupal::logger('sacda_test')->warning('Main menu does not exist. Please create it at /admin/structure/menu');
+  }
+  
+  // Account menu should exist by default.
+  if (!$menu_storage->load('account')) {
+    \Drupal::logger('sacda_test')->warning('Account menu does not exist. Please create it at /admin/structure/menu');
+  }
+}

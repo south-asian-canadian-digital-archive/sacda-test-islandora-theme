@@ -26,7 +26,7 @@
   'website': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>'
 } %}
 
-<footer class="sacda-footer relative flex flex-col-reverse  justify-between gap-4 bg-[#414042] px-6 pt-10 pb-24 md:flex-row md:py-24 lg:flex-row lg:py-24">
+<footer class="sacda-footer relative flex flex-col-reverse justify-between gap-4 px-6 pt-10 pb-24 md:flex-row md:py-24 lg:flex-row lg:py-24 bg-(--sacda-secondary)" style="--sacda-primary: {{ primary_color|default('#F99D2A') }}; --sacda-secondary: {{ secondary_color|default('#414042') }}; --sacda-light: {{ light_color|default('#FFEDC2') }};">
 	{# Partners section #}
  	<div class="flex flex-row items-center gap-5 pb-3">
  		{% for partner in footer_partners %}
@@ -50,7 +50,7 @@
 							href="{{ social.link }}"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="flex h-12 w-12 items-center justify-center rounded-full border border-[#ffce34] text-lg *:text-white"
+							class="flex h-12 w-12 items-center justify-center rounded-full text-lg text-white border border-(--sacda-light)"
 							title="{{ social.title|default('') }}"
 						>
 							{{ social_icons[social.icon]|default(social_icons['website'])|raw }}

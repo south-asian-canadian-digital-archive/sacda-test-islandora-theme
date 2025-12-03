@@ -5,45 +5,60 @@
 @source "../../js/**/*.js";
 
 /* 
-
-	This file servers as an entry point for Tailwind CSS styles. 
-
-	You can also add global CSS styles here using either tailwind or standard CSS.
-
+	This file serves as an entry point for Tailwind CSS styles. 
+	Most component styles are now inline in their respective twig templates.
 */
 
+/* =====================================================
+   Global Resets for Drupal/Olivero Overrides
+   ===================================================== */
 
-/* SACDA Footer Component Styles - High specificity to prevent overrides */
-:global(.sacda-footer) {
+/* Hide Drupal contextual links in header/footer */
+.sacda-header .contextual,
+.sacda-footer .contextual {
+	display: none;
+}
+
+/* Reset region wrappers to not affect layout */
+.sacda-header .region,
+.sacda-footer .region {
+	display: contents;
+}
+
+/* =====================================================
+   SACDA Footer Component Styles
+   ===================================================== */
+
+.sacda-footer {
 	--sacda-accent-color: #ffce34;
 	background-color: #414042 !important;
 }
 
 /* Footer text styles */
-:global(.sacda-footer p) {
-	color: #ffffff !important;
-	font-weight: 700 !important;
+.sacda-footer p {
+	color: #ffffff;
+	font-weight: 700;
 }
 
 /* Footer link styles */
-:global(.sacda-footer a) {
-	color: #ffffff !important;
-	text-decoration: none !important;
-	transition: color 0.2s ease-in-out !important;
+.sacda-footer a {
+	color: #ffffff;
+	text-decoration: none;
+	transition: color 0.2s ease-in-out;
 }
 
-:global(.sacda-footer a:hover) {
-	color: var(--sacda-accent-color) !important;
+.sacda-footer a:hover {
+	color: var(--sacda-accent-color);
 }
 
 /* Social media icon styles */
-:global(.sacda-footer .fa) {
-	color: #ffffff !important;
-	font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', FontAwesome !important;
-	font-weight: 900 !important;
+.sacda-footer .fa {
+	color: #ffffff;
+	font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', FontAwesome;
+	font-weight: 900;
 }
 
 /* Ensure component maintains layout */
-:global(.sacda-footer *) {
-	box-sizing: border-box !important;
+.sacda-footer * {
+	box-sizing: border-box;
 }

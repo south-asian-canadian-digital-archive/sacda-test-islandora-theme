@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Custom menu template for account menu in SACDA theme.
+ * Uses Tailwind classes with inline styles for hover effects.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items.
+ * - attributes: HTML attributes for the ul element.
+ */
+#}
+{% import _self as menus %}
+
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+	{% import _self as menus %}
+	{% if items %}
+		<ul {{ attributes.addClass('sacda-account-list', 'flex', 'flex-row', 'items-center', 'justify-end', 'gap-4', 'list-none', 'm-0', 'p-0') }}>
+			{% for item in items %}
+				<li class="sacda-account-item list-none m-0 p-0">
+					<a href="{{ item.url }}" class="sacda-account-link inline-block text-sm font-medium no-underline transition-colors duration-200" style="color: var(--sacda-secondary, #414042);" {% if item.in_active_trail %} aria-current="page" {% endif %}>
+						{{ item.title }}
+					</a>
+					{% if item.below %}
+						{{ menus.menu_links(item.below, attributes.removeClass('sacda-account-list'), menu_level + 1) }}
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endmacro %}
+
+<style>
+	/* Account link hover effect */
+	.sacda-account-link:hover,
+	.sacda-account-link:focus {
+		color: var(--sacda-primary, #F99D2A) !important;
+		text-decoration: none;
+	}
+</style>

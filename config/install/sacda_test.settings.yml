@@ -53,3 +53,8 @@ footer_social_links:
     icon: 'flickr'
     link: 'https://www.flickr.com/photos/ufvcics/albums'
     weight: 4
+
+# Theme color settings
+primary_color: '#F99D2A'
+secondary_color: '#414042'
+light_color: '#FFEDC2'

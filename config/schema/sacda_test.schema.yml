@@ -48,3 +48,12 @@ sacda_test.settings:
     footer_copyright_text:
       type: string
       label: 'Custom copyright text'
+    primary_color:
+      type: string
+      label: 'Primary color hex'
+    secondary_color:
+      type: string
+      label: 'Secondary color hex'
+    light_color:
+      type: string
+      label: 'Light color hex'

@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Custom menu template for main navigation in SACDA theme.
+ * Uses Tailwind classes with inline styles for hover effects.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items.
+ * - attributes: HTML attributes for the ul element.
+ */
+#}
+{% import _self as menus %}
+
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+	{% import _self as menus %}
+	{% if items %}
+		<ul {{ attributes.addClass('sacda-nav-list', 'flex', 'flex-col', 'items-center', 'gap-4', 'list-none', 'm-0', 'p-0') }}>
+			{% for item in items %}
+				<li class="sacda-nav-item list-none m-0 p-0">
+					<a href="{{ item.url }}" class="sacda-nav-link inline-block font-semibold uppercase no-underline transition-all duration-200 text-black" style="padding-bottom: 0.25rem; border-bottom: 2px solid transparent;{% if item.in_active_trail %} border-bottom-color: var(--sacda-primary, #F99D2A);{% endif %}" {% if item.in_active_trail %} aria-current="page" {% endif %}>
+						{{ item.title }}
+					</a>
+					{% if item.below %}
+						{{ menus.menu_links(item.below, attributes.removeClass('sacda-nav-list'), menu_level + 1) }}
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endmacro %}
+
+<style>
+	/* Main nav list - responsive layout */
+	@media all and(min-width: 48rem) {
+		.sacda-nav-list {
+			flex-direction: row;
+			gap: 1.5rem;
+		}
+	}
+
+	/* Nav link hover effect */
+	.sacda-nav-link:hover,
+	.sacda-nav-link:focus {
+		color: #000000;
+		border-bottom-color: var(--sacda-primary, #F99D2A) !important;
+		text-decoration: none;
+	}
+</style>

@@ -207,6 +207,37 @@ function sacda_test_form_system_theme_settings_alter(array &$form, FormStateInte
   }
 
   $form['#submit'][] = 'sacda_test_theme_settings_submit';
+
+  // Color settings
+  $form['color_settings'] = [
+    '#type' => 'details',
+    '#title' => t('Color Settings'),
+    '#open' => TRUE,
+  ];
+
+  $form['color_settings']['primary_color'] = [
+    '#type' => 'textfield',
+    '#title' => t('Primary color (hex)'),
+    '#default_value' => theme_get_setting('primary_color') ?: '#F99D2A',
+    '#description' => t('Primary brand color (e.g. #F99D2A).'),
+    '#size' => 10,
+  ];
+
+  $form['color_settings']['secondary_color'] = [
+    '#type' => 'textfield',
+    '#title' => t('Secondary color (hex)'),
+    '#default_value' => theme_get_setting('secondary_color') ?: '#414042',
+    '#description' => t('Secondary brand color (e.g. #414042).'),
+    '#size' => 10,
+  ];
+
+  $form['color_settings']['light_color'] = [
+    '#type' => 'textfield',
+    '#title' => t('Light color (hex)'),
+    '#default_value' => theme_get_setting('light_color') ?: '#FFEDC2',
+    '#description' => t('Light accent color (e.g. #FFEDC2).'),
+    '#size' => 10,
+  ];
 }
 
 /**
@@ -314,6 +345,18 @@ function sacda_test_preprocess_html(array &$variables): void {
       'livereload',
     ];
   }
+
+  $variables['page']['#attached']['html_head'][] = [
+    [
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'viewport',
+        'content' => 'width=device-width, initial-scale=1.0',
+      ],
+    ],
+    'viewport',
+  ];
 }
 
 /**
@@ -346,6 +389,11 @@ function sacda_test_preprocess_page(array &$variables): void {
 
   $variables['footer_social_links'] = theme_get_setting('footer_social_links') ?: [];
   usort($variables['footer_social_links'], fn($a, $b) => ($a['weight'] ?? 0) <=> ($b['weight'] ?? 0));
+
+  // Expose color settings to templates.
+  $variables['primary_color'] = theme_get_setting('primary_color') ?: '#F99D2A';
+  $variables['secondary_color'] = theme_get_setting('secondary_color') ?: '#414042';
+  $variables['light_color'] = theme_get_setting('light_color') ?: '#FFEDC2';
 }
 
 /**
@@ -361,4 +409,66 @@ function sacda_test_theme_suggestions_page_alter(array &$suggestions, array $var
   if (\Drupal::service('path.matcher')->isFrontPage()) {
     $suggestions[] = 'page__landing';
   }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for block templates.
+ */
+function sacda_test_theme_suggestions_block_alter(array &$suggestions, array $variables): void {
+  // Add suggestions based on block plugin ID for menu blocks.
+  if (isset($variables['elements']['#plugin_id'])) {
+    $plugin_id = $variables['elements']['#plugin_id'];
+    
+    // For system menu blocks, add more specific suggestions.
+    if (strpos($plugin_id, 'system_menu_block:') === 0) {
+      $menu_name = str_replace('system_menu_block:', '', $plugin_id);
+      $suggestions[] = 'block__system_menu_block__' . $menu_name;
+    }
+  }
+  
+  // Add suggestions based on region.
+  if (isset($variables['elements']['#configuration']['region'])) {
+    $region = $variables['elements']['#configuration']['region'];
+    $suggestions[] = 'block__region__' . $region;
+    
+    if (isset($variables['elements']['#plugin_id'])) {
+      $plugin_id = str_replace(':', '_', $variables['elements']['#plugin_id']);
+      $suggestions[] = 'block__region__' . $region . '__' . $plugin_id;
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for menu templates.
+ */
+function sacda_test_theme_suggestions_menu_alter(array &$suggestions, array $variables): void {
+  // Add suggestions based on menu name.
+  if (isset($variables['menu_name'])) {
+    $suggestions[] = 'menu__' . $variables['menu_name'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function sacda_test_preprocess_block(array &$variables): void {
+  // Pass theme colors to blocks.
+  $variables['primary_color'] = theme_get_setting('primary_color') ?: '#F99D2A';
+  $variables['secondary_color'] = theme_get_setting('secondary_color') ?: '#414042';
+  $variables['light_color'] = theme_get_setting('light_color') ?: '#FFEDC2';
+  
+  // Add block ID as a class for easier styling.
+  if (isset($variables['elements']['#id'])) {
+    $variables['attributes']['data-block-id'] = $variables['elements']['#id'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu templates.
+ */
+function sacda_test_preprocess_menu(array &$variables): void {
+  // Pass theme colors to menus.
+  $variables['primary_color'] = theme_get_setting('primary_color') ?: '#F99D2A';
+  $variables['secondary_color'] = theme_get_setting('secondary_color') ?: '#414042';
+  $variables['light_color'] = theme_get_setting('light_color') ?: '#FFEDC2';
 }

@@ -1,0 +1,33 @@
+{#
+	Hero block template
+	- Renders a reusable hero section for the theme.
+	- Supports: block label (title), optional subtitle (field_subtitle), optional image (field_image), and body/content.
+	- Usage: create a Block with fields `field_image`, `field_subtitle`, and body, then place it in any region (e.g. `header` or `content`).
+#}
+
+<div{{attributes.addClass('sacda-hero','sacda-hero--block')}}>
+	{% if label %}
+		<div class="sacda-hero__wrap">
+			<h1 class="sacda-hero__title">{{ label }}</h1>
+		{% else %}
+			<div class="sacda-hero__wrap">
+			{% endif %}
+
+			{% if content.field_subtitle is defined and content.field_subtitle %}
+				<p class="sacda-hero__subtitle">{{ content.field_subtitle }}</p>
+			{% endif %}
+
+			{% if content.field_image is defined and content.field_image %}
+				<div class="sacda-hero__media">
+					{{ content.field_image }}
+				</div>
+			{% endif %}
+
+			<div
+				class="sacda-hero__body">
+				{# Render the rest of the content except the image and subtitle fields so editors can add CTAs or extra markup in the block body #}
+				{{ content|without('field_image', 'field_subtitle') }}
+			</div>
+
+		</div>
+	</div>
