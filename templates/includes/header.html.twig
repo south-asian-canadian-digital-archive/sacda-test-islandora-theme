@@ -2,6 +2,7 @@
 /**
  * @file
  * Custom header template for SACDA theme.
+ * Ported from Svelte component to use Tailwind classes.
  *
  * Available variables:
  * - page: The page render array containing header/menu regions.
@@ -15,9 +16,9 @@
 {% set secondary = secondary_color|default('#414042') %}
 {% set light = light_color|default('#FFEDC2') %}
 
-<header role="navigation" aria-label="Main navigation" class="sacda-header relative top-0 z-999 mb-2 flex flex-col items-center justify-between bg-white px-10 pt-9 pb-6 font-semibold text-black shadow-md" style="--sacda-primary: {{ primary }}; --sacda-secondary: {{ secondary }}; --sacda-light: {{ light }};">
-	<div class="w-full flex items-center justify-between sacda-header-top">
-		<a href="{{ path('<front>') }}" class="inline-block">
+<header role="navigation" aria-label="Main navigation" class="sacda-header relative top-0 z-999 mb-2 flex flex-col items-center justify-between bg-white px-10 pt-9 pb-6 font-semibold text-black shadow-md md:flex-row lg:flex-row" style="--sacda-primary-color: {{ primary }}; --sacda-secondary-color: {{ secondary }}; --sacda-light-color: {{ light }};">
+	<div class="w-full md:w-fit lg:w-fit flex justify-between items-center md:block lg:block">
+		<a href="{{ path('<front>') }}">
 			{% if logo %}
 				<img src="{{ logo }}" alt="{{ site_name }}" class="w-64"/>
 			{% else %}
@@ -25,159 +26,99 @@
 			{% endif %}
 		</a>
 
-		<button class="sacda-mobile-nav-toggle inline-flex items-center justify-center border-none cursor-pointer transition-colors duration-200" style="position: absolute; top: 0; right: 2.5rem; padding: 2.5rem 2rem; background-color: {{ primary }};" aria-expanded="false" aria-controls="sacda-nav-content" id="sacda-mobile-toggle" type="button">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="sacda-toggle-icon fa fa-bars" style="transform: scale(1.5);"></span>
+		<button class="sacda-mobile-nav-toggle absolute top-0 left-full p-10 md:hidden lg:hidden border-none cursor-pointer" style="background-color: var(--sacda-primary-color);" aria-expanded="false" aria-controls="sacda-nav-content" id="sacda-mobile-toggle" type="button">
+			<svg class="sacda-toggle-icon icon-menu" width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<path d="M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+			<svg class="sacda-toggle-icon icon-close hidden" width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
 		</button>
 	</div>
 
-	<div
-		id="sacda-nav-content" class="sacda-nav-content w-full flex-col items-end gap-4 mt-4" style="display: none;" aria-hidden="true">
-		{# Optional: Search area - uncomment if needed
-				<div class="flex flex-col items-center gap-4 py-8 sacda-search-wrap">
-					<div class="flex">
-						<input class="border border-black px-3 py-2 outline-none" placeholder="Search" />
-						<a 
-							href="https://sacda.ca/index.php/MultiSearch/Index" 
-							class="flex w-16 items-center justify-center text-lg transition-all duration-200"
-							style="border: 1px solid {{ secondary }}; background-color: {{ secondary }}; color: {{ light }};"
-						>></a>
-					</div>
-					<a 
-						class="sacda-advanced-search-btn px-6 py-2 text-white transition-colors duration-200"
-						style="background-color: {{ secondary }}; display: none;"
-						href="https://sacda.ca/index.php/Search/advanced/objects" 
-						role="button"
-					>ADVANCED SEARCH</a>
-				</div>
-				#}
-
-		<div class="sacda-nav-list-wrap flex flex-col items-center gap-4 w-full">
-			<div class="sacda-menu-top w-full">{{ page.menu_top }}</div>
-			<div class="sacda-menu-bottom sacda-main-links w-full">{{ page.menu_bottom }}</div>
-		</div>
+	<div id="sacda-nav-content" class="sacda-nav-content flex flex-col items-end gap-4 ">
+		<div class="sacda-menu-top">{{ page.menu_top }}</div>
+		<div class="sacda-menu-bottom flex">{{ page.menu_bottom }}</div>
 	</div>
 </header>
 
 <style>
-	/* =====================================================
-	   SACDA Header - Responsive Styles (Media Queries)
-	   Using breakpoints from sacda_test.breakpoints.yml
-	   ===================================================== */
-
-	/* Mobile toggle hover */
-	.sacda-mobile-nav-toggle:hover {
-		background-color: var(--sacda-secondary) !important;
+	/* SACDA Header Component Styles */
+	.sacda-header {
+		--sacda-primary-color: #F99D2A;
+		--sacda-secondary-color: #414042;
+		--sacda-light-color: #FFEDC2;
 	}
 
-	/* Nav content open state */
-	.sacda-nav-content.is-open {
-		display: flex !important;
+	.sacda-header * {
+		box-sizing: border-box;
 	}
 
-	/* Desktop styles - md breakpoint (48rem / 768px) */
-	@media all and(min-width: 48rem) {
-		/* Header becomes row layout */
-		.sacda-header {
-			flex-direction: row;
-		}
+	#sacda-nav-content {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.2s ease-in-out;
+		flex-direction: column;
+	}
 
-		/* Top section shrinks to fit */
-		.sacda-header-top {
-			width: auto;
-		}
+	#sacda-nav-content.is-open {
+		max-height: 500px;
+		overflow: visible;
+	}
 
-		/* Hide mobile toggle */
-		.sacda-mobile-nav-toggle {
-			display: none !important;
-		}
-
-		/* Nav content always visible, row layout */
-		.sacda-nav-content {
+	@media(min-width: 48rem) {
+		#sacda-nav-content {
+			max-height: none !important;
+			overflow: visible !important;
 			display: flex !important;
-			flex-direction: row;
-			align-items: flex-end;
-			gap: 1rem;
-			width: auto;
-			margin-top: 0;
-		}
-
-		/* Nav list wrapper */
-		.sacda-nav-list-wrap {
-			flex-direction: column;
-			align-items: flex-end;
-			width: auto;
-		}
-
-		/* Menu containers */
-		.sacda-menu-top,
-		.sacda-menu-bottom {
-			width: auto;
-		}
-
-		/* Show advanced search */
-		.sacda-advanced-search-btn {
-			display: inline-flex !important;
-		}
-
-		/* Search wrap layout */
-		.sacda-search-wrap {
-			flex-direction: row;
-			padding-top: 0;
-			padding-bottom: 0;
 		}
 	}
 
-	/* Font Awesome icon */
-	.sacda-header .fa {
-		font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', FontAwesome;
-		font-weight: 900;
+	/* Navigation Links */
+	.sacda-header .sacda-nav-list .sacda-nav-item .sacda-nav-link {
+		@apply border-b-2 border-transparent pb-1 transition-all duration-200 ease-in-out no-underline inline-block text-black font-semibold;
 	}
 
+	.sacda-header .sacda-nav-list .sacda-nav-item .sacda-nav-link:hover {
+		color: #000000 !important;
+		border-bottom-color: var(--sacda-primary-color) !important;
+	}
+
+	/* Mobile Toggle */
+	.sacda-header .sacda-mobile-nav-toggle {
+		position: absolute;
+		right: 1rem;
+		padding: 2rem 1rem 1rem;
+	}
 </style>
+
 
 <script>
 	(function () {
 var toggle = document.getElementById('sacda-mobile-toggle');
 var nav = document.getElementById('sacda-nav-content');
-var icon = toggle ? toggle.querySelector('.sacda-toggle-icon') : null;
+var iconMenu = toggle ? toggle.querySelector('.icon-menu') : null;
+var iconClose = toggle ? toggle.querySelector('.icon-close') : null;
 
 if (! toggle || ! nav) 
 return;
 
 
-toggle.addEventListener('click', function () {
+
+toggle.addEventListener('click', function () { // Toggle aria-expanded
 var expanded = this.getAttribute('aria-expanded') === 'true';
 this.setAttribute('aria-expanded', String(! expanded));
+
+// Toggle visibility class
 nav.classList.toggle('is-open');
-nav.setAttribute('aria-hidden', String(! nav.classList.contains('is-open')));
 
-// Toggle icon between bars and times (X)
-if (icon) {
-if (nav.classList.contains('is-open')) {
-icon.classList.remove('fa-bars');
-icon.classList.add('fa-times');
-} else {
-icon.classList.remove('fa-times');
-icon.classList.add('fa-bars');
-}
-}
-
-// Update button hover color
-if (nav.classList.contains('is-open')) {
-toggle.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--sacda-secondary').trim() || '#414042';
-} else {
-toggle.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--sacda-primary').trim() || '#F99D2A';
-}
-});
-
-// Handle hover states via JS since inline styles override CSS
-toggle.addEventListener('mouseenter', function () {
-this.style.backgroundColor = getComputedStyle(nav).getPropertyValue('--sacda-secondary').trim() || '#414042';
-});
-toggle.addEventListener('mouseleave', function () {
-if (! nav.classList.contains('is-open')) {
-this.style.backgroundColor = getComputedStyle(nav).getPropertyValue('--sacda-primary').trim() || '#F99D2A';
+// Toggle icons
+if (iconMenu && iconClose) {
+iconMenu.classList.toggle('hidden');
+iconClose.classList.toggle('hidden');
 }
 });
 })();

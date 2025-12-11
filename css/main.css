@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+	--breakpoint-sm: 40rem;
+	--breakpoint-md: 48rem;
+	--breakpoint-lg: 64rem;
+	--breakpoint-xl: 80rem;
+	--breakpoint-2xl: 96rem;
+}
+
 /* Scan templates and JS for Tailwind classes */
-@source "../../templates/**/*.twig";
-@source "../../js/**/*.js";
+@source "../templates/**/*.twig";
+@source "../js/**/*.js";
 
 /* 
 	This file serves as an entry point for Tailwind CSS styles. 
@@ -56,9 +64,4 @@
 	color: #ffffff;
 	font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', FontAwesome;
 	font-weight: 900;
-}
-
-/* Ensure component maintains layout */
-.sacda-footer * {
-	box-sizing: border-box;
 }
