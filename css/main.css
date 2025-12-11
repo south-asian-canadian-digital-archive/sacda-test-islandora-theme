@@ -9,7 +9,9 @@
 }
 
 /* Scan templates and JS for Tailwind classes */
+/* Scan templates and JS for Tailwind classes */
 @source "../templates/**/*.twig";
+@source "../templates/**/*.html";
 @source "../js/**/*.js";
 
 /* 
@@ -57,11 +59,4 @@
 
 .sacda-footer a:hover {
 	color: var(--sacda-accent-color);
-}
-
-/* Social media icon styles */
-.sacda-footer .fa {
-	color: #ffffff;
-	font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', FontAwesome;
-	font-weight: 900;
 }

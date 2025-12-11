@@ -2,25 +2,31 @@
 /**
  * @file
  * Custom menu template for account menu in SACDA theme.
- * Uses Tailwind classes with inline styles for hover effects.
- *
- * Available variables:
- * - menu_name: The machine name of the menu.
- * - items: A nested list of menu items.
- * - attributes: HTML attributes for the ul element.
+ * Refactored to use a profile icon trigger with a dropdown menu.
  */
 #}
 {% import _self as menus %}
 
-{{ menus.menu_links(items, attributes, 0) }}
+<div class="relative inline-block text-left sacda-account-menu-wrapper">
+	<button type="button" class="flex items-center justify-center p-2 cursor-pointer rounded-full hover:bg-gray-100 focus:outline-none transition-colors duration-200" id="sacda-account-menu-button" aria-expanded="false" aria-haspopup="true">
+		<span class="sr-only">Open account menu</span>
+		<svg class="h-8 w-8 text-gray-700" width="32" height="32" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+		</svg>
+	</button>
+
+	<div id="sacda-account-dropdown" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-(--sacda-primary-color) focus:outline-none hidden z-50" style="min-width: 12rem; white-space: nowrap;">
+		{{ menus.menu_links(items, attributes, 0) }}
+	</div>
+</div>
 
 {% macro menu_links(items, attributes, menu_level) %}
 	{% import _self as menus %}
 	{% if items %}
-		<ul {{ attributes.addClass('sacda-account-list', 'flex', 'flex-row', 'items-center', 'justify-end', 'gap-4', 'list-none', 'm-0', 'p-0') }}>
+		<ul class="flex flex-col list-none m-0 p-0">
 			{% for item in items %}
-				<li class="sacda-account-item list-none m-0 p-0">
-					<a href="{{ item.url }}" class="sacda-account-link inline-block text-sm font-medium no-underline transition-colors duration-200" style="color: var(--sacda-secondary, #414042);" {% if item.in_active_trail %} aria-current="page" {% endif %}>
+				<li class="list-none">
+					<a style="color: #000;" href="{{ item.url }}" class="block px-4 py-2 text-sm no-underline transition-colors duration-200" {% if item.in_active_trail %} aria-current="page" {% endif %}>
 						{{ item.title }}
 					</a>
 					{% if item.below %}
@@ -32,11 +38,38 @@
 	{% endif %}
 {% endmacro %}
 
-<style>
-	/* Account link hover effect */
-	.sacda-account-link:hover,
-	.sacda-account-link:focus {
-		color: var(--sacda-primary, #F99D2A) !important;
-		text-decoration: none;
-	}
-</style>
+<script>
+	(function () {
+var button = document.getElementById('sacda-account-menu-button');
+var dropdown = document.getElementById('sacda-account-dropdown');
+
+if (! button || ! dropdown) 
+return;
+
+
+
+button.addEventListener('click', function (e) {
+e.stopPropagation();
+var expanded = this.getAttribute('aria-expanded') === 'true';
+this.setAttribute('aria-expanded', String(! expanded));
+dropdown.classList.toggle('hidden');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function (e) {
+if (! dropdown.contains(e.target) && ! button.contains(e.target)) {
+dropdown.classList.add('hidden');
+button.setAttribute('aria-expanded', 'false');
+}
+});
+
+// Close on escape key
+document.addEventListener('keydown', function (e) {
+if (e.key === 'Escape' && ! dropdown.classList.contains('hidden')) {
+dropdown.classList.add('hidden');
+button.setAttribute('aria-expanded', 'false');
+button.focus();
+}
+});
+})();
+</script>
