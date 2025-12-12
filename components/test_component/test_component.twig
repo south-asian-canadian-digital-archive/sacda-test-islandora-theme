@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Template for Drupal Svelte Component
+ */
+#}
+<div 
+  {{ attributes.addClass('svelte-component-root') }} 
+  data-component="test_component" 
+  data-props="{{ props|json_encode }}"
+></div>

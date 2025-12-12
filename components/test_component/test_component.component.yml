@@ -1,0 +1,12 @@
+name: Test Component
+description: 'A Svelte component integrated with Drupal.'
+props:
+  type: object
+  properties: {}
+
+# Point to build artifacts in dist/
+js:
+  dist/assets/main.js: { type: module }
+css:
+  component:
+    dist/assets/main.css: {}

@@ -19,3 +19,6 @@ regions:
 
   footer: 'Footer'
   
+components:
+  - sacda_test/test_component
+  
