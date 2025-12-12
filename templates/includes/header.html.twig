@@ -12,6 +12,30 @@
  */
 #}
 
+{#
+/**
+ * @file
+ * Custom header template for SACDA theme.
+ * Ported from Svelte component to use Tailwind classes.
+ *
+ * Available variables:
+ * - page: The page render array containing header/menu regions.
+ * - logo: Logo URL for the header (if provided).
+ * - site_name: The site name.
+ * - primary_color, secondary_color, light_color: Theme colors.
+ * - header_nav_items: Preprocessed menu items for Svelte component.
+ */
+#}
+
+{# Temporary replacement with Svelte component #}
+<div class="sacda-svelte-header-wrapper">
+  <!-- DEBUG: Items count: {{ header_nav_items|length }} | Values: {{ header_nav_items|json_encode }} -->
+  {{ include('sacda_test:sacda_header', {
+    items: header_nav_items
+  }) }}
+</div>
+
+{# Original Header commented out temporarily
 {% set primary = primary_color|default('#F99D2A') %}
 {% set secondary = secondary_color|default('#414042') %}
 {% set light = light_color|default('#FFEDC2') %}
@@ -132,3 +156,4 @@ iconClose.classList.toggle('hidden');
 });
 })();
 </script>
+#}

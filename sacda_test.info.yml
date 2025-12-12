@@ -21,4 +21,5 @@ regions:
   
 components:
   - sacda_test/test_component
+  - sacda_test/sacda_header
   

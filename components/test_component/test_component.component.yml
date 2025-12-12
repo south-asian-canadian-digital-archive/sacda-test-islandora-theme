@@ -5,8 +5,8 @@ props:
   properties: {}
 
 # Point to build artifacts in dist/
+# template: dist/index.html
 js:
-  dist/assets/main.js: { type: module }
+  dist/assets/main.js: {}
 css:
-  component:
-    dist/assets/main.css: {}
+  dist/assets/main.css: {}

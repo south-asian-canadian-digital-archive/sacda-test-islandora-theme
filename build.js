@@ -1,7 +1,8 @@
 import { build } from 'vite';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
-import { readdirSync, statSync } from 'fs';
+import { readdirSync, statSync, writeFileSync } from 'fs';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,6 +33,7 @@ async function buildComponents() {
 				build: {
 					outDir: componentDist,
 					emptyOutDir: true,
+					sourcemap: false, // Ensure no eval/sourcemaps
 					rollupOptions: {
 						input: entryFile,
 						output: {
@@ -40,11 +42,17 @@ async function buildComponents() {
 							// Ensure the output is a module so Drupal can load it cleanly
 							format: 'es'
 						}
-					}
-				},
-				// Define any defines or other shared config here if not in vite.config.ts
+					},
+					plugins: [svelte()]
+				}
 			});
-			console.log(`Successfully built ${component}`);
+
+			// Create index.html for the component
+			const indexHtmlContent = `<div class="svelte-component-root" data-component="${component}"></div>`;
+			const indexHtmlPath = resolve(componentDist, 'index.html');
+			writeFileSync(indexHtmlPath, indexHtmlContent);
+			console.log(`Successfully built ${component} and generated index.html`);
+
 		} catch (e) {
 			console.error(`Failed to build ${component}:`, e);
 			process.exit(1);

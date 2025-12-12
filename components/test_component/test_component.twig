@@ -4,8 +4,8 @@
  * Template for Drupal Svelte Component
  */
 #}
-<div 
-  {{ attributes.addClass('svelte-component-root') }} 
-  data-component="test_component" 
-  data-props="{{ props|json_encode }}"
-></div>
+
+<script type="module" crossorigin src="dist/assets/index.js"></script>
+<link rel="stylesheet" crossorigin href="dist/assets/index.css">
+
+<div {{ attributes.addClass('svelte-component-root') }} data-component="test_component"></div>

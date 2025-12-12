@@ -1,0 +1,16 @@
+name: Sacda Header
+description: 'A responsive header with navigation menu'
+props:
+  type: object
+  properties:
+    items:
+      type: array
+      title: Navigation Items
+      description: List of top level navigation items (Drupal Menu Structure)
+
+# Point to build artifacts in dist/
+template: dist/index.html
+js:
+  dist/assets/main.js: {}
+css:
+  dist/assets/main.css: {}
