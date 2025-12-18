@@ -1,21 +1,11 @@
 {#
 /**
  * @file
- * Theme override for the front/landing page.
- *
- * This template mounts the SACDA Svelte SPA on the homepage.
- * The Svelte app is built from src-svelte/ and handles its own routing.
- *
- * Available variables:
- * - node: The node entity with limited access to object properties and methods.
- * - logged_in: A flag indicating if user is logged in.
- * - is_admin: A flag indicating if user is an admin.
- * - page: Full page object with regions.
+ * Theme override for the landing page.
+ * Mounts the SACDA Svelte SPA.
  */
 #}
 
-{# Attach the Svelte app library #}
 {{ attach_library('sacda_test/sacda_svelte_app') }}
 
-{# Mount point for the Svelte app - ID must match main.ts #}
 <div id="sacda-svelte-app"></div>

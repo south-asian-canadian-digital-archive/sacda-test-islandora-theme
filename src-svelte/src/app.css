@@ -1,21 +1,10 @@
-/**
- * @file
- * Global styles for the SACDA Svelte app.
- * 
- * Scoped to .sacda-svelte-app to avoid conflicts with Drupal/Olivero styles.
- */
-
 @import 'tailwindcss';
 
-/* Scope Tailwind resets to our app container only */
+/* Scope styles to our app container */
 .sacda-svelte-app {
-  /* CSS Reset scoped to our app */
   *, *::before, *::after {
     box-sizing: border-box;
   }
-
-  /* Base styles */
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }

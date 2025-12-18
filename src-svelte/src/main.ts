@@ -1,8 +1,6 @@
 /**
  * @file
  * Drupal Behaviors entry point for the Svelte 5 app.
- * 
- * This file integrates the Svelte SPA with Drupal's lifecycle via behaviors.
  */
 
 import { mount, unmount } from 'svelte';
@@ -37,12 +35,6 @@ interface DrupalSettings {
 // Store app instance for unmounting
 let appInstance: ReturnType<typeof mount> | null = null;
 
-/**
- * Drupal Behavior for the SACDA Svelte App.
- * 
- * Uses the data-processed attribute pattern (alternative to core/once)
- * to prevent multiple mounts on AJAX refreshes.
- */
 window.Drupal = window.Drupal || { behaviors: {} };
 
 window.Drupal.behaviors.sacdaSvelteApp = {
@@ -50,18 +42,15 @@ window.Drupal.behaviors.sacdaSvelteApp = {
 		const targetId = 'sacda-svelte-app';
 		const target = (context === document ? document : context).querySelector(`#${targetId}`);
 
-		// Guard: Only mount once using data attribute
 		if (target && !target.hasAttribute('data-svelte-mounted')) {
 			target.setAttribute('data-svelte-mounted', 'true');
 
-			// Get config from drupalSettings or use defaults
 			const appConfig = settings?.sacdaSvelteApp || {
 				basePath: settings?.path?.baseUrl || '/',
 				csrfToken: '',
 				apiEndpoint: '/jsonapi',
 			};
 
-			// Svelte 5 mount API
 			appInstance = mount(App, {
 				target: target,
 				props: {
@@ -75,7 +64,6 @@ window.Drupal.behaviors.sacdaSvelteApp = {
 	},
 
 	detach(context: Element | Document, _settings: DrupalSettings, trigger: string) {
-		// Only unmount on 'unload' trigger (page navigation), not on AJAX refreshes
 		if (trigger === 'unload' && appInstance) {
 			const target = (context === document ? document : context).querySelector('#sacda-svelte-app');
 			if (target) {
