@@ -1,1 +1,12 @@
 # Main theme library.
+
+# SACDA Svelte App Bundle
+# Built from src-svelte/ using: cd src-svelte && pnpm build
+# Note: CSS is inlined in the JS bundle via Tailwind v4's Vite plugin
+sacda_svelte_app:
+  version: 1.0.0
+  js:
+    dist/js/sacda-app.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
