@@ -13,7 +13,8 @@ use Drupal\file\Entity\File;
 /**
  * Implements hook_form_system_theme_settings_alter().
  */
-function sacda_test_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state): void {
+function sacda_test_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state): void
+{
   $form['footer_settings'] = [
     '#type' => 'details',
     '#title' => t('Footer Settings'),
@@ -243,14 +244,16 @@ function sacda_test_form_system_theme_settings_alter(array &$form, FormStateInte
 /**
  * Ajax callback for partners section.
  */
-function sacda_test_partners_ajax_callback(array &$form, FormStateInterface $form_state) {
+function sacda_test_partners_ajax_callback(array &$form, FormStateInterface $form_state)
+{
   return $form['footer_settings']['partners_wrapper'];
 }
 
 /**
  * Submit handler to add a partner.
  */
-function sacda_test_add_partner_callback(array &$form, FormStateInterface $form_state): void {
+function sacda_test_add_partner_callback(array &$form, FormStateInterface $form_state): void
+{
   $form_state->set('num_partners', $form_state->get('num_partners') + 1);
   $form_state->setRebuild();
 }
@@ -258,7 +261,8 @@ function sacda_test_add_partner_callback(array &$form, FormStateInterface $form_
 /**
  * Submit handler to remove a partner.
  */
-function sacda_test_remove_partner_callback(array &$form, FormStateInterface $form_state): void {
+function sacda_test_remove_partner_callback(array &$form, FormStateInterface $form_state): void
+{
   $num = $form_state->get('num_partners');
   if ($num > 1) {
     $form_state->set('num_partners', $num - 1);
@@ -269,14 +273,16 @@ function sacda_test_remove_partner_callback(array &$form, FormStateInterface $fo
 /**
  * Ajax callback for social links section.
  */
-function sacda_test_social_ajax_callback(array &$form, FormStateInterface $form_state) {
+function sacda_test_social_ajax_callback(array &$form, FormStateInterface $form_state)
+{
   return $form['footer_settings']['social_wrapper'];
 }
 
 /**
  * Submit handler to add a social link.
  */
-function sacda_test_add_social_callback(array &$form, FormStateInterface $form_state): void {
+function sacda_test_add_social_callback(array &$form, FormStateInterface $form_state): void
+{
   $form_state->set('num_social', $form_state->get('num_social') + 1);
   $form_state->setRebuild();
 }
@@ -284,7 +290,8 @@ function sacda_test_add_social_callback(array &$form, FormStateInterface $form_s
 /**
  * Submit handler to remove a social link.
  */
-function sacda_test_remove_social_callback(array &$form, FormStateInterface $form_state): void {
+function sacda_test_remove_social_callback(array &$form, FormStateInterface $form_state): void
+{
   $num = $form_state->get('num_social');
   if ($num > 1) {
     $form_state->set('num_social', $num - 1);
@@ -295,7 +302,8 @@ function sacda_test_remove_social_callback(array &$form, FormStateInterface $for
 /**
  * Submit handler to clean up empty entries and make files permanent.
  */
-function sacda_test_theme_settings_submit(array &$form, FormStateInterface $form_state): void {
+function sacda_test_theme_settings_submit(array &$form, FormStateInterface $form_state): void
+{
   $partners = $form_state->getValue('footer_partners') ?: [];
   $cleaned_partners = [];
 
@@ -331,9 +339,10 @@ function sacda_test_theme_settings_submit(array &$form, FormStateInterface $form
 /**
  * Implements hook_preprocess_HOOK() for html.html.twig.
  */
-function sacda_test_preprocess_html(array &$variables): void {
+function sacda_test_preprocess_html(array &$variables): void
+{
   $is_dev = getenv('DRUPAL_ENV') === 'development' ||
-            file_exists(DRUPAL_ROOT . '/sites/development.services.yml');
+    file_exists(DRUPAL_ROOT . '/sites/development.services.yml');
 
   if ($is_dev) {
     $variables['page']['#attached']['html_head'][] = [
@@ -362,7 +371,8 @@ function sacda_test_preprocess_html(array &$variables): void {
 /**
  * Implements hook_preprocess_HOOK() for page.html.twig.
  */
-function sacda_test_preprocess_page(array &$variables): void {
+function sacda_test_preprocess_page(array &$variables): void
+{
   $variables['site_name'] = \Drupal::config('system.site')->get('name');
   $variables['current_year'] = date('Y');
   $variables['logo'] = '/' . \Drupal::theme()->getActiveTheme()->getPath() . '/logo.svg';
@@ -399,38 +409,59 @@ function sacda_test_preprocess_page(array &$variables): void {
 /**
  * Implements hook_preprocess_HOOK() for node.html.twig.
  */
-function sacda_test_preprocess_node(array &$variables): void {
+function sacda_test_preprocess_node(array &$variables): void
+{
 }
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for page templates.
  */
-function sacda_test_theme_suggestions_page_alter(array &$suggestions, array $variables): void {
+function sacda_test_theme_suggestions_page_alter(array &$suggestions, array $variables): void
+{
   if (\Drupal::service('path.matcher')->isFrontPage()) {
     $suggestions[] = 'page__landing';
   }
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for the landing page.
+ *
+ * Passes configuration to the Svelte SPA via drupalSettings.
+ */
+function sacda_test_preprocess_page__landing(array &$variables): void
+{
+  $current_user = \Drupal::currentUser();
+
+  // Attach Svelte app settings for the behaviors to consume.
+  $variables['#attached']['drupalSettings']['sacdaSvelteApp'] = [
+    'basePath' => base_path(),
+    'csrfToken' => \Drupal::service('csrf_token')->get('rest'),
+    'apiEndpoint' => '/jsonapi',
+    'userId' => $current_user->isAuthenticated() ? $current_user->id() : NULL,
+  ];
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter() for block templates.
  */
-function sacda_test_theme_suggestions_block_alter(array &$suggestions, array $variables): void {
+function sacda_test_theme_suggestions_block_alter(array &$suggestions, array $variables): void
+{
   // Add suggestions based on block plugin ID for menu blocks.
   if (isset($variables['elements']['#plugin_id'])) {
     $plugin_id = $variables['elements']['#plugin_id'];
-    
+
     // For system menu blocks, add more specific suggestions.
     if (strpos($plugin_id, 'system_menu_block:') === 0) {
       $menu_name = str_replace('system_menu_block:', '', $plugin_id);
       $suggestions[] = 'block__system_menu_block__' . $menu_name;
     }
   }
-  
+
   // Add suggestions based on region.
   if (isset($variables['elements']['#configuration']['region'])) {
     $region = $variables['elements']['#configuration']['region'];
     $suggestions[] = 'block__region__' . $region;
-    
+
     if (isset($variables['elements']['#plugin_id'])) {
       $plugin_id = str_replace(':', '_', $variables['elements']['#plugin_id']);
       $suggestions[] = 'block__region__' . $region . '__' . $plugin_id;
@@ -441,7 +472,8 @@ function sacda_test_theme_suggestions_block_alter(array &$suggestions, array $va
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for menu templates.
  */
-function sacda_test_theme_suggestions_menu_alter(array &$suggestions, array $variables): void {
+function sacda_test_theme_suggestions_menu_alter(array &$suggestions, array $variables): void
+{
   // Add suggestions based on menu name.
   if (isset($variables['menu_name'])) {
     $suggestions[] = 'menu__' . $variables['menu_name'];
@@ -451,12 +483,13 @@ function sacda_test_theme_suggestions_menu_alter(array &$suggestions, array $var
 /**
  * Implements hook_preprocess_HOOK() for block templates.
  */
-function sacda_test_preprocess_block(array &$variables): void {
+function sacda_test_preprocess_block(array &$variables): void
+{
   // Pass theme colors to blocks.
   $variables['primary_color'] = theme_get_setting('primary_color') ?: '#F99D2A';
   $variables['secondary_color'] = theme_get_setting('secondary_color') ?: '#414042';
   $variables['light_color'] = theme_get_setting('light_color') ?: '#FFEDC2';
-  
+
   // Add block ID as a class for easier styling.
   if (isset($variables['elements']['#id'])) {
     $variables['attributes']['data-block-id'] = $variables['elements']['#id'];
@@ -466,7 +499,8 @@ function sacda_test_preprocess_block(array &$variables): void {
 /**
  * Implements hook_preprocess_HOOK() for menu templates.
  */
-function sacda_test_preprocess_menu(array &$variables): void {
+function sacda_test_preprocess_menu(array &$variables): void
+{
   // Pass theme colors to menus.
   $variables['primary_color'] = theme_get_setting('primary_color') ?: '#F99D2A';
   $variables['secondary_color'] = theme_get_setting('secondary_color') ?: '#414042';
