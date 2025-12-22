@@ -20,7 +20,7 @@
 		<ul class="sacda-nav-list flex flex-col md:flex-row items-center gap-4 list-none m-0 p-0">
 			{% for item in items %}
 				<li class="sacda-nav-item list-none m-0 p-0">
-					<a href="{{ item.url }}" class="sacda-nav-link inline-block font-semibold uppercase no-underline transition-all duration-200 text-black" style="padding-bottom: 0.25rem; border-bottom: 2px solid transparent;{% if item.in_active_trail %} border-bottom-color: var(--sacda-primary, #F99D2A);{% endif %}" {% if item.in_active_trail %} aria-current="page" {% endif %}>
+					<a href="{{ item.url }}" class="sacda-nav-link inline-block font-semibold uppercase no-underline transition-all duration-200 text-black" style="padding-bottom: 0.25rem; border-bottom: 2px solid transparent;{% if item.in_active_trail %} border-bottom-color: var(--primary);{% endif %}" {% if item.in_active_trail %} aria-current="page" {% endif %}>
 						{{ item.title }}
 					</a>
 					{% if item.below %}
@@ -43,6 +43,6 @@
 	/* Nav link hover effect - requires CSS variable */
 	.sacda-nav-link:hover,
 	.sacda-nav-link:focus {
-		border-bottom-color: var(--sacda-primary, #F99D2A) !important;
+		border-bottom-color: var(--primary) !important;
 	}
 </style>

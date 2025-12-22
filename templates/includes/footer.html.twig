@@ -26,25 +26,26 @@
   'website': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>'
 } %}
 
-<footer class="sacda-footer relative flex flex-col-reverse justify-between gap-4 px-6 pt-10 pb-24 md:flex-row md:py-24 lg:flex-row lg:py-24 bg-(--sacda-secondary)" style="--sacda-primary: {{ primary_color|default('#F99D2A') }}; --sacda-secondary: {{ secondary_color|default('#414042') }}; --sacda-light: {{ light_color|default('#FFEDC2') }};">
-	{# Partners section #}
-	<div class="">
- 	<div class="flex flex-row items-center gap-5 pb-3">
- 		{% for partner in footer_partners %}
-			<a href="{{ partner.link }}" target="_blank" rel="noopener noreferrer" class="flex items-center h-10 min-w-0">
-				<img src="{{ partner.image }}" alt="{{ partner.name }}" class="h-10!" />
-			</a>
- 		{% endfor %}
- 	</div>
-	</div>
+<footer class="sacda-footer relative flex flex-col-reverse justify-between gap-4 px-6 pt-10 pb-24 md:flex-row md:py-24 lg:flex-row lg:py-24 bg-foreground">
+  {# Partners section #}
+  <div class="">
+    <div class="flex flex-row items-center gap-5 pb-3">
+      {% if footer_partners is not empty %}
+        {% for partner in footer_partners %}
+          <a href="{{ partner.link }}" target="_blank" rel="noopener noreferrer" class="flex items-center h-10 min-w-0">
+            <img src="{{ partner.image }}" alt="{{ partner.name }}" class="h-16!" />
+          </a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
 
-	{# Social links section #}
-	<div class="flex w-full flex-col items-center gap-4 md:w-fit lg:w-fit">
-		<p class="w-fit border-b border-b-[#ffce34] pb-1 text-lg font-bold text-white uppercase md:self-end lg:self-end">
+  <div class="flex flex-col gap-4 text-background md:w-fit lg:w-fit">
+    <p class="w-fit border-b border-b-secondary pb-1 text-lg font-bold uppercase md:self-end lg:self-end">
 			GET IN TOUCH
 		</p>
 
-		<div class="flex flex-row gap-3">
+		<div class="flex flex-row gap-3 justify-end">
 			{% if footer_social_links is not empty %}
 				{% for social in footer_social_links %}
 					{% if social.link %}
@@ -52,7 +53,7 @@
 							href="{{ social.link }}"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="flex h-12 w-12 items-center justify-center rounded-full text-lg text-white border border-(--sacda-light)"
+							class="flex h-12 w-12 items-center justify-center rounded-full text-lg text-background border border-secondary hover:text-secondary transition-colors"
 							title="{{ social.title|default('') }}"
 						>
 							{{ social_icons[social.icon]|default(social_icons['website'])|raw }}
@@ -64,10 +65,10 @@
 	</div>
 
 	{# Copyright section #}
-	<div class="absolute bottom-6 w-full self-center text-center text-sm text-white md:w-fit md:self-start lg:w-fit lg:self-start">
-		<a href="https://sacda.ca/policy/takedown">Statement of Use and Takedown Policy</a>
+	<div class="absolute bottom-6 w-full self-center text-center text-sm text-background md:w-fit md:self-start lg:w-fit lg:self-start">
+		<a href="https://sacda.ca/policy/takedown" class="hover:text-secondary">Statement of Use and Takedown Policy</a>
 		|
-		<a href="https://sacda.ca/index.php/About/media" class="">Media</a>		
+		<a href="https://sacda.ca/index.php/About/media" class="hover:text-secondary">Media</a>		
 		&copy; {{ current_year|default('now'|date('Y')) }} {{ site_name|default('South Asian Canadian Digital Archive') }}. All rights reserved.
 	</div>
 </footer>
