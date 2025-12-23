@@ -74,7 +74,7 @@
 }
 
 .dark {
-	/* Dark mode values - kept generic/derived or same as original for now since not specified */
+	--background: oklch(0.22 0 0);
 	--background: oklch(0.22 0 0);
 	--foreground: oklch(0.985 0 0);
 	--card: oklch(0.22 0 0);
@@ -144,7 +144,6 @@
 	--color-sidebar-accent: var(--sidebar-accent);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
 	--color-sidebar-border: var(--sidebar-border);
-	--color-sidebar-ring: var(--sidebar-ring);
 
 	/* SACDA Spacing */
 	/* 
@@ -154,6 +153,7 @@
 	   --gutter-md: 100px
 	   --gutter-lg: 150px
 	*/
+	--color-sidebar-ring: var(--sidebar-ring);
 }
 
 @theme {
@@ -187,23 +187,29 @@
 }
 
 
-/* 
-	This file serves as an entry point for Tailwind CSS styles. 
-	Most component styles are now inline in their respective twig templates.
-*/
 
-/* =====================================================
-   Global Resets for Drupal/Olivero Overrides
-   ===================================================== */
-
-/* Hide Drupal contextual links in header/footer */
-/* .sacda-header .contextual,
-.sacda-footer .contextual {
+/* Override Drupal Core hidden.module.css */
+.hidden {
 	display: none;
-} */
+}
 
-/* Reset region wrappers to not affect layout */
-/* .sacda-header .region,
-.sacda-footer .region {
-	display: contents;
-} */
+@media (min-width: 48rem) {
+	.hidden.md\:flex {
+		display: flex !important;
+	}
+	.hidden.md\:block {
+		display: block !important;
+	}
+	.hidden.md\:inline-flex {
+		display: inline-flex !important;
+	}
+	.hidden.md\:grid {
+		display: grid !important;
+	}
+}
+
+@media (min-width: 48rem) {
+	.md\:hidden {
+		display: none !important;
+	}
+}

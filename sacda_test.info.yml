@@ -14,6 +14,10 @@ libraries-override:
         css/base/base.css: false
       layout:
         css/layout/region.css: false
+  core/drupal.base:
+    css:
+      component:
+        /core/modules/system/css/components/hidden.module.css: false
 
 regions:
   # header: "Header"
