@@ -14,6 +14,10 @@ const CONFIG = {
 	// How many pixels to scroll before animation completes
 	scrollDistance: 100,
 
+	// Smoothing factor (0 = instant, 0.5 = slight lag, 1+ = more lag)
+	// Higher values reduce jitter but feel less responsive
+	scrubSmoothing: 0.5,
+
 	// Container padding when collapsed (CSS value)
 	collapsedPaddingY: "0.05rem",
 
@@ -53,7 +57,7 @@ function initHeaderAnimation(): void {
 			trigger: "body",
 			start: "top top",
 			end: `+=${CONFIG.scrollDistance}`,
-			scrub: true,
+			scrub: CONFIG.scrubSmoothing,
 		},
 	});
 
