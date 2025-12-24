@@ -5,47 +5,62 @@
  */
 #}
 
-<header role="navigation" aria-label="Main navigation" class="sacda-header sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between bg-white px-4 md:px-10 pt-4 pb-4 md:pt-6 md:pb-6 text-foreground shadow-md">
-	<div class="w-full md:w-fit flex justify-between items-center">
-		<a href="{{ path('<front>') }}">
-			{% if logo %}
-				<img src="{{ logo }}" alt="{{ site_name }}" class="w-48 md:w-64"/>
-			{% else %}
-				<span class="text-xl font-bold">{{ site_name }}</span>
-			{% endif %}
-		</a>
+<header id="sacda-header" role="navigation" aria-label="Main navigation" class="sacda-header sticky top-0 z-50 bg-white/95 backdrop-blur-sm text-foreground shadow-none transition-shadow duration-200">
+	<div id="sacda-header-container" class="mx-auto flex flex-col md:flex-row items-center justify-between px-4 md:px-10 py-4 md:py-6">
+		<div class="w-full md:w-fit flex justify-between items-center">
+			<a id="sacda-header-logo" href="{{ path('<front>') }}" class="origin-left">
+				{% if logo %}
+					<img src="{{ logo }}" alt="{{ site_name }}" class="w-48 md:w-64"/>
+				{% else %}
+					<span class="text-xl font-bold">{{ site_name }}</span>
+				{% endif %}
+			</a>
 
-		<button class="sacda-mobile-nav-toggle bg-primary text-primary-foreground flex items-center justify-center w-14 h-14 md:sacda-hide border-none cursor-pointer" aria-expanded="false" aria-controls="sacda-nav-content" id="sacda-mobile-toggle" type="button">
-			<span class="sr-only">Toggle navigation</span>
-			<svg class="sacda-toggle-icon icon-menu w-6 h-6" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				<path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				<path d="M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-			</svg>
-			<svg class="sacda-toggle-icon icon-close w-6 h-6 sacda-hide" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				<path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-			</svg>
-		</button>
-	</div>
-
-	<div
-		id="sacda-nav-content" class="sacda-nav-content w-full md:w-auto flex flex-col items-start md:items-end gap-6 md:gap-4 pt-6 md:pt-0">
-		{# Account menu with search #}
-		<div class="sacda-menu-top flex items-center gap-4">
-			<form class="flex" role="search" id="sacda-header-search">
-				<div class="flex border border-foreground">
-					<input type="text" class="w-48 h-10 px-3 bg-transparent text-foreground placeholder:text-muted-foreground outline-none" id="sacda-search-input" placeholder="Search" name="search" autocomplete="off">
-					<button type="submit" class="h-10 w-10 flex items-center justify-center bg-foreground text-primary cursor-pointer">
-						<svg class="w-5 h-5" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</button>
-				</div>
-			</form>
-			{{ page.menu_top }}
+			<button class="sacda-mobile-nav-toggle bg-primary text-primary-foreground flex items-center justify-center w-14 h-14 md:sacda-hide border-none cursor-pointer" aria-expanded="false" aria-controls="sacda-nav-content" id="sacda-mobile-toggle" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<svg class="sacda-toggle-icon icon-menu w-6 h-6" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				<svg class="sacda-toggle-icon icon-close w-6 h-6 sacda-hide" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</button>
 		</div>
-		<div class="sacda-menu-bottom flex flex-col md:flex-row">{{ page.menu_bottom }}</div>
+
+		<div
+			id="sacda-nav-content" class="sacda-nav-content w-full md:w-auto flex flex-col items-start md:items-end gap-6 md:gap-4 pt-6 md:pt-0">
+			{# Top row: scrollable search/menu + fixed login #}
+			<div
+				class="sacda-menu-top flex items-center gap-4">
+				{# Wrapper for scrollable content (clips overflow) #}
+				<div id="sacda-menu-scrollable-wrapper" class="overflow-hidden">
+					<div
+						id="sacda-menu-scrollable" class="flex items-center gap-4">
+						{# Search form - scrolls up #}
+						<form class="flex" role="search" id="sacda-header-search">
+							<div class="flex border border-foreground">
+								<input type="text" class="w-48 h-10 px-3 bg-transparent text-foreground placeholder:text-muted-foreground outline-none" id="sacda-search-input" placeholder="Search" name="search" autocomplete="off">
+								<button type="submit" class="h-10 w-10 flex items-center justify-center bg-foreground text-primary cursor-pointer">
+									<svg class="w-5 h-5" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</button>
+							</div>
+						</form>
+						{{ page.menu_top }}
+					</div>
+				</div>
+				{# Login region - stays in place #}
+				<div id="sacda-login-region">
+					{{ page.login_region }}
+				</div>
+			</div>
+			{# Main navigation - slides left on scroll #}
+			<div id="sacda-header-nav" class="sacda-menu-bottom flex flex-col md:flex-row">{{ page.menu_bottom }}</div>
+		</div>
 	</div>
 </header>
 
@@ -126,6 +141,20 @@
 		border: none;
 		outline: none;
 		box-shadow: none;
+	}
+
+	/* Offset header for Drupal admin toolbar when logged in */
+	body.toolbar-fixed #sacda-header {
+		top: 39px; /* Height of horizontal toolbar */
+	}
+	body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open #sacda-header {
+		top: 79px; /* Toolbar + open tray */
+	}
+	body.toolbar-fixed.toolbar-vertical #sacda-header {
+		top: 39px;
+	}
+	body.toolbar-fixed.toolbar-vertical.toolbar-tray-open #sacda-header {
+		top: 39px; /* Vertical tray doesn't add height, just width */
 	}
 </style>
 

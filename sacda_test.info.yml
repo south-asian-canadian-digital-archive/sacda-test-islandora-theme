@@ -23,6 +23,7 @@ regions:
   # header: "Header"
   menu_top: "Top menu"
   menu_bottom: "Primary menu"
+  login_region: "Login region"
 
   # breadcrumb: "Breadcrumb"
   content: "Content"

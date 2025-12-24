@@ -1,6 +1,7 @@
 # Main theme library (auto-generated - do not edit manually)
 global:
   js:
+    dist/header.js: {}
     dist/search.util.js: {}
   css:
     theme:
