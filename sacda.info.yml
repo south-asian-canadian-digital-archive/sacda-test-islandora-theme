@@ -26,7 +26,6 @@ libraries:
 #         /core/modules/system/css/components/hidden.module.css: false
 
 regions:
-  # header: "Header"
   menu_top: "Top menu"
   menu_bottom: "Primary menu"
   login_region: "Login region"
@@ -34,9 +33,8 @@ regions:
   # breadcrumb: "Breadcrumb"
   content_top: "Content top"
   content: "Content"
+  sidebar: "Sidebar"
+  
   object_sidebar: "Object Sidebar"
-
-  # sidebar_first: "Sidebar first"
-  # sidebar_second: "Sidebar second"
 
   footer: "Footer"

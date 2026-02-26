@@ -32,8 +32,13 @@
 						{% endif %}
 					{% endblock %}
 					{{ page.content_top }}
-					<main role="main">
-						{{ page.content }}
+					<main role="main" class="flex flex-row">
+						<div class="sidebar w-1/4">
+							{{ page.sidebar }}
+						</div>
+						<div class="content w-3/4">
+							{{ page.content }}
+						</div>
 					</main>
 				</div>
 			</div>
