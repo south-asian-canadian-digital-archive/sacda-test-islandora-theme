@@ -60,12 +60,12 @@
 			class="px-4 py-4">
 			{# Main navigation menu #}
 			<div class="sacda-mobile-menu mb-6 text-left">
-				{{ page.menu_bottom }}
+				{{ page.primary_menu }}
 			</div>
 
 			{# Secondary menu items #}
 			<div class="sacda-mobile-menu-secondary border-t border-border pt-4">
-				{{ page.menu_top }}
+				{{ page.secondary_menu }}
 			</div>
 
 			{# Login region #}
@@ -220,7 +220,7 @@ searchDropdown.classList.toggle('is-open');
 // Focus the input when opened
 if (searchDropdown.classList.contains('is-open')) {
 var input = searchDropdown.querySelector('input');
-if (input) 
+if (input)
 input.focus();
 
 
