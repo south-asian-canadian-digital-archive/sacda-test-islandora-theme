@@ -63,4 +63,4 @@ regions:
 
     # -- Footer area --
     footer_top: Footer Top # unused
-    footer_bottom: Footer Bottom # unused
+    # footer_bottom: Footer Bottom # unused
