@@ -6,8 +6,8 @@ description: Theme for sacda.ca frontend
 # screenshot: src/assets/logo.svg
 core_version_requirement: ^10
 libraries:
-  - sacda/global
-  - core/drupal
+    - sacda/global
+    - core/drupal
 
 # all this below is just for while we do deveopment
 # libraries-override:
@@ -25,16 +25,42 @@ libraries:
 #       component:
 #         /core/modules/system/css/components/hidden.module.css: false
 
+# regions:
+#   # header: "Header"
+#   menu_top: "Top menu"
+#   menu_bottom: "Primary menu"
+#   login_region: "Login region"
+
+#   # breadcrumb: "Breadcrumb"
+#   content_top: "Content top"
+#   content: "Content"
+#   object_sidebar: "Object Sidebar"
+
+#   # sidebar_first: "Sidebar first"
+#   # sidebar_second: "Sidebar second"
+
+#   footer: "Footer"
+
 regions:
-  menu_top: "Top menu"
-  menu_bottom: "Primary menu"
-  login_region: "Login region"
+    # -- Header area --
+    header: Header # unused
+    primary_menu: Primary menu
+    secondary_menu: Secondary menu
+    login_region: Login Region
 
-  # breadcrumb: "Breadcrumb"
-  content_top: "Content top"
-  content: "Content"
-  sidebar: "Sidebar"
-  
-  object_sidebar: "Object Sidebar"
+    # -- Main content area --
+    # hero: Hero (full width) # unused
+    highlighted: Highlighted
+    breadcrumb: Breadcrumb
+    # social: Social Bar # unused
+    content_above: Content Above
+    content: Content
+    sidebar: Sidebar # unused
+    content_below: Content Below # unused
 
-  footer: "Footer"
+    # TODO: remove this later
+    object_sidebar: "Object Sidebar"
+
+    # -- Footer area --
+    footer_top: Footer Top # unused
+    # footer_bottom: Footer Bottom # unused

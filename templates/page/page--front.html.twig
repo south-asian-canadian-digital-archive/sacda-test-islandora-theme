@@ -13,6 +13,9 @@
 	<main role="main" class="front-page w-full">
 		<a id="main-content" tabindex="-1"></a>
 
+		{{ page.highlighted }}
+		{# {{ page.breadcrumb }} #}
+
 		<div class="w-full min-h-[40vh] pt-4">
 			{% include '@sacda/block/sacda-carousel.html.twig' with {
 			slides: carousel_slides,
@@ -23,7 +26,7 @@
 		} %}
 		</div>
 
-		{{ page.content_top }}
+		{{ page.content_above }}
 
 		{# 1. Hero Search & Mission Section #}
 		<section
