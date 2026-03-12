@@ -37,7 +37,7 @@
 		</div>
 		{% if member_of_field|striptags|trim %}
 			<div class="text-xs text-muted-foreground">
-				{{ member_of_field|striptags|trim }}
+				{{ member_of_field|striptags|trim|raw }}
 			</div>
 		{% endif %}
 	</div>
@@ -62,7 +62,7 @@
 			</div>
 			{% if member_of_field|striptags|trim %}
 				<div class="text-xs text-muted-foreground">
-					{{ member_of_field|striptags|trim }}
+					{{ member_of_field|striptags|trim|raw }}
 				</div>
 			{% endif %}
 		</div>

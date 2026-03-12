@@ -11,18 +11,15 @@
 
 
 		{% if content.body|render|striptags|trim %}
-			<div class="prose max-w-none text-foreground leading-relaxed mb-8">
+			<div class="prose max-w-none text-foreground leading-relaxed">
 				{{ content.body }}
 			</div>
 		{% endif %}
 
-		{{ content|without('body') }}
-
-		<div class="mt-8 border-t border-border pt-8">
-			<h3>Contents</h3>
-			
-
+		<div class="flex flex-col md:flex-row gap-6">
+			{{ content|without('body') }}
 		</div>
+
 </article>
 
 

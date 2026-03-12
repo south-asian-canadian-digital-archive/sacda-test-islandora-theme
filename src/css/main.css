@@ -215,9 +215,45 @@
         /* padding-top: 2.5rem; */
     }
 
-    /* body {
-		overflow: hidden;
-	} */
+    .content-children-layout {
+        @apply flex flex-col gap-6 lg:flex-row lg:items-start;
+    }
+
+    .content-children {
+        @apply w-full lg:w-3/4;
+    }
+
+    .filters-sidebar {
+        @apply w-full lg:w-1/4;
+    }
+
+    .filters {
+        @apply bg-muted rounded;
+        margin: 1.25rem 0;
+        padding: 1rem 0;
+        border-top: 1px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .filters-content {
+        display: flex;
+        justify-content: flex-start;
+        padding: 0 1rem;
+        align-items: center;
+        flex-flow: row wrap;
+    }
+
+    .filters-sidebar--hidden {
+        display: none;
+    }
+
+    .content-children-layout.filters-empty .content-children {
+        @apply w-full;
+    }
+
+    .advanced_search_result_pager .pager__summary {
+        display: none !important;
+    }
 }
 
 /* Override Drupal Core hidden.module.css */
@@ -460,4 +496,9 @@
     grid-template-columns: 6rem 1fr;
     gap: 1rem;
     align-items: start;
+}
+
+.block-facet--links h2 {
+    font-weight: 500;
+    @apply text-lg;
 }
