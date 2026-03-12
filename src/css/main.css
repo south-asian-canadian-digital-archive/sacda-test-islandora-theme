@@ -243,6 +243,109 @@
         flex-flow: row wrap;
     }
 
+    .result-facets .block-facets h2 {
+        margin: 0;
+    }
+
+    .result-facets .block-facets h2 .facet-button,
+    .result-facets .block-facets h2 button {
+        line-height: 53px;
+        margin: 0;
+        width: 100%;
+        text-align: left;
+        position: relative;
+        color: #687373;
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 400;
+        padding: 0 15px;
+        background-color: #fafafa;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .result-facets .facet-button::after,
+    .result-facets .toggle-button::after {
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        content: "\f078";
+        position: absolute;
+        right: 15px;
+        font-size: 16px;
+        transition: transform 0.25s ease-in-out;
+    }
+
+    .result-facets .facet-button.collapsed::after {
+        transform: rotate(180deg);
+    }
+
+    .result-facets .facet-item input[type="checkbox"] {
+        display: none;
+    }
+
+    .result-facets .facet-item label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: #2f3234;
+        font-size: 14px;
+        font-family: var(--font-body);
+    }
+
+    .result-facets .facet-item label:before {
+        content: "\f0c8";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 400;
+        font-size: 18px;
+        padding-right: 10px;
+        color: rgba(0, 0, 0, 0.4);
+    }
+
+    .result-facets .facet-item input[type="checkbox"]:checked + label:before {
+        content: "\f14a";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: #0f4c7c;
+    }
+
+    .result-facets .facet-item__count {
+        margin-left: auto;
+        display: inline-block;
+        height: 20px;
+        font-size: 12px;
+        line-height: 12px;
+        padding: 2px 8px;
+        border-radius: 10px;
+        color: #595e62;
+        background-color: #f4f4f4;
+        border: 1px solid #717597;
+        font-weight: 400;
+        letter-spacing: 0.58px;
+    }
+
+    .result-facets .block-dgi-search-in-results input.form-text {
+        border: 1px solid rgba(113, 117, 121, 0.25);
+        background-color: rgba(15, 76, 124, 0.1);
+        padding-left: 32px;
+        border-radius: 5px;
+        height: 32px;
+        width: 100%;
+    }
+
+    .result-facets .block-dgi-search-in-results button.form-submit {
+        position: relative;
+    }
+
+    .result-facets .block-dgi-search-in-results button.form-submit::before {
+        content: "\f002";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        font-size: 14px;
+        color: #595e62;
+    }
+
     .filters-sidebar--hidden {
         display: none;
     }

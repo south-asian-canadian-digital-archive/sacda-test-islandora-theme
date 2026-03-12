@@ -73,10 +73,13 @@ if (typeof window !== "undefined") {
 
     const hasVisibleFilters = (container: Element): boolean => {
         const facetBlocks = Array.from(
-            container.querySelectorAll<HTMLElement>(".block-facet--links"),
+            container.querySelectorAll<HTMLElement>('[class*="block-facet--"]'),
         );
         if (facetBlocks.length > 0) {
-            return facetBlocks.some(isVisibleElement);
+            const hasVisibleFacet = facetBlocks.some(isVisibleElement);
+            if (hasVisibleFacet) {
+                return true;
+            }
         }
 
         return Array.from(container.children).some((child) => {
