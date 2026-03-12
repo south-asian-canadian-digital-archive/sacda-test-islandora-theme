@@ -71,6 +71,39 @@
 }
 
 /* ========================================
+   Breadcrumb
+   ======================================== */
+.breadcrumb_wrapper {
+    @apply my-4;
+}
+
+.breadcrumb_wrapper nav {
+    @apply w-full;
+}
+
+.breadcrumb_wrapper ol {
+    @apply list-none p-0 m-0 flex flex-wrap items-center text-sm text-muted-foreground;
+}
+
+.breadcrumb_wrapper li {
+    @apply m-0;
+}
+
+.breadcrumb_wrapper li + li:before {
+    content: "/";
+    margin: 0 0.5rem;
+    color: var(--muted-foreground);
+}
+
+.breadcrumb_wrapper a {
+    @apply text-foreground no-underline transition-colors;
+}
+
+.breadcrumb_wrapper a:hover {
+    @apply text-primary;
+}
+
+/* ========================================
    SACDA Tabs Block (traditional tabs)
    ======================================== */
 .sacda-tabs-block ul {
