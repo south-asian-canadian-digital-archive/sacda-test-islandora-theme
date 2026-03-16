@@ -6,10 +6,10 @@
  * Uses collection__grid and collection__item classes for legacy SACDA styling.
  */
 #}
-<div class="collection__grid">
+<div{{ attributes.addClass('collection__grid') }}>
 	{% for row in items %}
 		{% for column in row.content %}
-			<div class="collection__item">
+			<div{{ column.attributes.addClass('collection__item').removeAttribute('style') }}>
 				{{ column.content }}
 			</div>
 		{% endfor %}

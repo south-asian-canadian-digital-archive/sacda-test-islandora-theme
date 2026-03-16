@@ -4,9 +4,9 @@
  * Theme override for Solr Search Content view - grid wrapper.
  */
 #}
-<div class="search-content-container">
+<div{{ attributes.addClass('search-content-container') }}>
 	{% for row in rows %}
-		<div class="bg-background overflow-hidden">
+		<div{{ row.attributes.addClass('bg-background', 'overflow-hidden') }}>
 			{{ row.content }}
 		</div>
 	{% endfor %}

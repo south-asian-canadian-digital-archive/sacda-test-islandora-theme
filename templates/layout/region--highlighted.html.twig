@@ -5,7 +5,7 @@
  */
 #}
 {% if content %}
-	<div class="region region-highlighted max-w-5xl mx-auto px-4 md:px-16">
+	<div{{ attributes.addClass('region', 'region-highlighted', 'max-w-5xl', 'mx-auto', 'px-4', 'md:px-16') }}>
 		{{ content }}
 	</div>
 {% endif %}

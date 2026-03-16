@@ -12,7 +12,7 @@
 {% if items.previous or items.next %}
 	<nav class="pager pager--mini flex justify-center items-center my-6" role="navigation" aria-labelledby="pagination-heading-mini">
 		<h4 id="pagination-heading-mini" class="visually-hidden">{{ 'Pagination'|t }}</h4>
-		<ul class="pager__items list-none flex items-center justify-center gap-4 js-pager__items ">
+		<ul{{ attributes.addClass('pager__items', 'list-none', 'flex', 'items-center', 'justify-center', 'gap-4', 'js-pager__items') }}>
 
 			{% if items.previous %}
 				<li class="pager__item pager__item--previous">
@@ -48,6 +48,3 @@
 		</ul>
 	</nav>
 {% endif %}
-
-
-

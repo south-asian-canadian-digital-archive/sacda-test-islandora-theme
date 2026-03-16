@@ -5,9 +5,9 @@
  * Displays the resource type as a badge without the default label/wrapper.
  */
 #}
-<div class="mb-6">
+<div{{ attributes.addClass('mb-6') }}>
   {% for item in items %}
-  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground">
+  <span{{ item.attributes.addClass('inline-flex', 'items-center', 'px-2.5', 'py-0.5', 'rounded-full', 'text-xs', 'font-medium', 'bg-secondary', 'text-secondary-foreground') }}>
     {{ item.content }}
   </span>
   {% endfor %}
