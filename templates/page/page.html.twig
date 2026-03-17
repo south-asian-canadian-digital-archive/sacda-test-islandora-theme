@@ -36,6 +36,8 @@
 					{{ page.highlighted }}
 					{{ page.breadcrumb }}
 					{{ page.content_above }}
+					
+					{% block content %}
 					<main role="main" class="flex flex-col gap-8 my-8">
 						<div class="content">
 							{{ page.content }}
@@ -51,6 +53,7 @@
 							</section>
 						{% endif %}
 					</main>
+					{% endblock %}
 
 				</div>
 			</div>

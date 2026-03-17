@@ -11,8 +11,6 @@
 		{{ title_prefix }}
 		{{ title_suffix }}
 
-
-
 		{% if content.body|render|striptags|trim %}
 			<div class="prose max-w-none text-foreground leading-relaxed mb-8">
 				{{ content.body }}
@@ -21,9 +19,7 @@
 
 		{{ content|without('body') }}
 
-		<div class="mt-8 border-t border-border pt-8">
+		<!--<div class="mt-8 border-t border-border pt-8">
 			<h3>Fonds/Collection Contents</h3>
-			
-
-		</div>
+		</div>-->
 </article>

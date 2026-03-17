@@ -1,14 +1,14 @@
-
-<div{{ attributes.addClass('contextual-region', '') }}>
+<details{{ attributes.addClass('contextual-region', 'w-full', 'border-t', 'border-[#e5e5e5]', 'first:border-t-0', 'px-4', 'py-4', 'group') }} open>
   {{ title_suffix }}
 
+  <summary class="flex items-center justify-between cursor-pointer list-none [&::-webkit-details-marker]:hidden text-foreground">
+    <h4 class="m-0 text-base font-bold">{{ label }}</h4>
+    <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </summary>
 
-  <div>
-      <h6>{{ label }}</h6>
-      <div class = "**:list-none">
-          {{ content }}
-      </div>
+  <div class="**:list-none pt-4">
+    {{ content }}
   </div>
-
-
-</div>
+</details>

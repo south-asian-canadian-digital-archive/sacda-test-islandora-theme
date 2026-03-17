@@ -252,4 +252,9 @@ function sacda_preprocess_views_view_fields(array &$variables): void {
   }
 }
 
+function sacda_preprocess_region(&$variables) {
+  if ($variables['region'] === 'content') {
+    $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
+  }
+}
 

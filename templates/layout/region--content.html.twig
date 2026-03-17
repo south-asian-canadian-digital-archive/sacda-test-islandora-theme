@@ -4,8 +4,17 @@
  * Override for content region - removes Olivero's wrapper constraints.
  */
 #}
+
+{% set layout_classes = [ 'region', 'region-content' ] %}
+
+{% if route_name != 'view.solr_search_content.page_1' %}
+  {% set layout_classes = layout_classes|merge(['max-w-5xl', 'mx-auto', 'px-4', 'md:px-16']) %}
+{% endif %}
+
+{# {{ dump(route_name) }} #}
+
 {% if content %}
-	<div{{ attributes.addClass('region', 'region-content', 'max-w-5xl', 'mx-auto', 'px-4', 'md:px-16') }}>
+	<div{{ attributes.addClass(layout_classes) }}>
 		{{ content }}
 	</div>
 {% endif %}
