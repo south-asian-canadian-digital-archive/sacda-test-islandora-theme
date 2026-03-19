@@ -74,6 +74,36 @@ function sacda_preprocess_page(array &$variables): void {
   _sacda_add_color_variables($variables);
   _sacda_preprocess_carousel($variables, $theme_path);
   _sacda_preprocess_carousel($variables, $theme_path);
+
+  // Determine if filters sidebar has actual content
+  $show_filters = FALSE;
+  if (!empty($variables['page']['filters'])) {
+    $filters_build = $variables['page']['filters'];
+    $rendered_filters = (string) \Drupal::service('renderer')->renderPlain($filters_build);
+
+    // Remove block titles and summaries which often contain text/svgs even when the block content is empty.
+    $rendered_no_titles = preg_replace('/<summary\b[^>]*>.*?<\/summary>/is', '', $rendered_filters);
+    $rendered_no_titles = preg_replace('/<h[1-6]\b[^>]*>.*?<\/h[1-6]>/is', '', $rendered_no_titles);
+
+    // Remove hidden inputs as they do not constitute visible content.
+    $rendered_no_hidden = preg_replace('/<input\b[^>]*type=[\'"]hidden[\'"][^>]*>/is', '', $rendered_no_titles);
+
+    // Remove any elements that are explicitly hidden by facets or utility classes.
+    // This is a basic regex that removes the entire tag contents for tags with class="... hidden ..." or "... facet-hidden ...".
+    // Note: Due to regex limitations on nested tags, this is a best-effort approach that works for typical facet structures.
+    $rendered_no_hidden_classes = preg_replace('/<[^>]*class="[^"]*\b(hidden|facet-hidden)\b[^"]*"[^>]*>.*?<\/[^>]+>/is', '', $rendered_no_hidden);
+
+    // Strip most HTML tags to just look for textual content or interactive elements
+    $clean_filters = strip_tags($rendered_no_hidden_classes, '<img><input><select><textarea><button>');
+
+    // Remove all whitespace
+    $clean_filters = preg_replace('/\s+/', '', $clean_filters);
+
+    if (!empty($clean_filters)) {
+      $show_filters = TRUE;
+    }
+  }
+  $variables['show_filters_sidebar'] = $show_filters;
 }
 
 /**
@@ -170,8 +200,8 @@ function sacda_preprocess_node(array &$variables): void {
       'identifier' => $node->hasField('field_identifier') ? $node->get('field_identifier')->value : null,
       'publisher' => $node->hasField('field_publisher') ? $node->get('field_publisher')->value : null,
       'representative_image_url' => $get_media_url('field_representative_image') ?: $get_media_url('field_media_image'),
-      'coordinates' => $node->hasField('field_coordinates') && !$node->get('field_coordinates')->isEmpty() 
-        ? $node->get('field_coordinates')->getString() 
+      'coordinates' => $node->hasField('field_coordinates') && !$node->get('field_coordinates')->isEmpty()
+        ? $node->get('field_coordinates')->getString()
         : null,
     ];
 
@@ -180,7 +210,7 @@ function sacda_preprocess_node(array &$variables): void {
       'theme' => \Drupal::theme()->getActiveTheme()->getName(),
       'region' => 'object_sidebar',
     ]);
-    
+
     if (!empty($blocks)) {
       uasort($blocks, 'Drupal\block\Entity\Block::sort');
       $build = [];
@@ -257,4 +287,3 @@ function sacda_preprocess_region(&$variables) {
     $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
   }
 }
-

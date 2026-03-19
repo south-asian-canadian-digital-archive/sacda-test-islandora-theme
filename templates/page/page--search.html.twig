@@ -2,9 +2,9 @@
 
 {% block content %}
 	<main role="main" class="flex flex-col gap-8 my-8">
-		{% if page.content or page.filters %}
+		{% if page.content or show_filters_sidebar %}
 			<section class="content-children-layout max-w-5xl mx-auto px-4 md:px-16 w-full">
-				{% if page.filters %}
+				{% if show_filters_sidebar %}
 					<aside class="filters-sidebar">
 						{{ page.filters }}
 					</aside>
