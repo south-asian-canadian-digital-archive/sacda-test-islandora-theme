@@ -7,7 +7,6 @@
 @import "./_detail.css";
 @import "./_system.css";
 @import "./_search.css";
-@import "./_advanced-search.css";
 @import "./_collections.css";
 
 @source "../../templates/**/*.twig";
