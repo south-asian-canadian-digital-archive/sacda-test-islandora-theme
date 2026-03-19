@@ -5,6 +5,7 @@
  */
 #}
 <div{{ attributes.addClass('search-content-container') }}>
+    {{ title_prefix }}
 	{% for row in rows %}
 		<div{{ row.attributes.addClass('bg-background', 'overflow-hidden') }}>
 			{{ row.content }}
