@@ -124,6 +124,7 @@ gsap.registerPlugin(ScrollTrigger);
                     menuScrollable,
                     {
                         yPercent: -100, // Scroll up by 100% of its own height
+                        opacity: 0,
                         ease: "none",
                     },
                     0,

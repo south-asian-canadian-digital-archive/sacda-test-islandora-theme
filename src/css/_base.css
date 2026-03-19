@@ -147,7 +147,7 @@
   label {
     font-family: var(--font-heading);
     font-size: 11px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-weight: 400;
   }
 
@@ -240,11 +240,11 @@
      ===================================================== */
 
   ul {
-    @apply my-6 ms-6 list-disc [&>li]:mt-2;
+    @apply ms-6 list-disc [&>li]:mt-2;
   }
 
   ol {
-    @apply my-6 ms-6 list-decimal [&>li]:mt-2;
+    @apply ms-6 list-decimal [&>li]:mt-2;
   }
 
   /* =====================================================

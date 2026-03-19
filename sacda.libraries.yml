@@ -1,10 +1,11 @@
 # Main theme library (auto-generated - do not edit manually)
 global:
-    js:
-        dist/carousel.js: {}
-        dist/frontpage.js: {}
-        dist/header.js: {}
-        dist/search.util.js: {}
-    css:
-        theme:
-            dist/styles.css: {}
+  js:
+    dist/carousel.js: {}
+    dist/frontpage.js: {}
+    dist/header.js: {}
+    dist/language-switcher.js: {}
+    dist/search.util.js: {}
+  css:
+    theme:
+      dist/styles.css: {}

@@ -228,122 +228,69 @@
     }
 
     .filters {
-        @apply bg-muted;
-        margin: 1.25rem 0;
-        /*padding: 1rem 0;*/
-        /*border-top: 1px solid #e5e5e5;*/
-        /*border-bottom: 1px solid #e5e5e5;*/
+        @apply bg-muted my-5;
     }
 
     .filters-content {
-        display: flex;
-        justify-content: flex-start;
-        /*padding: 0 1rem;*/
-        align-items: center;
-        flex-flow: row wrap;
+        @apply flex justify-start items-center flex-wrap;
     }
 
     .result-facets .block-facets h2 {
-        margin: 0;
+        @apply m-0;
     }
 
     .result-facets .block-facets h2 .facet-button,
     .result-facets .block-facets h2 button {
-        line-height: 53px;
-        margin: 0;
-        width: 100%;
-        text-align: left;
-        position: relative;
-        color: #687373;
-        font-family: var(--font-heading);
-        font-size: 16px;
-        font-weight: 400;
-        padding: 0 15px;
-        background-color: #fafafa;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        @apply leading-[53px] m-0 w-full text-left relative text-muted-foreground font-heading text-base font-normal px-4 bg-muted border-t border-border;
     }
 
     .result-facets .facet-button::after,
     .result-facets .toggle-button::after {
+        @apply font-black absolute right-4 text-base transition-transform duration-[250ms] ease-in-out;
         font-family: "Font Awesome 6 Free";
-        font-weight: 900;
         content: "\f078";
-        position: absolute;
-        right: 15px;
-        font-size: 16px;
-        transition: transform 0.25s ease-in-out;
     }
 
     .result-facets .facet-button.collapsed::after {
-        transform: rotate(180deg);
+        @apply rotate-180;
     }
 
     .result-facets .facet-item input[type="checkbox"] {
-        display: none;
+        @apply hidden;
     }
 
     .result-facets .facet-item label {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        color: #2f3234;
-        font-size: 14px;
-        font-family: var(--font-body);
+        @apply cursor-pointer flex items-center text-foreground text-sm font-body;
     }
 
     .result-facets .facet-item label:before {
+        @apply font-normal text-base pr-2.5 text-muted-foreground;
         content: "\f0c8";
         font-family: "Font Awesome 6 Free";
-        font-weight: 400;
-        font-size: 18px;
-        padding-right: 10px;
-        color: rgba(0, 0, 0, 0.4);
     }
 
     .result-facets .facet-item input[type="checkbox"]:checked + label:before {
+        @apply font-normal text-primary;
         content: "\f14a";
         font-family: "Font Awesome 6 Free";
-        font-weight: 900;
-        color: #0f4c7c;
     }
 
     .result-facets .facet-item__count {
-        margin-left: auto;
-        display: inline-block;
-        height: 20px;
-        font-size: 12px;
-        line-height: 12px;
-        padding: 2px 8px;
-        border-radius: 10px;
-        color: #595e62;
-        background-color: #f4f4f4;
-        border: 1px solid #717597;
-        font-weight: 400;
-        letter-spacing: 0.58px;
+        @apply ml-auto inline-block h-5 text-xs leading-3 py-0.5 px-2 rounded-full text-muted-foreground bg-muted border border-border font-normal tracking-wide;
     }
 
     .result-facets .block-dgi-search-in-results input.form-text {
-        border: 1px solid rgba(113, 117, 121, 0.25);
-        background-color: rgba(15, 76, 124, 0.1);
-        padding-left: 32px;
-        border-radius: 5px;
-        height: 32px;
-        width: 100%;
+        @apply border border-border bg-primary/10 pl-8 rounded h-8 w-full;
     }
 
     .result-facets .block-dgi-search-in-results button.form-submit {
-        position: relative;
+        @apply relative;
     }
 
     .result-facets .block-dgi-search-in-results button.form-submit::before {
+        @apply font-black absolute left-2.5 top-2 text-sm text-muted-foreground;
         content: "\f002";
         font-family: "Font Awesome 6 Free";
-        font-weight: 900;
-        position: absolute;
-        left: 10px;
-        top: 8px;
-        font-size: 14px;
-        color: #595e62;
     }
 
     .filters-sidebar--hidden {
@@ -616,4 +563,20 @@ ul:has(li.facet-item) {
 
 div.views-element-container > div.view-list {
     @apply space-y-8;
-} 
+}
+
+.language-switcher-dropdown ul.links {
+    @apply m-0 p-0 list-none flex flex-col;
+}
+
+.language-switcher-dropdown ul.links li {
+    @apply m-0 p-0;
+}
+
+.language-switcher-dropdown ul.links a {
+    @apply block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-foreground no-underline;
+}
+
+.language-switcher-dropdown ul.links a.is-active {
+    @apply bg-primary/10 text-primary font-medium;
+}

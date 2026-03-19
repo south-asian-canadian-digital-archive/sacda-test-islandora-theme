@@ -55,30 +55,11 @@
 
 			{# Metadata Fields Grid #}
 			<div class="space-y-6">
-				{# Core Metadata #}
-				{{ content.field_alt_title }}
+				{{ content|without(
+					'field_representative_image', 'field_media_image', 'field_thumbnail', 'field_media',
+					'field_member_of', 'field_model', 'field_resource_type', 'field_coordinates'
+				) }}
 
-				{# Contributors #}
-				{{ content.field_linked_agent }}
-
-				{# Dates #}
-				{{ content.field_edtf_date_created }}
-				{{ content.field_edtf_date_issued }}
-				{{ content.field_copyright_date }}
-
-				{# Description #}
-				{{ content.field_description }}
-
-				{# Note #}
-				{{ content.field_note }}
-
-				{# Physical Description #}
-				{{ content.field_extent }}
-
-				{# Subjects #}
-				{{ content.field_subject }}
-				{{ content.field_subjects_name }}
-				{{ content.field_geographic_subject }}
 				{% if repository_item.coordinates %}
 					<div class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Coordinates</div>
 					<div>
@@ -86,32 +67,12 @@
 					</div>
 				{% endif %}
 
-				{# Rights #}
-				{{ content.field_rights }}
-
-				{# Identifiers #}
-				{{ content.field_identifier }}
-				{{ content.field_repository }}
-
 				{# Object Sidebar Region #}
 				{% if object_sidebar %}
 					{% for block in object_sidebar %}
 						{{ block }}
 					{% endfor %}
 				{% endif %}
-			</div>
-
-			<div class="hidden">
-				{{ content|without(
-					'field_representative_image', 'field_media_image', 'field_thumbnail', 'field_media',
-					'field_member_of', 'field_model', 'field_resource_type',
-					'field_rights', 'field_linked_agent', 'field_description', 'field_note',
-					'field_edtf_date_created', 'field_edtf_date_issued', 'field_copyright_date', 
-					'field_identifier', 'field_publisher',
-					'field_repository', 'field_repository_web_site', 
-					'field_geographic_location', 'field_geographic_subject', 'field_coordinates', 'field_subjects_name',
-					'field_subject', 'field_extent', 'field_alt_title'
-				) }}
 			</div>
 		</div>
 
