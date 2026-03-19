@@ -46,14 +46,13 @@
 							<section class="content-children-layout max-w-5xl mx-auto px-4 md:px-16 w-full">
 							{% if show_filters_sidebar %}
 							<aside class="filters-sidebar">
-								{{ page.filters }}
+							        {{ page.filters }}
 							</aside>
 							{% endif %}
-								<div class="content-children">
-									{{ page.content_children }}
-								</div>
-							</section>
-						{% endif %}
+							        <div class="{% if show_filters_sidebar %}content-children{% else %}w-full{% endif %}">
+							                {{ page.content_children }}
+							        </div>
+							</section>						{% endif %}
 					</main>
 					{% endblock %}
 

@@ -9,7 +9,7 @@
 						{{ page.filters }}
 					</aside>
 				{% endif %}
-				<div class="content-children">
+				<div class="{% if show_filters_sidebar %}content-children{% else %}w-full{% endif %}">
 					{{ page.content }}
 				</div>
 			</section>
