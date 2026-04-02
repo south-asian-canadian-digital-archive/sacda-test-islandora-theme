@@ -8,13 +8,19 @@
 
 {% import '@sacda/macros/button.twig' as btn %}
 
-
 <div{{ attributes.addClass('py-8') }}>
     {{ title_prefix|without('a') }}
 	{{ title_suffix }}
-	<div class="max-w-4xl mx-auto">
 	
+	<div class="max-w-4xl mx-auto">	
 	    {{content }}
+	</div>
+	
+</div>
+
+{{ dump(content) }}
+
+{# --------------------------------------------------------------------------------------------------------- #}
 
 		{# Title context / Member of #}
 		{# {% if content.field_member_of|render|striptags|trim %}
@@ -48,6 +54,3 @@
 			{% endif %}
  #}
 		<!--</div>-->
-
-	</div>
-</div>

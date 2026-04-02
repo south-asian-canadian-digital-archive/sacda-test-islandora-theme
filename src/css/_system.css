@@ -21,7 +21,6 @@
 
 .tabs-wrapper a {
     @apply block px-4 py-2 text-sm font-medium rounded-t-md border border-transparent text-muted-foreground no-underline! transition-colors;
-    
 }
 
 .tabs-wrapper a:hover {
@@ -130,14 +129,16 @@
    Pager (minimal & tailwindy)
    ======================================== */
 
-/* Pager container */
+/* Pager container - uses CSS variables for consistent spacing */
 .pager {
-    @apply my-6;
+    /*padding: var(--pager-gutter);*/
+    @apply border-b border-border;
 }
 
-/* Compact / mini modifier used by template */
-.pager--mini {
-    @apply flex justify-center items-center;
+/* Pager inner wrapper */
+.pager__group {
+    /*height: var(--pager-inner-height);*/
+    @apply flex items-center;
 }
 
 /* Target UL inside pager. Many templates render a plain <ul> within the pager nav. */
@@ -149,58 +150,68 @@ nav.pager > ul {
 
 /* pager item (li) */
 .pager__item {
-    @apply m-0 list-none;
+    @apply my-0! list-none;
 }
 
 /* controls inside each item */
 .pager__item > a,
 .pager__item > button {
-    @apply flex items-center justify-center w-10 h-10 rounded border-2 border-input transition-colors text-current bg-transparent no-underline!;
+    @apply size-10 flex items-center justify-center;
+    @apply border border-foreground rounded-none;
+    @apply bg-transparent text-foreground;
+    @apply text-sm font-medium;
+    @apply transition-all duration-300 ease-out;
+    @apply cursor-pointer no-underline!;
 }
 
-/*
- * Active appearance = hover appearance.
- * Apply same styling when:
- *  - the LI is hovered
- *  - the LI has `.is-active`
- *  - the anchor has `.is-active`
- *  - anchor has aria-current="page"
- *  - the pager__item--current modifier is used
- */
+.pager__summary {
+    @apply text-sm text-muted-foreground mb-4;
+}
+
+/* Hover state - uses primary (orange) color */
 .pager__item:hover > a,
-.pager__item:focus-within > a,
+.pager__item:hover > button,
+.pager__item > a:hover,
+.pager__item > button:hover {
+    @apply bg-primary text-primary-foreground border-primary;
+}
+
+/* Active/Selected appearance - uses foreground (black) color */
 .pager__item.is-active,
 .pager__item.is-active > a,
+.pager__item.is-active > button,
 .pager__item > a.is-active,
 .pager__item > a.pager__link--is-active,
 .pager__item > a[aria-current="page"],
 .pager__item--current,
-.pager__item--current > a {
-    @apply bg-primary text-primary-foreground rounded;
+.pager__item--current > a,
+.pager__item--current > button {
+    @apply bg-foreground text-background border-foreground;
 }
 
 .pager__link i {
-    display: none;
+    @apply hidden;
 }
 
 /* Make sure active anchors keep the same appearance when hovered */
 .pager__item.is-active > a:hover,
-.pager__item > a.is-active:hover {
-    @apply bg-primary text-primary-foreground rounded;
+.pager__item.is-active > button:hover,
+.pager__item > a.is-active:hover,
+.pager__item > button.is-active:hover,
+.pager__item--current > a:hover,
+.pager__item--current > button:hover {
+    @apply bg-foreground text-background border-foreground;
 }
 
 /* focus ring for keyboard users */
 .pager__item > a:focus,
 .pager__item > button:focus {
-    @apply outline-none ring-2 ring-offset-2 ring-primary/40;
+    @apply outline-2 outline-primary outline-offset-2;
 }
 
 /* SVG icon sizing inside pager */
 .pager__item svg {
-    @apply w-4 h-4;
-    color: currentColor;
-    fill: none;
-    stroke: currentColor;
+    @apply w-4 h-4 fill-none stroke-current;
 }
 
 /* disabled state */
@@ -221,7 +232,7 @@ nav.pager > ul {
     .pager__item > a,
     .pager__item > button,
     .pager__item--current {
-        @apply w-8 h-8;
+        @apply size-8;
     }
 
     .pager__item svg {
@@ -229,12 +240,108 @@ nav.pager > ul {
     }
 }
 
-/*.pager__group h3 {
-    @apply mr-1;
-}*/
+/* ========================================
+   Pager Group Elements
+   ======================================== */
+
+.pager__group h3 {
+    @apply m-0 text-sm font-bold text-foreground;
+}
 
 .pager__group ul {
-    @apply flex gap-1;
+    @apply flex list-none m-0! pr-4;
+}
+
+/* Items per page links (15, 60, 120) */
+.pager__itemsperpage {
+    @apply w-12 h-12 flex items-center justify-center;
+    @apply border border-foreground rounded-none;
+    @apply bg-transparent text-foreground;
+    @apply text-sm font-medium;
+    @apply transition-all duration-300 ease-out;
+    @apply cursor-pointer no-underline!;
+}
+
+.pager__itemsperpage:hover {
+    @apply bg-primary text-primary-foreground border-primary;
+}
+
+.pager__item.is-active .pager__itemsperpage,
+.pager__itemsperpage.pager__link--is-active {
+    @apply bg-foreground text-background border-foreground;
+}
+
+.pager__item.is-active .pager__itemsperpage:hover,
+.pager__itemsperpage.pager__link--is-active:hover {
+    @apply bg-foreground text-background border-foreground;
+}
+
+/* Display mode buttons (List/Grid) */
+.pager__display {
+    @apply min-w-12 h-12 flex items-center justify-center px-4;
+    @apply border border-foreground rounded-none;
+    @apply bg-transparent text-foreground;
+    @apply text-sm font-medium;
+    @apply transition-all duration-300 ease-out;
+    @apply cursor-pointer no-underline!;
+}
+
+.pager__display:hover {
+    @apply bg-primary text-primary-foreground border-primary;
+}
+
+.pager__item.is-active .pager__display,
+.pager__display.pager__link--is-active {
+    @apply bg-foreground text-background border-foreground;
+}
+
+.pager__item.is-active .pager__display:hover,
+.pager__display.pager__link--is-active:hover {
+    @apply bg-foreground text-background border-foreground;
+}
+
+.pager__display i {
+    @apply mr-2;
+}
+
+/* Sort dropdown */
+.pager__sort {
+    @apply relative inline-block m-0!;
+}
+
+.pager__sort::after {
+    @apply absolute pointer-events-none;
+    content: "";
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--foreground);
+    transition: border-top-color 0.3s ease;
+}
+
+.pager__sort:hover::after {
+    border-top-color: var(--primary);
+}
+
+.pager__sort select {
+    @apply h-10 outline-none cursor-pointer;
+    @apply border border-foreground rounded-none;
+    @apply bg-transparent text-foreground;
+    @apply text-sm font-medium;
+    @apply transition-all duration-300 ease-out;
+    padding: 0 2.5rem 0 0.75rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.pager__sort select:hover,
+.pager__sort select:focus {
+    @apply border-primary;
 }
 
 /* accessibility helper */

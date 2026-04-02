@@ -94,6 +94,10 @@
 
     --font-family-heading: "brandon-grotesque", sans-serif;
     --font-family-body: "brandon-grotesque", "Lato", sans-serif;
+
+    /* Pager Layout */
+    --pager-gutter: 1rem;
+    /*--pager-inner-height: 8rem;*/
 }
 
 .dark {
@@ -186,6 +190,10 @@
     /* Font Families */
     --font-heading: var(--font-family-heading);
     --font-body: var(--font-family-body);
+
+    /* Pager Layout */
+    --pager-gutter: var(--pager-gutter);
+    /*--pager-inner-height: var(--pager-inner-height);*/
 }
 
 @theme {
@@ -300,9 +308,10 @@
         @apply w-full;
     }
 
-    .advanced_search_result_pager >.pager__summary {
+    .advanced_search_result_pager > .pager__summary {
         display: none !important;
     }
+    
 }
 
 /* Override Drupal Core hidden.module.css */
@@ -578,7 +587,4 @@ div.views-element-container > div.view-list {
 
 .language-switcher-dropdown ul.links a.is-active {
     @apply bg-primary/10 text-primary font-medium;
-}
-.pager__summary {
-	@apply text-sm text-muted-foreground mb-4;
 }
