@@ -22,9 +22,6 @@
 					<a id="main-content" tabindex="-1"></a>
 					{% block hero %}
 						{# Render Global Hero from Page Preprocess #}
-						<script>
-							console.log('hero_data:', {{ hero_data|json_encode|raw }});
-						</script>
 						{% if hero_data %}
 							{% import '@sacda/macros/hero.twig' as hero %}
 							{% if hero_data.image %}

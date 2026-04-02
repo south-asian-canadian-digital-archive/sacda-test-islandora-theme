@@ -8,6 +8,7 @@ declare(strict_types=1);
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 
 require_once __DIR__ . '/includes/colors.inc';
 require_once __DIR__ . '/includes/footer.inc';
@@ -285,5 +286,69 @@ function sacda_preprocess_views_view_fields(array &$variables): void {
 function sacda_preprocess_region(&$variables) {
   if ($variables['region'] === 'content') {
     $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form().
+ */
+// function sacda_theme_suggestions_form_alter(&$suggestions, array $variables) {
+//   if ($variables['element']['#id'] == 'advanced-search-form') {
+//     $suggestions[] = 'form__advanced_search';
+//   }
+// }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function sacda_form_advanced_search_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  
+  // 1. Make the parent 'terms' container our CSS Grid wrapper
+  $form['ajax']['terms']['#attributes']['class'] = 'advanced-search-grid';
+
+  // 2. Loop over the flat terms and wrap each field in a div with grid column class
+  if (isset($form['ajax']['terms'])) {
+    foreach (Element::children($form['ajax']['terms']) as $key) {
+
+      if (isset($form['ajax']['terms'][$key]['conjunction'])) {
+        $form['ajax']['terms'][$key]['conjunction']['#prefix'] = '<div class="grid-col-conjunction">';
+        $form['ajax']['terms'][$key]['conjunction']['#suffix'] = '</div>';
+      }
+
+      if (isset($form['ajax']['terms'][$key]['search'])) {
+        $form['ajax']['terms'][$key]['search']['#prefix'] = '<div class="grid-col-search">';
+        $form['ajax']['terms'][$key]['search']['#suffix'] = '</div>';
+      }
+
+      if (isset($form['ajax']['terms'][$key]['include'])) {
+        $form['ajax']['terms'][$key]['include']['#prefix'] = '<div class="grid-col-include">';
+        $form['ajax']['terms'][$key]['include']['#suffix'] = '</div>';
+      }
+
+      if (isset($form['ajax']['terms'][$key]['value'])) {
+        $form['ajax']['terms'][$key]['value']['#prefix'] = '<div class="grid-col-value">';
+        $form['ajax']['terms'][$key]['value']['#suffix'] = '</div>';
+      }
+
+      if (isset($form['ajax']['terms'][$key]['actions'])) {
+        $form['ajax']['terms'][$key]['actions']['#prefix'] = '<div class="grid-col-actions">';
+        $form['ajax']['terms'][$key]['actions']['#suffix'] = '</div>';
+      }
+    }
+  }
+
+  // 3. Group the main submit/reset buttons
+  $form['actions_wrapper'] = [
+    '#type' => 'container',
+    '#attributes' => ['class' => ['advanced-search-actions']],
+    '#weight' => 99, 
+  ];
+  if (isset($form['submit'])) {
+    $form['actions_wrapper']['submit'] = $form['submit'];
+    unset($form['submit']);
+  }
+  if (isset($form['reset'])) {
+    $form['actions_wrapper']['reset'] = $form['reset'];
+    unset($form['reset']);
   }
 }
