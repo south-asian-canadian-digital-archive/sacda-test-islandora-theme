@@ -11,46 +11,33 @@
 <div{{ attributes.addClass('py-8') }}>
     {{ title_prefix|without('a') }}
 	{{ title_suffix }}
-	
-	<div class="max-w-4xl mx-auto">	
-	    {{content }}
+
+	{# Two-column flex layout: main content + sidebar #}
+	<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+
+		{# Main content (left) - all fields except sidebar groups #}
+		<div class="flex-1 min-w-0">
+			{# <div class="bg-card p-6 border border-border"> #}
+				{{ content|without('group_backlinks', 'group_location') }}
+			<!--</div>-->
+		</div>
+
+		{# Sidebar (right) - backlinks and location #}
+		<aside class="w-full lg:w-80 lg:max-w-sm flex-shrink-0">
+			<div class="flex flex-col gap-6">
+
+				{% if content.group_backlinks %}
+					{{ content.group_backlinks }}
+				{% endif %}
+				{% if content.group_location %}
+					{{ content.group_location }}
+				{% endif %}
+
+			</div>
+		</aside>
+
 	</div>
-	
+
 </div>
 
-{{ dump(content) }}
-
-{# --------------------------------------------------------------------------------------------------------- #}
-
-		{# Title context / Member of #}
-		{# {% if content.field_member_of|render|striptags|trim %}
-			<div class="mb-4 text-sm">
-				{{ content.field_member_of }}
-			</div>
-		{% endif %} #}
-
-
-		{# Main Image - Embed the Islandora media views block #}
-		<!--<div class="bg-muted mb-6 overflow-hidden border border-border">-->
-			{# {{ drupal_view('media_display_blocks', 'source') }} #}
-		<!--</div>-->
-
-		{# Map Display (if coordinates exist) #}
-		{# {% if content.field_coordinates|render|striptags|trim %}
-			{{ content.field_coordinates }}
-		{% endif %} #}
-
-		<!--<div class="space-y-6 mt-8">-->
-			{# {{ content|without(
-				'field_representative_image', 'field_media_image', 'field_thumbnail', 'field_media',
-				'field_member_of', 'field_model', 'field_resource_type', 'field_coordinates'
-			) }}
- #}
-			{# {% if repository_item.coordinates %}
-				<div class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Coordinates</div>
-				<div>
-					{{ repository_item.coordinates }}
-				</div>
-			{% endif %}
- #}
-		<!--</div>-->
+{# {{ dump(content) }} #}

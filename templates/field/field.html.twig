@@ -9,6 +9,7 @@
   {% if not label_hidden %}
     <div{{ title_attributes.addClass('text-xs', 'font-bold', 'text-muted-foreground', 'uppercase', 'tracking-wider', 'mb-1') }}>{{ label }}</div>
   {% endif %}
+  
   <div{{ content_attributes.addClass('text-sm', 'text-foreground', 'prose', 'dark:prose-invert', 'max-w-none') }}>
     {% for item in items %}
       <div{{ item.attributes.addClass('text-sm', 'text-foreground', 'prose', 'dark:prose-invert', 'max-w-none') }}>{{ item.content }}</div>

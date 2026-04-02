@@ -350,3 +350,62 @@ nav.pager > ul {
 }
 
 /* End pager styles */
+
+/* ========================================
+   Details/Summary Accordion
+   ======================================== */
+
+details.form-wrapper,
+details.js-form-wrapper {
+    @apply mb-4 border border-border bg-card;
+}
+
+details.form-wrapper summary,
+details.js-form-wrapper summary {
+    @apply px-4 py-3 cursor-pointer select-none mb-4;
+    @apply text-sm font-medium text-foreground;
+    @apply bg-muted border-b border-border;
+    @apply transition-colors duration-200;
+    @apply flex items-center justify-between;
+}
+
+details.form-wrapper summary:hover,
+details.js-form-wrapper summary:hover {
+    @apply bg-muted/80;
+}
+
+/* Arrow indicator */
+details.form-wrapper summary::before,
+details.js-form-wrapper summary::before {
+    content: "▶";
+    @apply mr-2 text-muted-foreground transition-transform duration-200;
+    display: inline-block;
+}
+
+details[open].form-wrapper summary::before,
+details[open].js-form-wrapper summary::before {
+    transform: rotate(90deg);
+}
+
+ /*Content area inside details */
+details.form-wrapper > *:not(summary),
+details.js-form-wrapper > *:not(summary) {
+    @apply px-4;
+}
+
+/* Remove default browser arrow */
+details.form-wrapper summary::-webkit-details-marker,
+details.js-form-wrapper summary::-webkit-details-marker {
+    display: none;
+}
+
+details.form-wrapper summary::marker,
+details.js-form-wrapper summary::marker {
+    display: none;
+}
+
+/* Hide the extra span.summary that Drupal adds */
+details.form-wrapper summary .summary,
+details.js-form-wrapper summary .summary {
+    display: none;
+}
