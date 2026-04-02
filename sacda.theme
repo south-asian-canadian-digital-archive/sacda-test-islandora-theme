@@ -133,98 +133,6 @@ function _sacda_get_hero_data(): ?array {
   return $hero_info[$path_alias] ?? $hero_info[$current_path] ?? NULL;
 }
 
-/**
- * Implements hook_preprocess_HOOK() for node.html.twig.
- */
-/**
- * Implements hook_preprocess_HOOK() for node.html.twig.
- */
-function sacda_preprocess_node(array &$variables): void {
-  /** @var \Drupal\node\NodeInterface $node */
-  $node = $variables['node'];
-  $type = $node->getType();
-
-  // Helper to extract File URL from Media Entity Reference
-  $get_media_url = function ($field_name) use ($node) {
-    if ($node->hasField($field_name) && !$node->get($field_name)->isEmpty()) {
-      $entity = $node->get($field_name)->entity;
-      if ($entity && $entity->getEntityTypeId() === 'media') {
-        // Assuming 'field_media_image' is the image field on the Media entity
-        if ($entity->hasField('field_media_image') && !$entity->get('field_media_image')->isEmpty()) {
-          $file = $entity->get('field_media_image')->entity;
-            if ($file) {
-              return \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
-            }
-        }
-      }
-      // Handle case where field might be direct file ref (though unlikely for defined Media type)
-      elseif ($entity && $entity->getEntityTypeId() === 'file') {
-         return \Drupal::service('file_url_generator')->generateAbsoluteString($entity->getFileUri());
-      }
-    }
-    return NULL;
-  };
-
-  // 1. Collection Preprocess
-  if ($type === 'collection') {
-    // Image logic removed - handled in page preprocess
-
-    $variables['collection'] = [
-      'title' => $node->getTitle(),
-      'full_title' => $node->hasField('field_full_title') ? $node->get('field_full_title')->value : '',
-      'description' => $node->hasField('field_description') ? $node->get('field_description')->value : '',
-      'cover_image_url' => $get_media_url('field_cover_image'),
-      // Add member_of title if needed
-    ];
-  }
-
-  // 2. Collection File Preprocess
-  if ($type === 'collection_file') {
-     $variables['collection_file'] = [
-      'date' => $node->hasField('field_date') ? $node->get('field_date')->value : '',
-      'description' => $node->hasField('field_description') ? $node->get('field_description')->value : '',
-      'full_title' => $node->hasField('field_full_title') ? $node->get('field_full_title')->value : '',
-     ];
-  }
-
-  // 3. Repository Item / Islandora Object Preprocess
-  if ($type === 'repository_item' || $type === 'islandora_object') {
-    // Extract commonly used fields for easier template access
-    $variables['repository_item'] = [
-      'abstract' => $node->hasField('field_abstract') ? $node->get('field_abstract')->value : null,
-      'alt_title' => $node->hasField('field_alt_title') ? $node->get('field_alt_title')->value : null,
-      'copyright_date' => $node->hasField('field_copyright_date') ? $node->get('field_copyright_date')->value : null,
-      'date_created' => $node->hasField('field_edtf_date_created') ? $node->get('field_edtf_date_created')->value : null,
-      'date_issued' => $node->hasField('field_edtf_date_issued') ? $node->get('field_edtf_date_issued')->value : null,
-      'description' => $node->hasField('field_description') ? $node->get('field_description')->value : null,
-      'extent' => $node->hasField('field_extent') ? $node->get('field_extent')->value : null,
-      'identifier' => $node->hasField('field_identifier') ? $node->get('field_identifier')->value : null,
-      'publisher' => $node->hasField('field_publisher') ? $node->get('field_publisher')->value : null,
-      'representative_image_url' => $get_media_url('field_representative_image') ?: $get_media_url('field_media_image'),
-      'coordinates' => $node->hasField('field_coordinates') && !$node->get('field_coordinates')->isEmpty()
-        ? $node->get('field_coordinates')->getString()
-        : null,
-    ];
-
-    // Inject Object Sidebar Region blocks
-    $blocks = \Drupal::entityTypeManager()->getStorage('block')->loadByProperties([
-      'theme' => \Drupal::theme()->getActiveTheme()->getName(),
-      'region' => 'object_sidebar',
-    ]);
-
-    if (!empty($blocks)) {
-      uasort($blocks, 'Drupal\block\Entity\Block::sort');
-      $build = [];
-      foreach ($blocks as $key => $block) {
-        if ($block->access('view')) {
-          $build[$key] = \Drupal::entityTypeManager()->getViewBuilder('block')->view($block);
-        }
-      }
-      $variables['object_sidebar'] = $build;
-    }
-  }
-}
-
 
 /**
  * Implements hook_preprocess_HOOK() for block templates.
@@ -288,15 +196,6 @@ function sacda_preprocess_region(&$variables) {
     $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
   }
 }
-
-/**
- * Implements hook_theme_suggestions_HOOK_alter() for form().
- */
-// function sacda_theme_suggestions_form_alter(&$suggestions, array $variables) {
-//   if ($variables['element']['#id'] == 'advanced-search-form') {
-//     $suggestions[] = 'form__advanced_search';
-//   }
-// }
 
 /**
  * Implements hook_form_FORM_ID_alter().

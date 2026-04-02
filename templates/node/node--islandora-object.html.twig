@@ -2,80 +2,52 @@
 /**
  * @file
  * Theme override to display a node of type 'islandora_object' (Repository Item).
- * Two-column layout with image/actions on left, metadata on right.
+ * Single column layout.
  */
 #}
 
 {% import '@sacda/macros/button.twig' as btn %}
 
+
 <div{{ attributes.addClass('py-8') }}>
-	{{ title_prefix }}
+    {{ title_prefix|without('a') }}
 	{{ title_suffix }}
-	<div
-		class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+	<div class="max-w-4xl mx-auto">
+	
+	    {{content }}
 
-		{# Left Column: Image and Actions #}
-		<div>
-			{# Main Image - Embed the Islandora media views block #}
-			<div class="bg-muted mb-6 overflow-hidden border border-border">
-				{{ drupal_view('media_display_blocks', 'source') }}
+		{# Title context / Member of #}
+		{# {% if content.field_member_of|render|striptags|trim %}
+			<div class="mb-4 text-sm">
+				{{ content.field_member_of }}
 			</div>
+		{% endif %} #}
 
-			{# Map Display (if coordinates exist) #}
-			{% if content.field_coordinates|render|striptags|trim %}
-				{{ content.field_coordinates }}
-			{% endif %}
 
-		</div>
+		{# Main Image - Embed the Islandora media views block #}
+		<!--<div class="bg-muted mb-6 overflow-hidden border border-border">-->
+			{# {{ drupal_view('media_display_blocks', 'source') }} #}
+		<!--</div>-->
 
-		{# Right Column: Metadata #}
-		<div>
-			{# Title context / Member of #}
-			{% if content.field_member_of|render|striptags|trim %}
-				<div class="mb-4 text-sm">
-					{{ content.field_member_of }}
+		{# Map Display (if coordinates exist) #}
+		{# {% if content.field_coordinates|render|striptags|trim %}
+			{{ content.field_coordinates }}
+		{% endif %} #}
+
+		<!--<div class="space-y-6 mt-8">-->
+			{# {{ content|without(
+				'field_representative_image', 'field_media_image', 'field_thumbnail', 'field_media',
+				'field_member_of', 'field_model', 'field_resource_type', 'field_coordinates'
+			) }}
+ #}
+			{# {% if repository_item.coordinates %}
+				<div class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Coordinates</div>
+				<div>
+					{{ repository_item.coordinates }}
 				</div>
 			{% endif %}
-
-			{# Item type badge #}
-			{% if content.field_resource_type|render|striptags|trim %}
-				{{ content.field_resource_type }}
-			{% endif %}
-			<div class="h-px bg-border w-full mb-8"></div>
-
-			{# Metadata Fields Grid #}
-			<div class="space-y-6">
-				{{ content|without(
-					'field_representative_image', 'field_media_image', 'field_thumbnail', 'field_media',
-					'field_member_of', 'field_model', 'field_resource_type', 'field_coordinates'
-				) }}
-
-				{% if repository_item.coordinates %}
-					<div class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Coordinates</div>
-					<div>
-						{{ repository_item.coordinates }}
-					</div>
-				{% endif %}
-
-				{# Object Sidebar Region #}
-				{% if object_sidebar %}
-					{% for block in object_sidebar %}
-						{{ block }}
-					{% endfor %}
-				{% endif %}
-			</div>
-		</div>
+ #}
+		<!--</div>-->
 
 	</div>
 </div>
-
-<script>
-	console.group('Node Debug:          {{ node.label }}');
-console.log('Content Keys:', {{ content|keys|json_encode|raw }});
-try {
-console.log('Repository Item Data:', {{ repository_item|json_encode|raw }});
-} catch (e) {
-console.log('Could not log repository_item');
-}
-console.groupEnd();
-</script>

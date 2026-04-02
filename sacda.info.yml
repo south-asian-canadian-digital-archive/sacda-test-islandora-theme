@@ -25,7 +25,7 @@ regions:
     content_children: Content Children # unused
 
     # TODO: remove this later
-    object_sidebar: "Object Sidebar"
+    # object_sidebar: "Object Sidebar"
 
     # -- Footer area --
     footer_top: Footer Top # unused
