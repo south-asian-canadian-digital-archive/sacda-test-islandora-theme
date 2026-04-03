@@ -42,6 +42,7 @@ gsap.registerPlugin(ScrollTrigger);
     Drupal.behaviors.sacdaHeader = {
         attach: (context) => {
             if (context !== document) return;
+            // console.log(context)
 
             // console.log("Sacda: Initializing Header Animation...");
 
@@ -60,14 +61,23 @@ gsap.registerPlugin(ScrollTrigger);
                 return;
             }
 
+            // Get elements for collapsed state
+            const menuScrollable = document.getElementById(
+                "sacda-menu-scrollable",
+            );
+            const menuWrapper = document.getElementById(
+                "sacda-menu-scrollable-wrapper",
+            );
+            const loginRegion = document.getElementById("sacda-login-region");
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "body",
                     start: "top top",
                     end: `+=${CONFIG.scrollDistance}`,
-                    scrub: true, // true = instant response, no smoothing/rubberbanding
-                    fastScrollEnd: true, // Snap to end state on fast scroll
-                    preventOverlaps: true, // Prevent animation conflicts
+                    scrub: true,
+                    fastScrollEnd: true,
+                    preventOverlaps: true,
                     // markers: true, // Uncomment for debug markers
                 },
             });
@@ -112,12 +122,6 @@ gsap.registerPlugin(ScrollTrigger);
             }
 
             // Scroll up the search/menu-top naturally (login region stays in place)
-            const menuScrollable = document.getElementById(
-                "sacda-menu-scrollable",
-            );
-            const menuWrapper = document.getElementById(
-                "sacda-menu-scrollable-wrapper",
-            );
 
             if (menuScrollable) {
                 tl.to(
@@ -144,7 +148,6 @@ gsap.registerPlugin(ScrollTrigger);
             }
 
             // Move login region up
-            const loginRegion = document.getElementById("sacda-login-region");
             if (loginRegion) {
                 tl.to(
                     loginRegion,
@@ -165,6 +168,18 @@ gsap.registerPlugin(ScrollTrigger);
                 },
                 0,
             );
+
+            // // Start collapsed on islandora-object pages when at top
+            // const isIslandoraObject =
+            //     document.querySelector(".node--type-islandora-object") !== null;
+            // const isAtTop = window.scrollY === 0 || window.pageYOffset === 0;
+
+            // if (isIslandoraObject && isAtTop) {
+            //     // Immediately set to collapsed state without animation
+            //     requestAnimationFrame(() => {
+            //         tl.progress(1);
+            //     });
+            // }
         },
     };
 })(Drupal);

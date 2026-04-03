@@ -6,25 +6,9 @@
   
   {% set resolved_action = render_var(content['#attached']['placeholders'][content['#action']]) %}
   <form id="{{ content['#form_id'] }}" method="{{ content['#method'] }}" action="{{ resolved_action|trim }}" class="{{ content['#id'] }}">
-      {# {{ attributes.addClass('advanced-search-form') }} #}
   
     {{ content.ajax }}
-    {# {% set ajax_attributes = content.ajax['#attributes']|default({}) %}
-    <div{{ create_attribute(ajax_attributes).addClass('advanced-search-terms-wrapper') }}>
-      {% for key, term_row in content.ajax.terms %}
-        {% if key|first!= '#' %}
-          <div class="advanced-search-term-row flex!" id="{{ term_row['#id'] }}">
-            {{ term_row.conjunction }}
-            {{ term_row.search }}
-            {{ term_row.include }}
-            {{ term_row.value }}
-            {{ term_row.actions }}
-          </div>
-        {% endif %}
-      {% endfor %}
-  
-    </div>
-   #}
+    
     {{ content.actions_wrapper }}
   
     {{ content.form_build_id }}
