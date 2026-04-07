@@ -8,7 +8,7 @@
 #}
 {% import '@sacda/macros/search.twig' as search %}
 
-<header id="sacda-header" role="navigation" aria-label="Main navigation" class="sacda-header hidden md:block sticky top-0 z-50 bg-white/95 backdrop-blur-sm text-foreground shadow-lg transition-shadow duration-200">
+<header id="sacda-header" role="navigation" aria-label="Main navigation" class="sacda-header hidden md:block sticky top-0 z-500 bg-white/95 backdrop-blur-sm text-foreground shadow-lg transition-shadow duration-200">
 	<div id="sacda-header-container" class="mx-auto flex flex-row items-center justify-between px-6 py-3">
 		<div class="w-fit flex justify-between items-center">
 			<a id="sacda-header-logo" href="{{ path('<front>') }}" class="origin-left">
@@ -24,7 +24,7 @@
 			id="sacda-nav-content" class="w-auto flex flex-col items-end gap-2">
 			<div
 				class="sacda-menu-top flex items-center gap-3">
-				<div id="sacda-menu-scrollable-wrapper" class="relative z-50">
+				<div id="sacda-menu-scrollable-wrapper" class="relative z-500">
 					<div
 						id="sacda-menu-scrollable" class="flex items-center gap-3">
 						<form class="flex" role="search" id="sacda-header-search">
@@ -33,11 +33,11 @@
 						{{ page.secondary_menu }}
 					</div>
 				</div>
-				<div id="sacda-login-region" class="relative z-50">
+				<div id="sacda-login-region" class="relative z-500">
 					{{ page.login_region }}
 				</div>
 			</div>
-			<div id="sacda-header-nav" class="sacda-menu-bottom flex flex-row relative z-49">{{ page.primary_menu }}</div>
+			<div id="sacda-header-nav" class="sacda-menu-bottom flex flex-row relative z-501">{{ page.primary_menu }}</div>
 		</div>
 	</div>
 </header>

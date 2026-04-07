@@ -3,7 +3,6 @@ type: theme
 # base theme: olivero
 base theme: false
 description: Theme for sacda.ca frontend
-# screenshot: src/assets/logo.svg
 core_version_requirement: ^10
 libraries:
     - sacda/global
