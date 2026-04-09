@@ -26,8 +26,10 @@
 				<div id="sacda-menu-scrollable-wrapper" class="relative z-500">
 					<div
 						id="sacda-menu-scrollable" class="flex items-center gap-3">
-						<form class="flex" role="search" id="sacda-header-search">
-							{{ search.input({ width: 'w-32', id: 'sacda-search-input', height: 'h-7' }) }}
+						<form action="/search" method="get" class="flex" role="search" id="sacda-header-search">
+							<input type="hidden" name="a[0][f]" value="all">
+							<input type="hidden" name="a[0][i]" value="IS">
+							{{ search.input({ width: 'w-32', id: 'sacda-search-input', name: 'a[0][v]', height: 'h-7' }) }}
 						</form>
 						{{ page.secondary_menu }}
 					</div>

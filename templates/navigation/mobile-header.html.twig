@@ -46,8 +46,11 @@
 	{# Mobile search dropdown #}
 	<div id="sacda-mobile-search-dropdown" class="sacda-mobile-search-dropdown hidden px-4 pb-4 bg-white border-t border-border">
 		<form action="/search" method="get" class="flex w-full" role="search" id="sacda-mobile-search-form">
+			<input type="hidden" name="a[0][f]" value="all">
+			<input type="hidden" name="a[0][i]" value="IS">
 			{{ search.input({
 				id: 'sacda-mobile-search-input',
+				name: 'a[0][v]',
 				variant: 'hero',
 				placeholder: 'Search the archive...'
 			}) }}

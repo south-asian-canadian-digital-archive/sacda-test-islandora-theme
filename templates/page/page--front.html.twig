@@ -42,10 +42,13 @@
 						</div>
 						<div class="w-full md:w-2/3">
 							<form action="/search" method="get" class="flex items-center pt-2 w-full">
+								<input type="hidden" name="a[0][f]" value="all">
+								<input type="hidden" name="a[0][i]" value="IS">
 								{{ search.input({
-								id: 'frontSearchInput',
-								variant: 'hero',
-							}) }}
+									id: 'frontSearchInput',
+									name: 'a[0][v]',
+									variant: 'hero',
+								}) }}
 							</form>
 						</div>
 					</div>
