@@ -9,11 +9,11 @@
 {% import '@sacda/macros/search.twig' as search %}
 
 <header id="sacda-header" role="navigation" aria-label="Main navigation" class="sacda-header hidden md:block sticky top-0 z-500 bg-white/95 backdrop-blur-sm text-foreground shadow-lg transition-shadow duration-200">
-	<div id="sacda-header-container" class="mx-auto flex flex-row items-center justify-between px-6 py-3">
+	<div id="sacda-header-container" class="mx-auto flex flex-row items-center justify-between px-6 py-1">
 		<div class="w-fit flex justify-between items-center">
 			<a id="sacda-header-logo" href="{{ path('<front>') }}" class="origin-left">
 				{% if logo %}
-					<img src="{{ logo }}" alt="{{ site_name }}" class="w-44"/>
+					<img src="{{ logo }}" alt="{{ site_name }}" class="w-32"/>
 				{% else %}
 					<span class="text-base font-bold">{{ site_name }}</span>
 				{% endif %}
@@ -21,14 +21,13 @@
 		</div>
 
 		<div
-			id="sacda-nav-content" class="w-auto flex flex-col items-end gap-2">
-			<div
-				class="sacda-menu-top flex items-center gap-3">
+			id="sacda-nav-content" class="w-auto flex flex-col items-end gap-1">
+			<div class="sacda-menu-top flex items-center gap-1">
 				<div id="sacda-menu-scrollable-wrapper" class="relative z-500">
 					<div
 						id="sacda-menu-scrollable" class="flex items-center gap-3">
 						<form class="flex" role="search" id="sacda-header-search">
-							{{ search.input({ width: 'w-36', id: 'sacda-search-input' }) }}
+							{{ search.input({ width: 'w-32', id: 'sacda-search-input', height: 'h-7' }) }}
 						</form>
 						{{ page.secondary_menu }}
 					</div>
@@ -37,7 +36,7 @@
 					{{ page.login_region }}
 				</div>
 			</div>
-			<div id="sacda-header-nav" class="sacda-menu-bottom flex flex-row relative z-501">{{ page.primary_menu }}</div>
+			<div id="sacda-header-nav" class="sacda-menu-bottom flex flex-row relative z-501 text-xs">{{ page.primary_menu }}</div>
 		</div>
 	</div>
 </header>

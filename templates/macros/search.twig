@@ -1,10 +1,10 @@
 {#
 /**
  * SACDA Search Macros
- * 
+ *
  * Usage:
  *   {% import '@sacda/macros/search.twig' as search %}
- *   {{ search.input() }}                           
+ *   {{ search.input() }}
  *   {# Default header style #}
 *
 {{ search.input({ variant: 'hero' }) }}
@@ -14,11 +14,11 @@
 {{ search.input({ width: 'w-64' }) }}
 *
 {# Custom width #}
-* 
+*
  * Variants:
  *   - default: Header search (compact, dark button)
  *   - hero: Landing page search (larger, outline button, underline border)
- * 
+ *
  * Options:
  *   - variant: 'default' or 'hero'
  *   - width: Custom width class (default varies by variant)
@@ -34,10 +34,10 @@
 	{# Only height/width differ between variants - all other styles are consistent #}
 	{%- if variant == 'hero' -%}
 		{%- set width = options.width|default('flex-1') -%}
-		{%- set height = 'min-h-[50px]' -%}
+		{%- set height = options.height|default('min-h-[50px]') -%}
 	{%- else -%}
 		{%- set width = options.width|default('w-48') -%}
-		{%- set height = 'h-10' -%}
+		{%- set height = options.height|default('h-8') -%}
 	{%- endif -%}
 
 	{# Shared styles for all variants #}

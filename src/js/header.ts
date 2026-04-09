@@ -14,22 +14,22 @@ const CONFIG = {
     scrubSmoothing: 0,
 
     // Container padding when collapsed (use fixed px to avoid font-size scaling)
-    collapsedPaddingY: "1px",
+    collapsedPaddingY: "6px",
 
     // Container height when collapsed (CSS value, e.g. "50px" or "auto")
-    collapsedHeight: "48px",
+    collapsedHeight: "44px",
 
     // Logo scale when collapsed (1 = 100%, 0.65 = 65%)
-    logoScale: 0.65,
+    logoScale: 0.6,
 
     // Nav horizontal shift when collapsed (negative = left)
-    navX: -64,
+    navX: -47,
 
     // Nav vertical shift when collapsed (negative = up)
-    navY: -34,
+    navY: -24,
 
     // Login region vertical shift when collapsed (negative = up)
-    loginY: 24,
+    loginY: 16,
 
     // Shadow when scrolled
     boxShadow: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
@@ -70,6 +70,14 @@ gsap.registerPlugin(ScrollTrigger);
             );
             const loginRegion = document.getElementById("sacda-login-region");
 
+            const updateHeaderHeight = () => {
+                const height = header.offsetHeight;
+                document.documentElement.style.setProperty(
+                    "--header-height",
+                    `${height}px`,
+                );
+            };
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "body",
@@ -79,6 +87,7 @@ gsap.registerPlugin(ScrollTrigger);
                     fastScrollEnd: true,
                     preventOverlaps: true,
                     // markers: true, // Uncomment for debug markers
+                    onUpdate: updateHeaderHeight,
                 },
             });
 

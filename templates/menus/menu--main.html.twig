@@ -20,10 +20,10 @@
 {% macro menu_links(items, attributes, menu_level) %}
 	{% import _self as menus %}
 	{% if items %}
-		<ul{{ attributes.addClass('sacda-nav-list', 'flex', 'flex-col', 'text-base!', 'md:flex-row', 'items-center', 'gap-4', 'list-none', 'm-0', 'p-0') }}>
+		<ul{{ attributes.addClass('sacda-nav-list', 'flex', 'flex-col', 'text-xs!', 'md:flex-row', 'items-center', 'gap-3', 'list-none', 'm-0', 'p-0') }}>
 			{% for item in items %}
 				<li class="sacda-nav-item list-none m-0 p-0">
-					<a href="{{ item.url }}" class="sacda-nav-link inline-block font-semibold uppercase no-underline transition-all duration-200 text-black" style="padding-bottom: 0.25rem; border-bottom: 2px solid transparent;{% if item.in_active_trail %} border-bottom-color: var(--primary);{% endif %}" {% if item.in_active_trail %} aria-current="page" {% endif %}>
+					<a href="{{ item.url }}" class="sacda-nav-link inline-block font-semibold uppercase no-underline transition-all duration-200 text-black" style="padding-bottom: 0.125rem; border-bottom: 2px solid transparent;{% if item.in_active_trail %} border-bottom-color: var(--primary);{% endif %}" {% if item.in_active_trail %} aria-current="page" {% endif %}>
 						{{ item.title }}
 					</a>
 					{% if item.below %}
@@ -39,7 +39,7 @@
 	/* Breakpoint-specific layout - responsive gap */
 	@media all and(min-width: 48rem) {
 		.sacda-nav-list {
-			gap: 1.5rem;
+			gap: 1rem;
 		}
 	}
 

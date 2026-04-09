@@ -6,5 +6,11 @@
  */
 #}
 {% if content and not hero_data %}
-	{{ content }}
+    {{ title_prefix }}
+    <!--<div{{ attributes.addClass('') }}>
+        {# {{ content['#title'] }} #}
+    </div>-->
+    {{content}}
+    {{ title_suffix }}
 {% endif %}
+
