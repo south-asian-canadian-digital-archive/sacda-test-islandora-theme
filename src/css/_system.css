@@ -130,10 +130,10 @@
    ======================================== */
 
 /* Pager container - uses CSS variables for consistent spacing */
-.pager {
-    /*padding: var(--pager-gutter);*/
-    @apply border-b border-border;
-}
+/*.pager {*/
+/*padding: var(--pager-gutter);*/
+/*@apply border-b border-border;*/
+/*}*/
 
 /* Pager inner wrapper */
 .pager__group {
@@ -155,7 +155,8 @@ nav.pager > ul {
 
 /* controls inside each item */
 .pager__item > a,
-.pager__item > button {
+.pager__item > button,
+.pager__item > span {
     @apply size-10 flex items-center justify-center;
     @apply border border-foreground rounded-none;
     @apply bg-transparent text-foreground;
@@ -180,12 +181,14 @@ nav.pager > ul {
 .pager__item.is-active,
 .pager__item.is-active > a,
 .pager__item.is-active > button,
+.pager__item.is-active > span,
 .pager__item > a.is-active,
 .pager__item > a.pager__link--is-active,
 .pager__item > a[aria-current="page"],
 .pager__item--current,
 .pager__item--current > a,
-.pager__item--current > button {
+.pager__item--current > button,
+.pager__item--current > span {
     @apply bg-foreground text-background border-foreground;
 }
 
@@ -436,7 +439,5 @@ details.js-form-wrapper summary .summary {
 }
 
 .openseadragon-viewer {
-    height: calc(
-        100vh - var(--header-height, 80px) - 1rem
-    );
+    height: calc(100vh - var(--header-height, 80px) - 1rem);
 }
