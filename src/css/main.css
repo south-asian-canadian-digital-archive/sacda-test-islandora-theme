@@ -311,7 +311,6 @@
     .advanced_search_result_pager > .pager__summary {
         display: none !important;
     }
-    
 }
 
 /* Override Drupal Core hidden.module.css */

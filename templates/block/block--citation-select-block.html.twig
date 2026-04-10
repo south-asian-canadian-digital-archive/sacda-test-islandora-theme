@@ -7,12 +7,10 @@
 <div{{ attributes }}>
 	{{ title_prefix }}
 	{% if label %}
-		<h2 class="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2">{{ label }}</h2>
+		<div{{ title_attributes.addClass('text-xs', 'font-bold', 'text-muted-foreground', 'tracking-wider', 'mb-1') }}>{{ label }}</div>
 	{% endif %}
 	{{ title_suffix }}
-	{% block content %}
-		<div class="sidebar-block-content text-sm">
+	<div class="text-sm">
 			{{ content }}
-		</div>
-	{% endblock %}
+	</div>
 </div>

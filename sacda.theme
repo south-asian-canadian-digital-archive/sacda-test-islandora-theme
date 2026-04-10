@@ -201,7 +201,9 @@ function sacda_preprocess_region(&$variables) {
  * Implements hook_form_FORM_ID_alter().
  */
 function sacda_form_advanced_search_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  
+  // Attach the advanced search JavaScript library
+  $form['#attached']['library'][] = 'sacda/advanced-search';
+
   // 1. Make the parent 'terms' container our CSS Grid wrapper
   $form['ajax']['terms']['#attributes']['class'] = 'advanced-search-grid';
 
@@ -240,7 +242,7 @@ function sacda_form_advanced_search_form_alter(&$form, FormStateInterface $form_
   $form['actions_wrapper'] = [
     '#type' => 'container',
     '#attributes' => ['class' => ['advanced-search-actions']],
-    '#weight' => 99, 
+    '#weight' => 99,
   ];
   if (isset($form['submit'])) {
     $form['actions_wrapper']['submit'] = $form['submit'];

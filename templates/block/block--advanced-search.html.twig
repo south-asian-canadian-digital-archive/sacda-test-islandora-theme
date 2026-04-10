@@ -3,19 +3,17 @@
   <h2 class="block-title">{{ label }}</h2>
   {{ title_suffix }}
   {# {{ content }} #}
-  
+
   {% set resolved_action = render_var(content['#attached']['placeholders'][content['#action']]) %}
   <form id="{{ content['#form_id'] }}" method="{{ content['#method'] }}" action="{{ resolved_action|trim }}" class="{{ content['#id'] }}">
-  
+
     {{ content.ajax }}
-    
+
     {{ content.actions_wrapper }}
-  
+
     {{ content.form_build_id }}
     {{ content.form_token }}
     {{ content.form_id }}
   </form>
-  
-</div>
 
-{# {{ dump(content) }} #}
+  {# {{ dump(content) }} #}

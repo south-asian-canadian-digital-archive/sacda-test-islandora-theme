@@ -17,7 +17,6 @@
         "label": "Drush Cache Rebuild",
         "command": "docker",
         "args": ["compose", "exec", "drupal", "drush", "cr"],
-        "cwd": "../../../../../",
         "use_new_terminal": false,
         "allow_concurrent_runs": false,
         "reveal": "always",
