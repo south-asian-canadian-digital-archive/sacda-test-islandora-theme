@@ -568,6 +568,10 @@ ul:has(li.facet-item) {
     @apply space-y-2 ms-0;
 }
 
+.facets-widget-date_range > ul {
+    @apply ms-0;
+}
+
 div.views-element-container > div.view-list {
     @apply space-y-8;
 }
