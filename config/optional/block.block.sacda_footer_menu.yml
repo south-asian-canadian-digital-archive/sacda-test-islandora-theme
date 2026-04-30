@@ -9,7 +9,7 @@ dependencies:
         - sacda
 id: sacda_footer_menu
 theme: sacda
-region: footer_bottom
+region: footer_top
 weight: 0
 provider: null
 plugin: "system_menu_block:footer"

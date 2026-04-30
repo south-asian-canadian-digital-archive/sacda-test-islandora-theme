@@ -74,7 +74,6 @@ function sacda_preprocess_page(array &$variables): void {
   _sacda_preprocess_footer_social($variables);
   _sacda_add_color_variables($variables);
   _sacda_preprocess_carousel($variables, $theme_path);
-  _sacda_preprocess_carousel($variables, $theme_path);
 
   // Determine if filters sidebar has actual content
   $show_filters = FALSE;
@@ -205,7 +204,7 @@ function sacda_form_advanced_search_form_alter(&$form, FormStateInterface $form_
   $form['#attached']['library'][] = 'sacda/advanced-search';
 
   // 1. Make the parent 'terms' container our CSS Grid wrapper
-  $form['ajax']['terms']['#attributes']['class'] = 'advanced-search-grid';
+  $form['ajax']['terms']['#attributes']['class'][] = 'advanced-search-grid';
 
   // 2. Loop over the flat terms and wrap each field in a div with grid column class
   if (isset($form['ajax']['terms'])) {
