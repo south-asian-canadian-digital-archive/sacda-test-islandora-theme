@@ -2,105 +2,70 @@
 /**
  * @file
  * Theme override to display a pager.
- *
- * Available variables:
- * - items: List of pager items.
- *   The list is keyed by the following elements:
- *   - first: Content for the first element.
- *   - previous: Content for the previous element.
- *   - next: Content for the next element.
- *   - last: Content for the last element.
- *   - pages: List of pages, keyed by the page number.
- *     Sub-elements:
- *     - href: URL with page number.
- *     - attributes: HTML attributes to apply to the element.
- *     - text: The visible content of the element.
- * - current: The page number of the current page.
- * - ellipses: If there are more pages than the quantity allows, then an
- *   ellipses will be displayed.
  */
 #}
 {% if items %}
-	<nav class="pager flex justify-center items-center my-8 md:my-12" role="navigation" aria-labelledby="pagination-heading">
+	<nav class="pager my-8! md:my-12!" role="navigation" aria-labelledby="pagination-heading">
 		<h4 id="pagination-heading" class="visually-hidden">{{ 'Pagination'|t }}</h4>
-		<ul
-			class="pager__items flex flex-wrap items-center gap-2">
+		<ul class="pager gap-1!">
 
-			{# First page #}
 			{% if items.first %}
 				<li class="pager__item pager__item--first">
-					<a href="{{ items.first.href }}" title="{{ 'Go to first page'|t }}" {{ items.first.attributes.addClass('flex items-center justify-center w-10 h-10 rounded border border-input hover:bg-primary hover:text-primary-foreground transition-colors') }}>
+					<a href="{{ items.first.href }}" title="{{ 'Go to first page'|t }}" {{ items.first.attributes }}>
 						<span class="visually-hidden">{{ 'First page'|t }}</span>
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
-						</svg>
+						<svg viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
 					</a>
 				</li>
 			{% endif %}
 
-			{# Previous page #}
 			{% if items.previous %}
 				<li class="pager__item pager__item--previous">
-					<a href="{{ items.previous.href }}" title="{{ 'Go to previous page'|t }}" rel="prev" {{ items.previous.attributes.addClass('flex items-center justify-center w-10 h-10 rounded border border-input hover:bg-primary hover:text-primary-foreground transition-colors') }}>
+					<a href="{{ items.previous.href }}" title="{{ 'Go to previous page'|t }}" rel="prev" {{ items.previous.attributes }}>
 						<span class="visually-hidden">{{ 'Previous page'|t }}</span>
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-						</svg>
+						<svg viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
 					</a>
 				</li>
 			{% endif %}
 
-			{# Ellipsis key #}
 			{% if ellipses.previous %}
 				<li class="pager__item pager__item--ellipsis" role="presentation">
-					<span class="flex items-center justify-center w-10 h-10 text-muted-foreground">&hellip;</span>
+					<span>&hellip;</span>
 				</li>
 			{% endif %}
 
-			{# Numbered pages #}
 			{% for key, item in items.pages %}
-				<li class="pager__item{{ current == key ? ' is-active' : '' }}">
+				<li class="pager__item{{ current == key ? ' is-active pager__item--current' : '' }}">
 					{% if current == key %}
-						<span title="{{ 'Current page'|t }}" class="flex items-center justify-center w-10 h-10 rounded bg-primary text-primary-foreground font-bold cursor-default">
+						<span title="{{ 'Current page'|t }}" aria-current="page">
 							<span class="visually-hidden">{{ 'Current page'|t }}</span>
-							{{- key -}}
+							{{ key }}
 						</span>
 					{% else %}
-						<a href="{{ item.href }}" title="{{ 'Go to page @key'|t({'@key': key}) }}" {{ item.attributes.addClass('flex items-center justify-center w-10 h-10 rounded border border-input hover:bg-muted hover:text-foreground transition-colors') }}>
-							<span class="visually-hidden">{{ 'Page'|t }}</span>
-							{{- key -}}
-						</a>
+						<a href="{{ item.href }}" title="{{ 'Go to page @key'|t({'@key': key}) }}" {{ item.attributes }}>{{ key }}</a>
 					{% endif %}
 				</li>
 			{% endfor %}
 
-			{# Ellipsis key #}
 			{% if ellipses.next %}
 				<li class="pager__item pager__item--ellipsis" role="presentation">
-					<span class="flex items-center justify-center w-10 h-10 text-muted-foreground">&hellip;</span>
+					<span>&hellip;</span>
 				</li>
 			{% endif %}
 
-			{# Next page #}
 			{% if items.next %}
 				<li class="pager__item pager__item--next">
-					<a href="{{ items.next.href }}" title="{{ 'Go to next page'|t }}" rel="next" {{ items.next.attributes.addClass('flex items-center justify-center w-10 h-10 rounded border border-input hover:bg-primary hover:text-primary-foreground transition-colors') }}>
+					<a href="{{ items.next.href }}" title="{{ 'Go to next page'|t }}" rel="next" {{ items.next.attributes }}>
 						<span class="visually-hidden">{{ 'Next page'|t }}</span>
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-						</svg>
+						<svg viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
 					</a>
 				</li>
 			{% endif %}
 
-			{# Last page #}
 			{% if items.last %}
 				<li class="pager__item pager__item--last">
-					<a href="{{ items.last.href }}" title="{{ 'Go to last page'|t }}" {{ items.last.attributes.addClass('flex items-center justify-center w-10 h-10 rounded border border-input hover:bg-primary hover:text-primary-foreground transition-colors') }}>
+					<a href="{{ items.last.href }}" title="{{ 'Go to last page'|t }}" {{ items.last.attributes }}>
 						<span class="visually-hidden">{{ 'Last page'|t }}</span>
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
-						</svg>
+						<svg viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
 					</a>
 				</li>
 			{% endif %}

@@ -40,18 +40,18 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-heading) !important;
-    font-weight: 900 !important;
-    color: var(--foreground) !important;
-    border-bottom: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    font-family: var(--font-heading);
+    font-weight: 700 ;
+    color: var(--foreground);
+    border-bottom: none ;
+    margin: 0;
+    padding: 0;
   }
 
   /* H1: 40px mobile, 60px @960px, uppercase, top margin 0 */
   h1 {
     font-size: 40px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     line-height: 1.2;
   }
 
@@ -147,7 +147,7 @@
   label {
     font-family: var(--font-heading);
     font-size: 11px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-weight: 400;
   }
 
@@ -240,11 +240,11 @@
      ===================================================== */
 
   ul {
-    @apply my-6 ms-6 list-disc [&>li]:mt-2;
+    @apply ms-6 list-disc [&>li]:mt-2;
   }
 
   ol {
-    @apply my-6 ms-6 list-decimal [&>li]:mt-2;
+    @apply ms-6 list-decimal [&>li]:mt-2;
   }
 
   /* =====================================================

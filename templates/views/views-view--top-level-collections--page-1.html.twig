@@ -9,33 +9,39 @@
 #}
 {# Hero Section handled by page.html.twig #}
 
-{# Intro Section #}
-<section class="collection-intro py-10 md:py-14 text-center">
-	<p class="text-lg text-secondary max-w-3xl mx-auto">
-		Engage with materials of significance to South Asian Canadian history. Browse our growing collection of digitized archives, photographs, documents, and oral histories.
-	</p>
-</section>
+<div{{ attributes }}>
+	{{ title_prefix }}
+	{{ title_suffix }}
 
-{# Collections Grid #}
-<section class="collections-section pb-16 md:pb-24">
-	{# {% if header %}
-		<header class="view-header mb-8">
-			{{ header }}
-		</header>
-	{% endif %} #}
+	{# Intro Section #}
+	<section class="collection-intro py-10 md:py-14 text-center">
+		<p class="text-lg text-secondary max-w-3xl mx-auto">
+		    EXPLORE CURATED ARCHIVAL CONTENT <br>
+		    Engage with materials of significance that shed light on our past, present, and future, contextualized in their creation.
+		</p>
+	</section>
 
-	{% if rows %}
-			{{ rows }}
-	{% elseif empty %}
-		<div class="view-empty text-center py-12">
-			{{ empty }}
-		</div>
-	{% endif %}
+	{# Collections Grid #}
+	<section class="collections-section pb-16 md:pb-24">
+		{# {% if header %}
+			<header class="view-header mb-8">
+				{{ header }}
+			</header>
+		{% endif %} #}
 
-	{% if pager %}
-		<div class="view-pager mt-12">
-			{{ pager }}
-		</div>
-	{% endif %}
+		{% if rows %}
+				{{ rows }}
+		{% elseif empty %}
+			<div class="view-empty text-center py-12">
+				{{ empty }}
+			</div>
+		{% endif %}
 
-</section>
+		{% if pager %}
+			<div class="view-pager mt-12">
+				{{ pager }}
+			</div>
+		{% endif %}
+
+	</section>
+</div>

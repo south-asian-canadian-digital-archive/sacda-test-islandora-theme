@@ -8,6 +8,7 @@ declare(strict_types=1);
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 
 require_once __DIR__ . '/includes/colors.inc';
 require_once __DIR__ . '/includes/footer.inc';
@@ -73,7 +74,36 @@ function sacda_preprocess_page(array &$variables): void {
   _sacda_preprocess_footer_social($variables);
   _sacda_add_color_variables($variables);
   _sacda_preprocess_carousel($variables, $theme_path);
-  _sacda_preprocess_carousel($variables, $theme_path);
+
+  // Determine if filters sidebar has actual content
+  $show_filters = FALSE;
+  if (!empty($variables['page']['filters'])) {
+    $filters_build = $variables['page']['filters'];
+    $rendered_filters = (string) \Drupal::service('renderer')->renderPlain($filters_build);
+
+    // Remove block titles and summaries which often contain text/svgs even when the block content is empty.
+    $rendered_no_titles = preg_replace('/<summary\b[^>]*>.*?<\/summary>/is', '', $rendered_filters);
+    $rendered_no_titles = preg_replace('/<h[1-6]\b[^>]*>.*?<\/h[1-6]>/is', '', $rendered_no_titles);
+
+    // Remove hidden inputs as they do not constitute visible content.
+    $rendered_no_hidden = preg_replace('/<input\b[^>]*type=[\'"]hidden[\'"][^>]*>/is', '', $rendered_no_titles);
+
+    // Remove any elements that are explicitly hidden by facets or utility classes.
+    // This is a basic regex that removes the entire tag contents for tags with class="... hidden ..." or "... facet-hidden ...".
+    // Note: Due to regex limitations on nested tags, this is a best-effort approach that works for typical facet structures.
+    $rendered_no_hidden_classes = preg_replace('/<[^>]*class="[^"]*\b(hidden|facet-hidden)\b[^"]*"[^>]*>.*?<\/[^>]+>/is', '', $rendered_no_hidden);
+
+    // Strip most HTML tags to just look for textual content or interactive elements
+    $clean_filters = strip_tags($rendered_no_hidden_classes, '<img><input><select><textarea><button>');
+
+    // Remove all whitespace
+    $clean_filters = preg_replace('/\s+/', '', $clean_filters);
+
+    if (!empty($clean_filters)) {
+      $show_filters = TRUE;
+    }
+  }
+  $variables['show_filters_sidebar'] = $show_filters;
 }
 
 /**
@@ -100,98 +130,6 @@ function _sacda_get_hero_data(): ?array {
   ];
 
   return $hero_info[$path_alias] ?? $hero_info[$current_path] ?? NULL;
-}
-
-/**
- * Implements hook_preprocess_HOOK() for node.html.twig.
- */
-/**
- * Implements hook_preprocess_HOOK() for node.html.twig.
- */
-function sacda_preprocess_node(array &$variables): void {
-  /** @var \Drupal\node\NodeInterface $node */
-  $node = $variables['node'];
-  $type = $node->getType();
-
-  // Helper to extract File URL from Media Entity Reference
-  $get_media_url = function ($field_name) use ($node) {
-    if ($node->hasField($field_name) && !$node->get($field_name)->isEmpty()) {
-      $entity = $node->get($field_name)->entity;
-      if ($entity && $entity->getEntityTypeId() === 'media') {
-        // Assuming 'field_media_image' is the image field on the Media entity
-        if ($entity->hasField('field_media_image') && !$entity->get('field_media_image')->isEmpty()) {
-          $file = $entity->get('field_media_image')->entity;
-            if ($file) {
-              return \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
-            }
-        }
-      }
-      // Handle case where field might be direct file ref (though unlikely for defined Media type)
-      elseif ($entity && $entity->getEntityTypeId() === 'file') {
-         return \Drupal::service('file_url_generator')->generateAbsoluteString($entity->getFileUri());
-      }
-    }
-    return NULL;
-  };
-
-  // 1. Collection Preprocess
-  if ($type === 'collection') {
-    // Image logic removed - handled in page preprocess
-
-    $variables['collection'] = [
-      'title' => $node->getTitle(),
-      'full_title' => $node->hasField('field_full_title') ? $node->get('field_full_title')->value : '',
-      'description' => $node->hasField('field_description') ? $node->get('field_description')->value : '',
-      'cover_image_url' => $get_media_url('field_cover_image'),
-      // Add member_of title if needed
-    ];
-  }
-
-  // 2. Collection File Preprocess
-  if ($type === 'collection_file') {
-     $variables['collection_file'] = [
-      'date' => $node->hasField('field_date') ? $node->get('field_date')->value : '',
-      'description' => $node->hasField('field_description') ? $node->get('field_description')->value : '',
-      'full_title' => $node->hasField('field_full_title') ? $node->get('field_full_title')->value : '',
-     ];
-  }
-
-  // 3. Repository Item / Islandora Object Preprocess
-  if ($type === 'repository_item' || $type === 'islandora_object') {
-    // Extract commonly used fields for easier template access
-    $variables['repository_item'] = [
-      'abstract' => $node->hasField('field_abstract') ? $node->get('field_abstract')->value : null,
-      'alt_title' => $node->hasField('field_alt_title') ? $node->get('field_alt_title')->value : null,
-      'copyright_date' => $node->hasField('field_copyright_date') ? $node->get('field_copyright_date')->value : null,
-      'date_created' => $node->hasField('field_edtf_date_created') ? $node->get('field_edtf_date_created')->value : null,
-      'date_issued' => $node->hasField('field_edtf_date_issued') ? $node->get('field_edtf_date_issued')->value : null,
-      'description' => $node->hasField('field_description') ? $node->get('field_description')->value : null,
-      'extent' => $node->hasField('field_extent') ? $node->get('field_extent')->value : null,
-      'identifier' => $node->hasField('field_identifier') ? $node->get('field_identifier')->value : null,
-      'publisher' => $node->hasField('field_publisher') ? $node->get('field_publisher')->value : null,
-      'representative_image_url' => $get_media_url('field_representative_image') ?: $get_media_url('field_media_image'),
-      'coordinates' => $node->hasField('field_coordinates') && !$node->get('field_coordinates')->isEmpty() 
-        ? $node->get('field_coordinates')->getString() 
-        : null,
-    ];
-
-    // Inject Object Sidebar Region blocks
-    $blocks = \Drupal::entityTypeManager()->getStorage('block')->loadByProperties([
-      'theme' => \Drupal::theme()->getActiveTheme()->getName(),
-      'region' => 'object_sidebar',
-    ]);
-    
-    if (!empty($blocks)) {
-      uasort($blocks, 'Drupal\block\Entity\Block::sort');
-      $build = [];
-      foreach ($blocks as $key => $block) {
-        if ($block->access('view')) {
-          $build[$key] = \Drupal::entityTypeManager()->getViewBuilder('block')->view($block);
-        }
-      }
-      $variables['object_sidebar'] = $build;
-    }
-  }
 }
 
 
@@ -252,4 +190,65 @@ function sacda_preprocess_views_view_fields(array &$variables): void {
   }
 }
 
+function sacda_preprocess_region(&$variables) {
+  if ($variables['region'] === 'content') {
+    $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
+  }
+}
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function sacda_form_advanced_search_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Attach the advanced search JavaScript library
+  $form['#attached']['library'][] = 'sacda/advanced-search';
+
+  // 1. Make the parent 'terms' container our CSS Grid wrapper
+  $form['ajax']['terms']['#attributes']['class'][] = 'advanced-search-grid';
+
+  // 2. Loop over the flat terms and wrap each field in a div with grid column class
+  if (isset($form['ajax']['terms'])) {
+    foreach (Element::children($form['ajax']['terms']) as $key) {
+
+      if (isset($form['ajax']['terms'][$key]['conjunction'])) {
+        $form['ajax']['terms'][$key]['conjunction']['#prefix'] = '<div class="grid-col-conjunction">';
+        $form['ajax']['terms'][$key]['conjunction']['#suffix'] = '</div>';
+      }
+
+      if (isset($form['ajax']['terms'][$key]['search'])) {
+        $form['ajax']['terms'][$key]['search']['#prefix'] = '<div class="grid-col-search">';
+        $form['ajax']['terms'][$key]['search']['#suffix'] = '</div>';
+      }
+
+      if (isset($form['ajax']['terms'][$key]['include'])) {
+        $form['ajax']['terms'][$key]['include']['#prefix'] = '<div class="grid-col-include">';
+        $form['ajax']['terms'][$key]['include']['#suffix'] = '</div>';
+      }
+
+      if (isset($form['ajax']['terms'][$key]['value'])) {
+        $form['ajax']['terms'][$key]['value']['#prefix'] = '<div class="grid-col-value">';
+        $form['ajax']['terms'][$key]['value']['#suffix'] = '</div>';
+      }
+
+      if (isset($form['ajax']['terms'][$key]['actions'])) {
+        $form['ajax']['terms'][$key]['actions']['#prefix'] = '<div class="grid-col-actions">';
+        $form['ajax']['terms'][$key]['actions']['#suffix'] = '</div>';
+      }
+    }
+  }
+
+  // 3. Group the main submit/reset buttons
+  $form['actions_wrapper'] = [
+    '#type' => 'container',
+    '#attributes' => ['class' => ['advanced-search-actions']],
+    '#weight' => 99,
+  ];
+  if (isset($form['submit'])) {
+    $form['actions_wrapper']['submit'] = $form['submit'];
+    unset($form['submit']);
+  }
+  if (isset($form['reset'])) {
+    $form['actions_wrapper']['reset'] = $form['reset'];
+    unset($form['reset']);
+  }
+}

@@ -5,13 +5,14 @@
  * Implements Tailwind styling matching the previous manual meta_field macro.
  */
 #}
-<div class="mb-4">
+<div{{ attributes.addClass('mb-4') }}>
   {% if not label_hidden %}
-    <div class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">{{ label }}</div>
+    <div{{ title_attributes.addClass('text-xs', 'font-bold', 'text-muted-foreground', 'tracking-wider', 'mb-1') }}>{{ label }}</div>
   {% endif %}
-  <div class="text-sm text-foreground prose dark:prose-invert max-w-none">
+  
+  <div{{ content_attributes.addClass('text-sm', 'text-foreground', 'prose', 'dark:prose-invert', 'max-w-none') }}>
     {% for item in items %}
-      <div class="text-sm text-foreground prose dark:prose-invert max-w-none">{{ item.content }}</div>
+      <div{{ item.attributes.addClass('text-sm', 'text-foreground', 'prose', 'dark:prose-invert', 'max-w-none') }}>{{ item.content }}</div>
     {% endfor %}
   </div>
 </div>

@@ -8,36 +8,37 @@
 #}
 {% import '@sacda/macros/search.twig' as search %}
 
-<header id="sacda-header" role="navigation" aria-label="Main navigation" class="sacda-header hidden md:block sticky top-0 z-50 bg-white/95 backdrop-blur-sm text-foreground shadow-lg transition-shadow duration-200">
-	<div id="sacda-header-container" class="mx-auto flex flex-row items-center justify-between px-10 py-6">
+<header id="sacda-header" role="navigation" aria-label="Main navigation" class="sacda-header hidden md:block sticky top-0 z-500 bg-white/95 backdrop-blur-sm text-foreground shadow-lg transition-shadow duration-200">
+	<div id="sacda-header-container" class="mx-auto flex flex-row items-center justify-between px-6 py-1">
 		<div class="w-fit flex justify-between items-center">
 			<a id="sacda-header-logo" href="{{ path('<front>') }}" class="origin-left">
 				{% if logo %}
-					<img src="{{ logo }}" alt="{{ site_name }}" class="w-64"/>
+					<img src="{{ logo }}" alt="{{ site_name }}" class="w-32"/>
 				{% else %}
-					<span class="text-xl font-bold">{{ site_name }}</span>
+					<span class="text-base font-bold">{{ site_name }}</span>
 				{% endif %}
 			</a>
 		</div>
 
 		<div
-			id="sacda-nav-content" class="w-auto flex flex-col items-end gap-4">
-			<div
-				class="sacda-menu-top flex items-center gap-4">
-				<div id="sacda-menu-scrollable-wrapper" class="overflow-hidden">
+			id="sacda-nav-content" class="w-auto flex flex-col items-end gap-1">
+			<div class="sacda-menu-top flex items-center gap-1">
+				<div id="sacda-menu-scrollable-wrapper" class="relative z-500">
 					<div
-						id="sacda-menu-scrollable" class="flex items-center gap-4">
-						<form class="flex" role="search" id="sacda-header-search">
-							{{ search.input({ width: 'w-48', id: 'sacda-search-input' }) }}
+						id="sacda-menu-scrollable" class="flex items-center gap-3">
+						<form action="/search" method="get" class="flex" role="search" id="sacda-header-search">
+							<input type="hidden" name="a[0][f]" value="all">
+							<input type="hidden" name="a[0][i]" value="IS">
+							{{ search.input({ width: 'w-32', id: 'sacda-search-input', name: 'a[0][v]', height: 'h-7' }) }}
 						</form>
-						{{ page.menu_top }}
+						{{ page.secondary_menu }}
 					</div>
 				</div>
-				<div id="sacda-login-region" class="relative z-50">
+				<div id="sacda-login-region" class="relative z-500">
 					{{ page.login_region }}
 				</div>
 			</div>
-			<div id="sacda-header-nav" class="sacda-menu-bottom flex flex-row relative z-49">{{ page.menu_bottom }}</div>
+			<div id="sacda-header-nav" class="sacda-menu-bottom flex flex-row relative z-501 text-xs">{{ page.primary_menu }}</div>
 		</div>
 	</div>
 </header>
@@ -56,7 +57,7 @@
 
 	/* Olivero override */
 	#sacda-search-input {
-		width: 12rem;
+		width: 9rem;
 		max-width: none;
 		min-height: auto;
 		border: none;

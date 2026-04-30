@@ -3,40 +3,24 @@ type: theme
 # base theme: olivero
 base theme: false
 description: Theme for sacda.ca frontend
-# screenshot: src/assets/logo.svg
 core_version_requirement: ^10
 libraries:
-  - sacda/global
-  - core/drupal
-
-# all this below is just for while we do deveopment
-# libraries-override:
-#   olivero/global-styling:
-#     css:
-#       base:
-#         css/base/base.css: false
-#       layout:
-#         css/layout/region.css: false
-#         css/layout/layout.css: false
-#         css/layout/layout-content-narrow.css: false
-#         css/layout/layout-content-medium.css: false
-#   core/drupal.base:
-#     css:
-#       component:
-#         /core/modules/system/css/components/hidden.module.css: false
-
+    - sacda/global
+    - core/drupal
 regions:
-  # header: "Header"
-  menu_top: "Top menu"
-  menu_bottom: "Primary menu"
-  login_region: "Login region"
+    # -- Header area --
+    primary_menu: Primary menu
+    secondary_menu: Secondary menu
+    login_region: Login Region
 
-  # breadcrumb: "Breadcrumb"
-  content_top: "Content top"
-  content: "Content"
-  object_sidebar: "Object Sidebar"
+    # -- Main content area --
+    media_content: Media Area
+    highlighted: Highlighted
+    content_above: Content Above
+    content: Content
 
-  # sidebar_first: "Sidebar first"
-  # sidebar_second: "Sidebar second"
+    filters: Filters
+    content_children: Content Children # unused
 
-  footer: "Footer"
+    # -- Footer area --
+    footer_top: Footer Top # unused

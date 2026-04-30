@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Theme override for a language switcher block.
+ */
+#}
+{%
+  set classes = [
+    'block',
+    'block-language',
+    'relative',
+    'inline-block',
+    'sacda-language-switcher-wrapper'
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  <button data-language-toggle aria-expanded="false" aria-haspopup="true" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground bg-background border border-border rounded hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer transition-colors" type="button">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+    </svg>
+    <span data-language-label>Language</span>
+    <svg class="w-4 h-4 transition-transform duration-200" data-language-icon fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+
+  <div data-language-dropdown class="absolute right-0 z-200 pt-2 min-w-[12rem] transition-opacity duration-200 sacda-hide">
+    <div class="bg-card text-card-foreground border border-border rounded shadow-lg overflow-hidden py-1 max-h-[60vh] overflow-y-auto language-switcher-dropdown">
+      {% block content %}
+        {{ content }}
+      {% endblock %}
+    </div>
+  </div>
+</div>

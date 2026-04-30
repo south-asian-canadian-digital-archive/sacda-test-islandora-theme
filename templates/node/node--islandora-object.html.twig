@@ -2,127 +2,42 @@
 /**
  * @file
  * Theme override to display a node of type 'islandora_object' (Repository Item).
- * Two-column layout with image/actions on left, metadata on right.
+ * Single column layout.
  */
 #}
 
 {% import '@sacda/macros/button.twig' as btn %}
 
-<div class="py-8" {{ attributes }}>
-	<div
-		class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+<div{{ attributes.addClass('py-8', 'node--type-islandora-object') }}>
+    {{ title_prefix|without('a') }}
+	{{ title_suffix }}
 
-		{# Left Column: Image and Actions #}
-		<div>
-			{# Main Image - Embed the Islandora media views block #}
-			<div class="bg-muted mb-6 overflow-hidden border border-border">
-				{{ drupal_view('media_display_blocks', 'source') }}
-			</div>
+	{# Two-column flex layout: main content + sidebar #}
+	<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
 
-			{# Map Display (if coordinates exist) #}
-			{% if content.field_coordinates|render|striptags|trim %}
-				{{ content.field_coordinates }}
-			{% endif %}
-
-			{# Action Buttons #}
-			{# <div
-																						class="flex flex-col gap-3">
-																						{% set share_icon %}
-																						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-																							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
-																						</svg>
-																						{% endset %}
-																						{{ btn.button('Share', { variant: 'primary', icon: share_icon, full_width: true }) }}
-																					</div> #}
+		{# Main content (left) - all fields except sidebar groups #}
+		<div class="flex-1 min-w-0">
+			{# <div class="bg-card p-6 border border-border"> #}
+				{{ content|without('group_backlinks', 'group_location') }}
+			<!--</div>-->
 		</div>
 
-		{# Right Column: Metadata #}
-		<div>
-			{# Title context / Member of #}
-			{% if content.field_member_of|render|striptags|trim %}
-				<div class="mb-4 text-sm">
-					{{ content.field_member_of }}
-				</div>
-			{% endif %}
+		{# Sidebar (right) - backlinks and location #}
+		<aside class="w-full lg:w-80 lg:max-w-sm flex-shrink-0">
+			<div class="flex flex-col gap-6">
 
-			{# Item type badge #}
-			{% if content.field_resource_type|render|striptags|trim %}
-				{{ content.field_resource_type }}
-			{% endif %}
-			<div class="h-px bg-border w-full mb-8"></div>
-
-			{# Metadata Fields Grid #}
-			<div class="space-y-6">
-				{# Core Metadata #}
-				{{ content.field_alt_title }}
-
-				{# Contributors #}
-				{{ content.field_linked_agent }}
-
-				{# Dates #}
-				{{ content.field_edtf_date_created }}
-				{{ content.field_edtf_date_issued }}
-				{{ content.field_copyright_date }}
-
-				{# Description #}
-				{{ content.field_description }}
-
-				{# Note #}
-				{{ content.field_note }}
-
-				{# Physical Description #}
-				{{ content.field_extent }}
-
-				{# Subjects #}
-				{{ content.field_subject }}
-				{{ content.field_subjects_name }}
-				{{ content.field_geographic_subject }}
-				{% if repository_item.coordinates %}
-					<div class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Coordinates</div>
-					<div>
-						{{ repository_item.coordinates }}
-					</div>
+				{% if content.group_backlinks %}
+					{{ content.group_backlinks }}
+				{% endif %}
+				{% if content.group_location %}
+					{{ content.group_location }}
 				{% endif %}
 
-				{# Rights #}
-				{{ content.field_rights }}
-
-				{# Identifiers #}
-				{{ content.field_identifier }}
-				{{ content.field_repository }}
-
-				{# Object Sidebar Region #}
-				{% if object_sidebar %}
-					{% for block in object_sidebar %}
-						{{ block }}
-					{% endfor %}
-				{% endif %}
 			</div>
-
-			<div class="hidden">
-				{{ content|without(
-					'field_representative_image', 'field_media_image', 'field_thumbnail', 'field_media',
-					'field_member_of', 'field_model', 'field_resource_type',
-					'field_rights', 'field_linked_agent', 'field_description', 'field_note',
-					'field_edtf_date_created', 'field_edtf_date_issued', 'field_copyright_date', 
-					'field_identifier', 'field_publisher',
-					'field_repository', 'field_repository_web_site', 
-					'field_geographic_location', 'field_geographic_subject', 'field_coordinates', 'field_subjects_name',
-					'field_subject', 'field_extent', 'field_alt_title'
-				) }}
-			</div>
-		</div>
+		</aside>
 
 	</div>
+
 </div>
 
-<script>
-	console.group('Node Debug:          {{ node.label }}');
-console.log('Content Keys:', {{ content|keys|json_encode|raw }});
-try {
-console.log('Repository Item Data:', {{ repository_item|json_encode|raw }});
-} catch (e) {
-console.log('Could not log repository_item');
-}
-console.groupEnd();
-</script>
+{# {{ dump(content) }} #}

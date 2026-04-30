@@ -46,8 +46,11 @@
 	{# Mobile search dropdown #}
 	<div id="sacda-mobile-search-dropdown" class="sacda-mobile-search-dropdown hidden px-4 pb-4 bg-white border-t border-border">
 		<form action="/search" method="get" class="flex w-full" role="search" id="sacda-mobile-search-form">
+			<input type="hidden" name="a[0][f]" value="all">
+			<input type="hidden" name="a[0][i]" value="IS">
 			{{ search.input({
 				id: 'sacda-mobile-search-input',
+				name: 'a[0][v]',
 				variant: 'hero',
 				placeholder: 'Search the archive...'
 			}) }}
@@ -60,12 +63,12 @@
 			class="px-4 py-4">
 			{# Main navigation menu #}
 			<div class="sacda-mobile-menu mb-6 text-left">
-				{{ page.menu_bottom }}
+				{{ page.primary_menu }}
 			</div>
 
 			{# Secondary menu items #}
 			<div class="sacda-mobile-menu-secondary border-t border-border pt-4">
-				{{ page.menu_top }}
+				{{ page.secondary_menu }}
 			</div>
 
 			{# Login region #}
@@ -220,7 +223,7 @@ searchDropdown.classList.toggle('is-open');
 // Focus the input when opened
 if (searchDropdown.classList.contains('is-open')) {
 var input = searchDropdown.querySelector('input');
-if (input) 
+if (input)
 input.focus();
 
 

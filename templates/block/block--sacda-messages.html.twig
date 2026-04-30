@@ -7,7 +7,7 @@
  * Styles defined in _system.css
  */
 #}
-<div class="messages-block max-w-7xl mx-auto px-4 my-4" data-sacda-messages>
+<div{{ attributes.addClass('messages-block', 'max-w-7xl', 'mx-auto', 'px-4', 'my-4') }} data-sacda-messages>
 	<div class="messages-wrapper relative">
 		<button type="button" class="messages-dismiss" aria-label="{{ 'Dismiss messages'|t }}" onclick="this.closest('[data-sacda-messages]').remove()">
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

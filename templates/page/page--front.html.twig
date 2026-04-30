@@ -5,7 +5,7 @@
  * Extends the base page layout and overrides just the main content.
  */
 #}
-{% extends '@sacda/layout/page.html.twig' %}
+{% extends '@sacda/page/page.html.twig' %}
 {% import '@sacda/macros/button.twig' as btn %}
 {% import '@sacda/macros/search.twig' as search %}
 
@@ -13,8 +13,11 @@
 	<main role="main" class="front-page w-full">
 		<a id="main-content" tabindex="-1"></a>
 
+		{{ page.highlighted }}
+		{# {{ page.breadcrumb }} #}
+
 		<div class="w-full min-h-[40vh] pt-4">
-			{% include '@sacda/blocks/sacda-carousel.html.twig' with {
+			{% include '@sacda/block/sacda-carousel.html.twig' with {
 			slides: carousel_slides,
 			autoplay_speed: carousel_autoplay_speed,
 			slides_per_view: 3,
@@ -23,7 +26,7 @@
 		} %}
 		</div>
 
-		{{ page.content_top }}
+		{{ page.content_above }}
 
 		{# 1. Hero Search & Mission Section #}
 		<section
@@ -38,11 +41,14 @@
 							<h2>SEARCH</h2>
 						</div>
 						<div class="w-full md:w-2/3">
-							<form action="https://sacda.ca/search" method="get" class="flex items-center pt-2 w-full">
+							<form action="/search" method="get" class="flex items-center pt-2 w-full">
+								<input type="hidden" name="a[0][f]" value="all">
+								<input type="hidden" name="a[0][i]" value="IS">
 								{{ search.input({
-								id: 'frontSearchInput',
-								variant: 'hero',
-							}) }}
+									id: 'frontSearchInput',
+									name: 'a[0][v]',
+									variant: 'hero',
+								}) }}
 							</form>
 						</div>
 					</div>
@@ -56,9 +62,8 @@
 								Engage with the rich history of the South Asian Canadian diaspora. Explore stories of immigration, community building, cultural preservation, and the enduring contributions of South Asian Canadians to the fabric of our nation.
 							</p>
 							<div class="flex flex-col md:flex-row gap-5 mt-10 md:mt-14">
-
 								{{ btn.link('About', 'https://sacda.ca/about', { variant: 'outline', class: 'w-full md:w-auto' }) }}
-								{{ btn.link('Advanced Search', 'https://sacda.ca/search/advanced', { variant: 'outline', class: 'w-full md:w-auto' }) }}
+								{{ btn.link('Advanced Search', '/search', { variant: 'outline', class: 'w-full md:w-auto' }) }}
 							</div>
 						</div>
 					</div>

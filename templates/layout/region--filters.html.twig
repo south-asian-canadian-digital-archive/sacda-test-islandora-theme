@@ -1,0 +1,11 @@
+
+{# {% if content %} #}
+	<div{{ attributes.addClass('filters', 'result-facets', 'min-h-[10vh]') }}>
+		<h4 class="border-y border-b-[#e5e5e5] border-t-transparent p-4">
+			<div class="flex items-center text-lg! h-10">Filter Results</div>
+		</h4>
+		<div class="filters-content">
+			{{ content }}
+		</div>
+	</div>
+{# {% endif %} #}

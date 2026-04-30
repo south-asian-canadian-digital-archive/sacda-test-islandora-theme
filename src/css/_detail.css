@@ -8,150 +8,154 @@
    ======================================== */
 
 .detail-page {
-	@apply relative w-full h-[100vh] overflow-x-hidden p-0 m-0;
+    @apply relative w-full h-[100vh] overflow-x-hidden p-0 m-0;
 }
 
 /* Side Navigation Bars */
 .detailNavBgLeft,
 .detailNavBgRight {
-	@apply bg-light w-[45px] h-[120px] absolute top-[150px] text-center uppercase z-10 font-bold text-xs text-muted-foreground cursor-pointer transition-colors duration-200 py-5;
-	writing-mode: vertical-rl;
-	letter-spacing: 0.1em;
+    @apply bg-light w-[45px] h-[120px] absolute top-[150px] text-center uppercase z-10 font-bold text-xs text-muted-foreground cursor-pointer transition-colors duration-200 py-5;
+    writing-mode: vertical-rl;
+    letter-spacing: 0.1em;
 }
 
 .detailNavBgLeft:hover,
 .detailNavBgRight:hover {
-	@apply bg-secondary text-white;
+    @apply bg-secondary text-white;
 }
 
 .detailNavBgLeft {
-	@apply left-0 rounded-r-sm hidden md:block;
+    @apply left-0 rounded-r-sm hidden md:block;
 }
 
 .detailNavBgRight {
-	@apply right-0 rounded-l-sm hidden md:block;
+    @apply right-0 rounded-l-sm hidden md:block;
 }
 
 /* Main Content Container */
 .item-container {
-	@apply py-8 px-4 md:py-[60px] md:px-0 max-w-[1400px] mx-auto;
+    @apply py-8 px-4 md:py-[60px] md:px-0 max-w-[1400px] mx-auto;
 }
-
 
 /* ========================================
    Repository Item (Object Detail)
    ======================================== */
 
 .repository-item-grid {
-	@apply grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-[60px];
+    @apply grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-[60px];
 }
 
 /* Left Column: Media */
 .representationViewer {
-	@apply bg-black w-full min-h-[400px] flex items-center justify-center mb-5 rounded overflow-hidden;
+    @apply bg-black w-full min-h-[400px] flex items-center justify-center mb-5 rounded overflow-hidden;
 }
 
 .representationViewer img {
-	@apply max-w-full h-auto max-h-[600px];
+    @apply max-w-full h-auto max-h-[600px];
 }
 
 .detailTools {
-	@apply flex gap-4 mt-5 border-t border-border pt-4;
+    @apply flex gap-4 mt-5 border-t border-border pt-4;
 }
 
 .detailTool {
-	@apply flex items-center gap-2 text-sm font-semibold text-muted-foreground cursor-pointer hover:text-primary;
+    @apply flex items-center gap-2 text-sm font-semibold text-muted-foreground cursor-pointer hover:text-primary;
 }
 
 /* Right Column: Metadata */
 .breadcrumb-title {
-	@apply font-heading text-sm text-muted-foreground uppercase tracking-widest mb-2.5;
+    @apply font-heading text-sm text-muted-foreground uppercase tracking-widest mb-2.5;
 }
 
 .object-title {
-	@apply text-[32px] leading-[1.1] font-bold mb-1.5 text-foreground;
+    @apply text-[32px] leading-[1.1] font-bold mb-1.5 text-foreground;
 }
 
 .object-type {
-	@apply text-sm font-semibold text-primary uppercase mb-5;
+    @apply text-sm font-semibold text-primary uppercase mb-5;
 }
 
 .metadata-unit {
-	@apply mb-5;
+    @apply mb-5;
 }
 
 .metadata-unit h6 {
-	@apply text-[13px] font-bold uppercase text-muted-foreground mb-1.5 tracking-widest;
+    @apply text-[13px] font-bold uppercase text-muted-foreground mb-1.5 tracking-widest;
 }
 
 .metadata-unit .field-content {
-	@apply text-base leading-relaxed text-foreground;
+    @apply text-base leading-relaxed text-foreground;
 }
 
 /* Trim Text Plugin styling matching legacy */
 .trimText.capped {
-	@apply max-h-[400px] overflow-hidden relative;
+    @apply max-h-[400px] overflow-hidden relative;
 }
 
 .trimText.capped::after {
-	content: "";
-	@apply absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-b from-transparent to-background;
+    content: "";
+    @apply absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-b from-transparent to-background;
 }
-
 
 /* ========================================
    Collection File (Gallery View)
    ======================================== */
 
 .collection-header {
-	@apply text-center mb-10 max-w-[800px] mx-auto;
+    @apply text-center mb-10 max-w-[800px] mx-auto;
 }
 
 .collection-title {
-	@apply text-[42px] font-bold mb-2.5 uppercase;
+    @apply text-[42px] font-bold mb-2.5 uppercase;
 }
 
 .collection-meta {
-	@apply text-sm text-primary uppercase font-semibold tracking-widest;
+    @apply text-sm text-primary uppercase font-semibold tracking-widest;
 }
 
 .collection-hierarchy-tree {
-	@apply bg-muted p-5 rounded mb-10 min-h-[100px];
+    @apply bg-muted p-5 rounded mb-10 min-h-[100px];
 }
 
 .collection-about-grid {
-	@apply grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[60px];
+    @apply grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[60px];
 }
 
 .section-heading {
-	@apply text-2xl font-bold uppercase mb-[30px] border-b-2 border-primary pb-1.5 inline-block;
+    @apply text-2xl font-bold uppercase mb-[30px] border-b-2 border-primary pb-1.5 inline-block;
 }
 
 /* Gallery / Infinite Scroll Area */
 #browseResultsContainer {
-	@apply min-h-[200px];
+    @apply min-h-[200px];
 }
-
 
 /* ========================================
    Citation Select Block
    ======================================== */
 .citation-select-select-citation .citation-container {
-	@apply flex flex-col gap-4;
+    @apply flex flex-col md:flex-row gap-4;
 }
 
+/* Select chevron styling via background SVG */
+
 .citation-select-select-citation select.form-select {
-	@apply w-full h-[50px] px-4 border border-border bg-background text-foreground text-sm focus:border-primary outline-none appearance-none rounded-none;
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-	background-position: right 0.75rem center;
-	background-repeat: no-repeat;
-	background-size: 1.25em 1.25em;
+    @apply h-8 pl-3 pr-10 border border-foreground bg-transparent text-foreground text-sm font-medium outline-none transition-all duration-300 cursor-pointer appearance-none rounded-none hover:border-primary focus:border-primary;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23000000'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 10px 6px !important;
+}
+
+.citation-select-select-citation select.form-select:hover,
+.citation-select-select-citation select.form-select:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234F46E5'/%3E%3C/svg%3E") !important;
 }
 
 .citation-select-select-citation .clipboard-button {
-	@apply w-full h-[50px] flex items-center justify-center bg-primary text-primary-foreground border border-primary text-sm font-bold uppercase tracking-wider transition-colors duration-300 cursor-pointer hover:bg-transparent hover:text-foreground hover:border-foreground;
+    @apply flex items-center h-8 justify-center w-full! border border-solid rounded-none uppercase text-sm font-bold transition-all duration-300 cursor-pointer no-underline shadow-none bg-foreground text-background border-foreground;
 }
 
 #formatted-bibliography {
-	@apply mt-4 p-4 bg-muted border border-border text-sm leading-relaxed empty:hidden;
+    @apply mt-4 p-4 bg-muted border border-border text-sm leading-relaxed empty:hidden;
 }
