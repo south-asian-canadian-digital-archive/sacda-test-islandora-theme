@@ -192,7 +192,15 @@ function sacda_preprocess_views_view_fields(array &$variables): void {
 
 function sacda_preprocess_region(&$variables) {
   if ($variables['region'] === 'content') {
-    $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
+    $route_match = \Drupal::routeMatch();
+    $variables['route_name'] = $route_match->getRouteName();
+
+    // Expose the node bundle on node pages so the content region can choose the
+    // right width (only islandora_object needs the wide two-column layout).
+    $node = $route_match->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      $variables['node_bundle'] = $node->bundle();
+    }
   }
 }
 

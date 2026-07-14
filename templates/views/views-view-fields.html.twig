@@ -21,13 +21,27 @@
 
 {% set url = fields.search_api_url.content|striptags|trim|raw %}
 
+{# Is this result a Collection? field_model holds the Islandora model term name. #}
+{% set model_string = fields.field_model.content|striptags|trim %}
+{% set is_collection = 'Collection' in model_string %}
+
+{# Folder icon badge reused in grid + list image containers. #}
+{% set collection_badge %}
+	<div class="absolute top-3 left-3 z-10 flex items-center justify-center bg-background/90 backdrop-blur-sm text-foreground p-1.5 rounded shadow-sm" aria-label="{{ 'Collection'|t }}" title="{{ 'Collection'|t }}">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
+		</svg>
+	</div>
+{% endset %}
+
 {{ title_prefix }}
 {{ title_suffix }}
 
 {# Wrapper with group for hover effects (grid mode) #}
 <div class="group cursor-pointer">
 	{# Image Container #}
-	<div class="aspect-square bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-center [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105">
+	<div class="relative aspect-square bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-center [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105">
+		{% if is_collection %}{{ collection_badge }}{% endif %}
 		{% if display_has_image %}
 			{{ image_content|raw }}
 		{% else %}
@@ -52,7 +66,8 @@
 <div class="group cursor-pointer">
     <div class="flex! gap-4 items-start">
 		{# Image Container #}
-		<div class="w-1/2 bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-center [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105">
+		<div class="relative w-1/2 bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-center [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105">
+			{% if is_collection %}{{ collection_badge }}{% endif %}
 			{% if display_has_image %}
 				{{ image_content|raw }}
 			{% else %}
