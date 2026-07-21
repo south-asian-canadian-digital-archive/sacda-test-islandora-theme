@@ -1,0 +1,58 @@
+/**
+ * Unified Media Viewer
+ * ---------------------------------------------------------------------------
+ * One consistent "stage" used by the media_content viewer blocks across media
+ * types (audio, video, …). Fills the viewport below the header — the same
+ * full-height convention as .openseadragon-viewer — and uses the site design
+ * tokens so every media type reads as the same component.
+ */
+
+.media-viewer {
+    @apply relative flex w-full items-center justify-center overflow-hidden;
+    height: calc(100vh - var(--header-height, 80px) - 1rem);
+    min-height: 24rem;
+    background: var(--muted);
+}
+
+/* Oversized, faint type icon filling the background of the stage. */
+.media-viewer__bg {
+    @apply pointer-events-none absolute inset-0 flex items-center justify-center;
+    color: var(--foreground);
+    opacity: 0.05;
+}
+
+.media-viewer__bg svg {
+    width: 55%;
+    height: 55%;
+    max-width: 460px;
+    max-height: 460px;
+}
+
+/* Centered foreground column holding the badge + player. */
+.media-viewer__body {
+    @apply relative z-10 flex w-full flex-col items-center justify-center gap-8 px-6;
+    max-width: 40rem;
+}
+
+.media-viewer__player {
+    @apply w-full;
+}
+
+.media-viewer__player audio {
+    @apply w-full;
+}
+
+/* ---- Video variant: letterboxed on a dark stage ---- */
+.media-viewer--video {
+    background: #000;
+}
+
+.media-viewer--video .media-viewer__body {
+    max-width: 80rem;
+}
+
+.media-viewer--video video {
+    @apply h-auto w-full;
+    max-height: calc(100vh - var(--header-height, 80px) - 4rem);
+    object-fit: contain;
+}

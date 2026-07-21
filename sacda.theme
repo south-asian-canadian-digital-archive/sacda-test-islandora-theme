@@ -260,3 +260,51 @@ function sacda_form_advanced_search_form_alter(&$form, FormStateInterface $form_
     unset($form['reset']);
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for mirador.html.twig.
+ *
+ * islandora_mirador ships Mirador configured like the full multi-window IIIF
+ * workbench. For a single-object digital archive most of that chrome is dead
+ * weight, so we trim the final viewer config (already assembled by the module's
+ * template_preprocess_mirador(), which runs first) down to a focused reader:
+ * one object, page navigation, and OCR search — no workspace/window management.
+ */
+function sacda_preprocess_mirador(array &$variables): void {
+  $id = $variables['mirador_view_id'] ?? NULL;
+  if (!$id) {
+    return;
+  }
+  $key = '#' . $id;
+  if (empty($variables['#attached']['drupalSettings']['mirador']['viewers'][$key])) {
+    return;
+  }
+  $viewer = &$variables['#attached']['drupalSettings']['mirador']['viewers'][$key];
+
+  // Drop the left workspace control panel (add-window / workspace switcher) —
+  // this site never shows more than one object at a time.
+  $viewer['workspaceControlPanel'] = ['enabled' => FALSE];
+  $viewer['workspace'] = ($viewer['workspace'] ?? []) + [
+    'showZoomControls' => TRUE,
+    'allowNewWindows' => FALSE,
+  ];
+
+  // Simplify the window chrome. Keep fullscreen + the sidebar (page index and
+  // OCR search are genuinely useful), drop the parts this site has no use for.
+  $viewer['window'] = ($viewer['window'] ?? []) + [
+    'allowClose' => FALSE,
+    'allowMaximize' => FALSE,
+    'allowTopMenuButton' => FALSE,
+    'allowWindowSideBar' => TRUE,
+    'sideBarOpenByDefault' => FALSE,
+    'defaultSideBarPanel' => 'info',
+    'panels' => [
+      'info' => TRUE,
+      'attribution' => TRUE,
+      'canvas' => TRUE,
+      'annotations' => FALSE,
+      'search' => TRUE,
+      'layers' => FALSE,
+    ],
+  ];
+}

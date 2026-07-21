@@ -1,0 +1,60 @@
+/**
+ * Mirador viewer — fit into the site's media-viewer component.
+ * ---------------------------------------------------------------------------
+ * islandora_mirador ships `.block-mirador { height: 1200px }` (module
+ * css/mirador.css), a fixed-height box that ignores the viewport and does not
+ * match the other viewers. Mirador itself mounts an absolutely-positioned
+ * workspace into `#mirador-<nid>`, so that mount point needs a real height.
+ *
+ * These overrides:
+ *  - size the block to the same full-viewport stage as .openseadragon-viewer
+ *    and .media-viewer, so Mirador reads as the same component;
+ *  - frame it on the site's muted surface;
+ *  - apply the site font to Mirador's UI so its chrome matches the rest of the
+ *    site. Selectors are scoped under .media-content-wrapper to out-specify the
+ *    module's `.block-mirador` rule.
+ */
+
+/* Outer block + inner mount point share the viewer-height convention. */
+.media-content-wrapper .block-mirador {
+    height: calc(100vh - var(--header-height, 80px) - 1rem);
+    min-height: 24rem;
+    position: relative;
+    background: var(--muted);
+}
+
+/* The module nests: .block-mirador > .content > #mirador-<nid>.block-mirador.
+   Make the intermediate wrappers and the Mirador mount fill that height. */
+.media-content-wrapper .block-mirador .content,
+.media-content-wrapper [id^="mirador-"] {
+    height: 100%;
+    width: 100%;
+}
+
+/* Mirador builds its workspace with position:absolute; inset:0 inside the
+   mount, so the mount must establish a positioning context. `isolation`
+   also traps Mirador's internal stacking (its Material-UI AppBar defaults to
+   z-index:1100) inside this context, so it can no longer paint over the site's
+   sticky header (z-500) and other chrome. */
+.media-content-wrapper [id^="mirador-"] {
+    position: relative;
+    isolation: isolate;
+}
+
+/* Belt-and-suspenders: keep Mirador's app bar below the site header even if a
+   portal escapes the isolated context above. Site header sits at z-500/501. */
+.media-content-wrapper .MuiAppBar-root {
+    z-index: 1;
+}
+
+/* Match Mirador's UI typography to the site. Mirador 3 renders Material-UI;
+   the root viewer element carries .mirador-viewer. */
+.media-content-wrapper .mirador-viewer,
+.media-content-wrapper .mirador-viewer * {
+    font-family: var(--font-heading), system-ui, sans-serif;
+}
+
+/* Neutralise the module's stray drop area / borders so the stage is clean. */
+.media-content-wrapper .block-mirador > .content {
+    border: 0;
+}

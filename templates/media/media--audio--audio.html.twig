@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Unified media viewer — Audio.
+ *
+ * Full-height stage (matching the OpenSeadragon viewer height) with a large,
+ * faint music icon filling the background and the audio player centered. Uses
+ * the shared .media-viewer styles so every media type reads consistently.
+ *
+ * Rendered for the `audio` view mode placed by the audio viewer block.
+ */
+#}
+{% set music_icon %}
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+		<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+	</svg>
+{% endset %}
+<div{{ attributes.addClass('media-viewer', 'media-viewer--audio') }}>
+	<div class="media-viewer__bg" aria-hidden="true">{{ music_icon }}</div>
+	<div class="media-viewer__body">
+		<div class="media-viewer__player">{{ content.field_media_audio_file.0 }}</div>
+	</div>
+</div>

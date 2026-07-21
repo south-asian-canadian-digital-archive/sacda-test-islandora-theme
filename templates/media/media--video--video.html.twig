@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Unified media viewer — Video.
+ *
+ * Same full-height stage as the audio viewer, letterboxed on a dark
+ * background with the video contained (never cropped). Rendered for the
+ * `video` view mode placed by the video viewer block.
+ */
+#}
+<div{{ attributes.addClass('media-viewer', 'media-viewer--video') }}>
+	<div class="media-viewer__body">
+		<div class="media-viewer__player">{{ content.field_media_video_file.0 }}</div>
+	</div>
+</div>

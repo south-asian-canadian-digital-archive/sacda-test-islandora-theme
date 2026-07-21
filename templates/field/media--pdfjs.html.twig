@@ -1,12 +1,13 @@
-{#
-    TODO: TEMPORARY FIX
-    Delete this file after mix content issue on prod
-    server is fixed
-#}
-
 {{title_prefix}}
 {{title_suffix}}
 
-<div class="**:object-contain! bg-black" style="height: calc(100vh - var(--header-height, 80px) - 1rem);">
-{{ content.field_media_image }}
+{#
+  Render the field ITEM (.0) rather than the field itself: the theme's generic
+  field.html.twig wraps content in `mb-4`/`prose` divs that have no height, which
+  breaks the height chain and collapses the viewer. Going straight to the item
+  makes the pdf module's <iframe> a direct child of this full-height box.
+  The iframe's own height comes from the pdf_default formatter (set to 100%).
+#}
+<div class="bg-black" style="height: calc(100vh - var(--header-height, 80px) - 1rem);">
+{{ content.field_media_document.0 }}
 </div>
