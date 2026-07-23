@@ -34,6 +34,7 @@
 				<div class="flex gap-2 items-baseline">
 					<span class="font-semibold text-foreground/80 min-w-[4rem]">Creator:</span>
 					<span class="text-foreground font-medium">
+						{% for item in node.field_linked_agent %}
 							{{ item.entity.label }}{% if not loop.last %}, {% endif %}
 						{% endfor %}
 					</span>
