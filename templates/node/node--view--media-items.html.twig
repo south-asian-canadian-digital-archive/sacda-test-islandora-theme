@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Theme override for a 'media_item' node rendered within the media_items view
+ * (/about/media). Two-column layout: media on the left (Islandora viewers
+ * attach via the rendered field_media), title + description on the right.
+ * Stacks vertically on mobile.
+ */
+#}
+
+<article{{ attributes.addClass('media-item', 'py-8') }}>
+	{{ title_prefix }}
+	{{ title_suffix }}
+
+	<div
+		class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+
+		{# Left Column: Media (image / video / audio via native viewers) #}
+		<div class="bg-muted overflow-hidden border border-border">
+			{{ content.field_media }}
+		</div>
+
+		{# Right Column: Title + Description #}
+		<div>
+			<h2 class="mb-4">
+				{{ node.label }}
+			</h2>
+
+			<div class="h-px bg-border w-full mb-6"></div>
+
+			{% if content.field_description|render|striptags|trim %}
+				<div class="text-base md:text-lg text-foreground/75 leading-relaxed">
+					{{ content.field_description }}
+				</div>
+			{% endif %}
+
+			{% if content.field_category|render|striptags|trim %}
+				<div class="mt-6 text-sm text-muted-foreground">
+					{{ content.field_category }}
+				</div>
+			{% endif %}
+		</div>
+
+	</div>
+
+	<div class="hidden">
+		{{ content|without('field_media', 'field_description', 'field_category', 'field_weight') }}
+	</div>
+</article>

@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Theme override for the media_items view (/about/media) - row spacing.
+ */
+#}
+<div{{ attributes.addClass('media-items-list') }}>
+	{{ title_prefix }}
+	{% for row in rows %}
+		<div{{ row.attributes.addClass('border-b', 'border-border', 'last:border-b-0') }}>
+			{{ row.content }}
+		</div>
+	{% endfor %}
+</div>

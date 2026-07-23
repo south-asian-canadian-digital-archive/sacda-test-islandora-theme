@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Theme override for the team_members view - responsive card grid wrapper.
+ */
+#}
+<div{{ attributes.addClass('team-members-grid', 'grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'gap-8') }}>
+	{{ title_prefix }}
+	{% for row in rows %}
+		<div{{ row.attributes.addClass('h-full') }}>
+			{{ row.content }}
+		</div>
+	{% endfor %}
+</div>

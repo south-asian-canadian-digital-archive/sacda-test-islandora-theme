@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme override for 'team_member' nodes rendered inside the team_members view.
+ * Card layout: photo on top, name + role below, truncated bio.
+ */
+#}
+
+<article{{ attributes.addClass('team-member-card', 'flex', 'flex-col', 'h-full', 'bg-background', 'border', 'border-border', 'overflow-hidden') }}>
+	{{ title_prefix }}
+	{{ title_suffix }}
+
+	{# Photo #}
+	<div class="team-member-card__photo aspect-square bg-muted overflow-hidden">
+		{% if content.field_photo|render|trim %}
+			{{ content.field_photo }}
+		{% endif %}
+	</div>
+
+	<div class="flex flex-col flex-1 p-6">
+		{# Name #}
+		<h3 class="text-xl font-black uppercase mb-1">
+			{{ node.label }}
+		</h3>
+
+		{# Role #}
+		{% if content.field_role|render|striptags|trim %}
+			<div class="text-sm font-semibold text-primary uppercase tracking-wide mb-4">
+				{{ content.field_role }}
+			</div>
+		{% endif %}
+
+		{# Truncated bio #}
+		{% if not node.field_bio.isEmpty() %}
+			<div class="text-base text-foreground/75 leading-relaxed">
+				{{ node.field_bio.value|striptags|truncate(180, true, '...') }}
+			</div>
+		{% endif %}
+	</div>
+</article>

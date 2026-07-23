@@ -1,0 +1,105 @@
+{% extends '@sacda/page/page.html.twig' %}
+
+{% block content %}
+	{% import '@sacda/macros/hero.twig' as hero %}
+	{% import '@sacda/macros/button.twig' as btn %}
+
+	{{ hero.section(sacda_hero ?? {
+    title: 'ABOUT SACDA',
+    subtitle: 'Archiving South Asian Canadian History',
+    image: base_path ~ directory ~ '/static/graphics/about/hero-bg.jpg'
+}) }}
+
+	{# Sub-pages nav for the About branch #}
+	<nav class="about-subnav bg-light border-b border-secondary/20" aria-label="About section">
+		<div class="max-w-7xl mx-auto px-4">
+			<ul class="flex justify-center gap-8 py-4 uppercase font-bold tracking-wide">
+				<li><a href="/about" class="text-primary">About</a></li>
+				<li><a href="/about/team" class="text-secondary hover:text-primary">Team</a></li>
+				<li><a href="/about/media" class="text-secondary hover:text-primary">Media</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	{# Intro #}
+	<section class="py-10 md:py-16">
+		<div class="max-w-4xl mx-auto px-4 text-center">
+			<h2>A PAN-CANADIAN DIGITAL ARCHIVE</h2>
+			<p class="text-lg text-secondary leading-relaxed mt-4">
+				The South Asian Canadian Digital Archive (SACDA) collects, digitizes, and preserves materials connected to the South Asian diaspora across Canada. From photographs and documents to oral histories and community records, SACDA safeguards the stories of South Asian Canadians for future generations.
+			</p>
+			<p class="text-lg text-secondary leading-relaxed mt-4">
+				SACDA is an initiative of the South Asian Studies Institute (SASI) at the University of the Fraser Valley, working with individuals, families, and organizations across the country to build a truly pan-Canadian digital archive.
+			</p>
+		</div>
+	</section>
+
+	{# Associated programs #}
+	<section class="bg-light py-10 md:py-16">
+		<div class="max-w-7xl mx-auto px-4">
+			<h2 class="text-center mb-10">ASSOCIATED PROGRAMS</h2>
+
+			{% set programs = [
+				{
+					title: 'South Asian Studies Institute',
+					description: 'The South Asian Studies Institute at the University of the Fraser Valley advances research, teaching, and community engagement on the histories and contemporary experiences of South Asian Canadians.',
+					link: 'https://www.ufv.ca/sasi/',
+					image: base_path ~ directory ~ '/static/graphics/about/sasi.jpg'
+				},
+				{
+					title: 'South Asian Canadian Legacy Project',
+					description: 'A province-wide initiative documenting and celebrating the contributions of South Asian Canadians in British Columbia through museum exhibits, curriculum resources, and community histories.',
+					link: 'https://southasiancanadianheritage.ca/',
+					image: base_path ~ directory ~ '/static/graphics/about/legacy-project.jpg'
+				},
+				{
+					title: 'SACDA Media',
+					description: 'SACDA Media produces and shares documentaries, oral history recordings, and multimedia storytelling that bring the archive’s collections to life.',
+					link: '/about/media',
+					image: base_path ~ directory ~ '/static/graphics/about/sacda-media.jpg'
+				}
+			] %}
+
+			<div class="flex flex-col gap-10">
+				{% for program in programs %}
+					<div class="flex flex-col md:flex-row {{ loop.index is even ? 'md:flex-row-reverse' : '' }} items-center gap-6 md:gap-10">
+						<div class="w-full md:w-1/2">
+							<img src="{{ program.image }}" alt="{{ program.title }}" class="w-full h-64 object-cover">
+						</div>
+						<div class="w-full md:w-1/2">
+							<h3>{{ program.title }}</h3>
+							<p class="text-secondary leading-relaxed mt-3 mb-5">{{ program.description }}</p>
+							{{ btn.link('Learn More', program.link, { variant: 'outline' }) }}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	{# Meet the Team teaser #}
+	<section class="py-10 md:py-16">
+		<div class="max-w-4xl mx-auto px-4 text-center">
+			<h2>MEET THE TEAM</h2>
+			<p class="text-lg text-secondary leading-relaxed mt-4 mb-8">
+				SACDA is built by a dedicated team of archivists, researchers, students, and community members who work together to preserve South Asian Canadian history.
+			</p>
+			<div class="flex justify-center">
+				{{ btn.link('Learn More', '/about/team', { variant: 'outline' }) }}
+			</div>
+		</div>
+	</section>
+
+	{# Contribute CTA #}
+	<section class="bg-primary/60 py-10 md:py-24 text-center">
+		<div class="max-w-4xl mx-auto px-4">
+			<h2>HELP TELL OUR STORY</h2>
+			<p class="text-lg text-secondary leading-relaxed mt-4 mb-8">
+				Do you have access to materials and/or oral histories of significance you could contribute to our digital archives?
+			</p>
+			<div class="flex justify-center">
+				{{ btn.link('Contribute to SACDA', 'https://sacda.ca/contribute', { variant: 'outline' }) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}

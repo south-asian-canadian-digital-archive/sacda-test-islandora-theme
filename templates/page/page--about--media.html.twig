@@ -1,0 +1,37 @@
+{% extends '@sacda/page/page.html.twig' %}
+
+{% block content %}
+	{% import '@sacda/macros/hero.twig' as hero %}
+
+	{{ hero.section(sacda_hero ?? {
+    title: 'SACDA MEDIA',
+    subtitle: 'News, press, and media coverage of the South Asian Canadian Digital Archive.'
+}) }}
+
+	{# About section sub-navigation #}
+	<nav class="border-b border-border bg-background" aria-label="About section">
+		<div class="max-w-7xl mx-auto px-4">
+			<ul class="flex gap-8 justify-center">
+				<li>
+					<a href="/about" class="inline-block py-4 font-semibold uppercase tracking-wide text-muted-foreground hover:text-primary no-underline border-b-2 border-transparent hover:border-primary/50 transition-colors">
+						About
+					</a>
+				</li>
+				<li>
+					<a href="/about/team" class="inline-block py-4 font-semibold uppercase tracking-wide text-muted-foreground hover:text-primary no-underline border-b-2 border-transparent hover:border-primary/50 transition-colors">
+						Team
+					</a>
+				</li>
+				<li>
+					<a href="/about/media" class="inline-block py-4 font-semibold uppercase tracking-wide text-primary no-underline border-b-2 border-primary" aria-current="page">
+						Media
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="max-w-7xl mx-auto px-4 py-12 md:py-16">
+		{{ page.content }}
+	</div>
+{% endblock %}

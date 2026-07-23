@@ -12,6 +12,23 @@ function sacda_theme_suggestions_page_alter(array &$suggestions, array $variable
   if (\Drupal::service('path.matcher')->isFrontPage()) {
     $suggestions[] = 'page__landing';
   }
+
+  // Path-alias-based suggestions: /about -> page__about, /about/team ->
+  // page__about + page__about__team. Lets info pages (About, Contact, Team,
+  // Media, Newsletter, Exhibits) get dedicated page templates keyed on alias.
+  $path = \Drupal::service('path.current')->getPath();
+  $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+  $parts = array_values(array_filter(explode('/', $alias)));
+  if ($parts && preg_match('/^[a-z0-9_-]+$/', $parts[0])) {
+    $suggestion = 'page';
+    foreach ($parts as $part) {
+      if (!preg_match('/^[a-z0-9_-]+$/', $part)) {
+        break;
+      }
+      $suggestion .= '__' . str_replace('-', '_', $part);
+      $suggestions[] = $suggestion;
+    }
+  }
 }
 
 /**
