@@ -21,13 +21,9 @@
 				<div class="main-content w-full">
 					<a id="main-content" tabindex="-1"></a>
 					{% block hero %}
-						{# Render Global Hero from Page Preprocess #}
-						{% if hero_data %}
-							{% import '@sacda/macros/hero.twig' as hero %}
-							{% if hero_data.image %}
-								{{ hero.section(hero_data) }}
-							{% endif %}
-						{% endif %}
+						{# Full-width hero region; the sacda_hero block renders here when a
+						   hero config entity matches the current path. #}
+						{{ page.hero }}
 					{% endblock %}
 
 					{{ page.media_content }}

@@ -8,12 +8,6 @@
 {% extends '@sacda/page/page.html.twig' %}
 
 {% block content %}
-	{% import '@sacda/macros/hero.twig' as hero %}
-
-	{{ hero.section(sacda_hero ?? {
-    title: 'EXHIBITS',
-    subtitle: 'Explore curated digital exhibits from the South Asian Canadian Digital Archive.'
-}) }}
 
 	<main role="main" class="flex flex-col gap-8 my-8">
 		<div class="content w-full">

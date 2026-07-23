@@ -5,7 +5,7 @@
  * Only renders when there's no hero section (hero already shows the title).
  */
 #}
-{% if content and not hero_data %}
+{% if content and not sacda_hero_active %}
     {{ title_prefix }}
     <!--<div{{ attributes.addClass('') }}>
         {# {{ content['#title'] }} #}

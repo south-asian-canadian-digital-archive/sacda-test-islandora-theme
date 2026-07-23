@@ -181,6 +181,41 @@
 		padding: 0;
 	}
 
+	/* Accordion submenus - parent link and toggle side by side, submenu wraps below */
+	.sacda-mobile-menu .sacda-nav-item.sacda-has-children {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.sacda-mobile-menu .sacda-nav-item.sacda-has-children > a {
+		flex: 1;
+	}
+
+	/* Neutralize the desktop dropdown positioning inside the mobile menu */
+	.sacda-mobile-menu .sacda-submenu {
+		display: none;
+		position: static;
+		width: 100%;
+		border: none;
+		flex-direction: column;
+	}
+
+	.sacda-mobile-menu .sacda-nav-item.is-expanded > .sacda-submenu {
+		display: flex;
+	}
+
+	/* Rotate chevron when expanded */
+	.sacda-submenu-toggle[aria-expanded="true"] .sacda-submenu-chevron {
+		transform: rotate(180deg);
+	}
+
+	/* Indented, tappable nested links */
+	.sacda-mobile-menu .sacda-submenu a {
+		font-size: 1rem;
+		padding: 0.75rem 0 0.75rem 1.5rem;
+	}
+
 	/* Login region styling */
 	.sacda-mobile-login a {
 		display: inline-flex;
@@ -228,6 +263,23 @@ input.focus();
 
 
 }
+});
+}
+
+// Submenu accordion toggle (event delegation)
+if (nav) {
+nav.addEventListener('click', function (e) {
+var btn = e.target.closest('.sacda-submenu-toggle');
+if (! btn)
+return;
+
+e.preventDefault();
+var li = btn.closest('li');
+var expanded = btn.getAttribute('aria-expanded') === 'true';
+btn.setAttribute('aria-expanded', String(! expanded));
+if (li)
+li.classList.toggle('is-expanded');
+
 });
 }
 

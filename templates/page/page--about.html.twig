@@ -1,14 +1,8 @@
 {% extends '@sacda/page/page.html.twig' %}
 
 {% block content %}
-	{% import '@sacda/macros/hero.twig' as hero %}
 	{% import '@sacda/macros/button.twig' as btn %}
 
-	{{ hero.section(sacda_hero ?? {
-    title: 'ABOUT SACDA',
-    subtitle: 'Archiving South Asian Canadian History',
-    image: base_path ~ directory ~ '/static/graphics/about/hero-bg.jpg'
-}) }}
 
 	{# Sub-pages nav for the About branch #}
 	<nav class="about-subnav bg-light border-b border-secondary/20" aria-label="About section">

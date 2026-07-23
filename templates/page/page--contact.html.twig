@@ -1,12 +1,6 @@
 {% extends '@sacda/page/page.html.twig' %}
 
 {% block content %}
-	{% import '@sacda/macros/hero.twig' as hero %}
-
-	{{ hero.section(sacda_hero ?? {
-    title: 'CONTACT SACDA',
-    image: base_path ~ directory ~ '/static/graphics/contact/hero-bg.jpg'
-}) }}
 
 	<div class="row content-section">
 		<div class="contact-intro">

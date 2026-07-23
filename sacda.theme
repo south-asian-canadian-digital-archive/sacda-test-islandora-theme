@@ -67,9 +67,6 @@ function sacda_preprocess_page(array &$variables): void {
   $variables['logo'] = $theme_path . '/logo.svg';
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
 
-  // Route-based hero configuration
-  $variables['hero_data'] = _sacda_get_hero_data();
-
   _sacda_preprocess_footer_partners($variables, $theme_path);
   _sacda_preprocess_footer_social($variables);
   _sacda_add_color_variables($variables);
@@ -107,33 +104,6 @@ function sacda_preprocess_page(array &$variables): void {
 }
 
 /**
- * Helper to determine hero data based on current route.
- *
- * @return array|null
- *   Hero data array or NULL if none configured.
- */
-function _sacda_get_hero_data(): ?array {
-  $theme_path = '/' . \Drupal::theme()->getActiveTheme()->getPath();
-  $current_path = \Drupal::service('path.current')->getPath();
-  $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
-
-  // Hero info mapped to routes
-  $hero_info = [
-    '/collections' => [
-      'image' => $theme_path . '/static/collections/hero-bg.jpg',
-      'title' => 'Collections',
-    ],
-    '/contact' => [
-      'image' => $theme_path . '/static/contact/hero-bg.jpg',
-      'title' => 'Contact Us',
-    ],
-  ];
-
-  return $hero_info[$path_alias] ?? $hero_info[$current_path] ?? NULL;
-}
-
-
-/**
  * Implements hook_preprocess_HOOK() for block templates.
  */
 function sacda_preprocess_block(array &$variables): void {
@@ -142,9 +112,6 @@ function sacda_preprocess_block(array &$variables): void {
   if (isset($variables['elements']['#id'])) {
     $variables['attributes']['data-block-id'] = $variables['elements']['#id'];
   }
-
-  // Inject hero data into all blocks (or specific ones if needed)
-  $variables['hero_data'] = _sacda_get_hero_data();
 }
 
 /**

@@ -20,18 +20,46 @@
 {% macro menu_links(items, attributes, menu_level) %}
 	{% import _self as menus %}
 	{% if items %}
-		<ul{{ attributes.addClass('sacda-nav-list', 'flex', 'flex-col', 'text-xs!', 'md:flex-row', 'items-center', 'gap-3', 'list-none', 'm-0', 'p-0') }}>
-			{% for item in items %}
-				<li class="sacda-nav-item list-none m-0 p-0">
-					<a href="{{ item.url }}" class="sacda-nav-link inline-block font-semibold uppercase no-underline transition-all duration-200 text-black" style="padding-bottom: 0.125rem; border-bottom: 2px solid transparent;{% if item.in_active_trail %} border-bottom-color: var(--primary);{% endif %}" {% if item.in_active_trail %} aria-current="page" {% endif %}>
-						{{ item.title }}
-					</a>
-					{% if item.below %}
-						{{ menus.menu_links(item.below, attributes.removeClass('sacda-nav-list'), menu_level + 1) }}
-					{% endif %}
-				</li>
-			{% endfor %}
-		</ul>
+		{% if menu_level == 0 %}
+			<ul{{ attributes.addClass('sacda-nav-list', 'flex', 'flex-col', 'text-xs!', 'md:flex-row', 'items-center', 'gap-3', 'list-none', 'm-0', 'p-0') }}>
+				{% for item in items %}
+					<li class="sacda-nav-item list-none m-0 p-0{% if item.below %} sacda-has-children relative group{% endif %}">
+						<a href="{{ item.url }}" class="sacda-nav-link inline-block font-semibold uppercase no-underline transition-all duration-200 text-black" style="padding-bottom: 0.125rem; border-bottom: 2px solid transparent;{% if item.in_active_trail %} border-bottom-color: var(--primary);{% endif %}" {% if item.in_active_trail %} aria-current="page" {% endif %}>
+							{{ item.title }}
+						</a>
+						{% if item.below %}
+							{# Desktop caret indicator - hidden on mobile #}
+							<span class="sacda-nav-caret hidden md:inline-block align-middle ml-0.5" aria-hidden="true">
+								<svg class="w-3 h-3 transition-transform duration-200 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="m6 9 6 6 6-6"/>
+								</svg>
+							</span>
+							{# Mobile accordion toggle - hidden on desktop; handled in mobile-header.html.twig #}
+							<button type="button" class="sacda-submenu-toggle flex md:hidden items-center justify-center w-10 h-10 text-foreground" aria-expanded="false" aria-label="Toggle {{ item.title }} submenu">
+								<svg class="sacda-submenu-chevron w-4 h-4 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="m6 9 6 6 6-6"/>
+								</svg>
+							</button>
+							{{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			{# Submenu - fresh markup, does not reuse the caller's attributes object #}
+			<ul class="sacda-submenu absolute left-0 top-full hidden group-hover:flex group-focus-within:flex flex-col bg-white border border-foreground min-w-[12rem] z-50 m-0 p-0 list-none">
+				{% for item in items %}
+					<li class="sacda-submenu-item list-none m-0 p-0">
+						<a href="{{ item.url }}" class="sacda-submenu-link block px-4 py-2 uppercase no-underline text-foreground hover:bg-light whitespace-nowrap" {% if item.in_active_trail %} aria-current="page" {% endif %}>
+							{{ item.title }}
+						</a>
+						{% if item.below %}
+							{{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
 	{% endif %}
 {% endmacro %}
 
