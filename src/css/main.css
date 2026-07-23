@@ -304,6 +304,25 @@
         display: none;
     }
 
+    /* Full-panel collapse toggle for the filters sidebar */
+    .filters-toggle {
+        @apply flex items-center w-full text-left p-4 cursor-pointer bg-transparent border-0 text-foreground;
+    }
+
+    .filters-toggle::after {
+        @apply font-black ml-auto text-base transition-transform duration-[250ms] ease-in-out;
+        font-family: "Font Awesome 6 Free";
+        content: "\f078";
+    }
+
+    .filters--collapsed .filters-toggle::after {
+        @apply rotate-180;
+    }
+
+    .filters--collapsed .filters-content {
+        display: none;
+    }
+
     .content-children-layout.filters-empty .content-children {
         @apply w-full;
     }
