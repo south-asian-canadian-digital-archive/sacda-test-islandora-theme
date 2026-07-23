@@ -24,3 +24,6 @@ yarn-error.log*
 .env
 .env.local
 olivero
+
+# Claude Code local (worktrees, settings)
+.claude/
