@@ -21,42 +21,40 @@
 
 {% block content %}
 
-	{# Intro #}
-	<section class="py-10 md:py-16">
-		<div class="max-w-4xl mx-auto px-4 text-center">
-			<h2>OUR NEWSLETTER</h2>
-			<p class="text-lg text-secondary leading-relaxed mt-4">
-				The Hive shares stories from the archive, new collections and exhibits, community events, and behind-the-scenes updates from the SACDA team.
-			</p>
-		</div>
-	</section>
+	{# Hive logo + intro + signup #}
+	<section class="newsletter__info bg-light">
+		<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 px-8 py-16 md:py-[8rem]">
 
-	{# Signup #}
-	<section class="bg-light py-10 md:py-16">
-		<div class="max-w-2xl mx-auto px-4 text-center">
-			<h2>SUBSCRIBE</h2>
-			<p class="text-secondary leading-relaxed mt-4 mb-8">
-				Get each new issue of The Hive delivered straight to your inbox.
-			</p>
-			<form action="https://sacda.us4.list-manage.com/subscribe/post?u=3c616907ab5cf63924a62f942&amp;id=383fd0ae1e&amp;f_id=000f56e2f0" method="post" target="_blank" class="flex flex-col sm:flex-row justify-center gap-4">
-				<label for="mce-EMAIL" class="sr-only">Email address</label>
-				<input type="email" name="EMAIL" id="mce-EMAIL" required placeholder="Your email address" class="w-full sm:w-80 px-4 py-3 border border-secondary/40 bg-white focus:outline-none focus:border-primary">
-				{# Mailchimp honeypot — must stay present and empty #}
-				<div style="position: absolute; left: -5000px;" aria-hidden="true">
-					<input type="text" name="b_3c616907ab5cf63924a62f942_383fd0ae1e" tabindex="-1" value="">
-				</div>
-				<button type="submit" class="px-8 py-3 bg-primary text-white font-bold uppercase tracking-wide hover:bg-primary/90 cursor-pointer">
-					Subscribe
-				</button>
-			</form>
+			{# Left — the Hive logo #}
+			<div class="w-full md:w-1/2 flex justify-center">
+				<img src="{{ base_path ~ directory }}/static/graphics/contribute/SACDA_Hive.png" alt="The Hive — the SACDA newsletter" class="max-w-full h-auto md:max-w-[420px]">
+			</div>
+
+			{# Right — intro + signup form #}
+			<div class="w-full md:w-1/2 flex flex-col gap-6">
+				<p class="text-lg leading-relaxed">
+					The Hive shares stories from the archive, new collections and exhibits, community events, and behind-the-scenes updates from the SACDA team. Get each new issue delivered straight to your inbox.
+				</p>
+				<form action="https://sacda.us4.list-manage.com/subscribe/post?u=3c616907ab5cf63924a62f942&amp;id=383fd0ae1e&amp;f_id=000f56e2f0" method="post" target="_blank" class="newsletter__form flex flex-col sm:flex-row gap-4 w-full">
+					<label for="mce-EMAIL" class="sr-only">Email address</label>
+					<input type="email" name="EMAIL" id="mce-EMAIL" required placeholder="Your email address" class="newsletter__email flex-1 h-[50px] px-4 bg-white">
+					{# Mailchimp honeypot — must stay present and empty #}
+					<div style="position: absolute; left: -5000px;" aria-hidden="true">
+						<input type="text" name="b_3c616907ab5cf63924a62f942_383fd0ae1e" tabindex="-1" value="">
+					</div>
+					<button type="submit" class="btn btn-default">
+						Subscribe
+					</button>
+				</form>
+			</div>
 		</div>
 	</section>
 
 	{# Past issues — Mailchimp public campaign archive #}
 	<section class="py-10 md:py-16">
-		<div class="max-w-7xl mx-auto px-4">
+		<div class="w-full lg:w-[70%] mx-auto px-4">
 			<h2 class="text-center mb-8">PAST ISSUES</h2>
-			<div class="border border-secondary/20 overflow-hidden">
+			<div class="newsletter__archive overflow-hidden">
 				<iframe
 					src="https://us4.campaign-archive.com/home/?u=3c616907ab5cf63924a62f942&amp;id=383fd0ae1e"
 					title="The Hive newsletter archive"
@@ -64,7 +62,7 @@
 					class="w-full border-0"
 					style="height: 70vh; min-height: 500px;"></iframe>
 			</div>
-			<p class="text-center text-secondary mt-4">
+			<p class="text-center mt-4">
 				<a href="https://us4.campaign-archive.com/home/?u=3c616907ab5cf63924a62f942&amp;id=383fd0ae1e" target="_blank" rel="noopener" class="underline hover:text-primary">
 					Open the newsletter archive in a new tab
 				</a>

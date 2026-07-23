@@ -2,14 +2,24 @@
 /**
  * @file
  * Page template for /exhibits — the exhibits listing View.
- * Hero + full-width content, no sidebars.
+ * Hero + centered intro + full-width content, no sidebars.
  */
 #}
 {% extends '@sacda/page/page.html.twig' %}
 
 {% block content %}
 
-	<main role="main" class="flex flex-col gap-8 my-8">
+	<main role="main" class="flex flex-col my-8">
+		{# Intro #}
+		<section class="py-6 md:py-10">
+			<div class="max-w-4xl mx-auto px-4 text-center">
+				<h2>VIEW EXHIBITS ON SOUTH ASIAN CANADIAN HISTORY</h2>
+				<p class="text-lg leading-relaxed mt-4">
+					Explore curated stories on South Asian Canadian history, drawn from the collections of the archive.
+				</p>
+			</div>
+		</section>
+
 		<div class="content w-full">
 			{{ page.content }}
 		</div>

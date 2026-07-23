@@ -1,17 +1,16 @@
 /**
  * Contact Page Styles
- * Note: Hero section is handled by the hero.twig macro
+ * Note: Hero section is handled by a block above the content region.
  */
 
 /* ========================================
    Intro Section
    ======================================== */
-.contact-intro {
-    @apply py-16 text-center max-w-[800px] mx-auto;
-}
 
-.contact-intro h2 {
-    @apply text-center uppercase;
+/* Large bottom padding is intentional — the contact card below pulls
+   up into this space with a negative top margin. */
+.contact-intro {
+    @apply pt-16 pb-24 md:pb-[200px] max-w-[800px] mx-auto;
 }
 
 .contact-intro p {
@@ -23,37 +22,11 @@
 /* ========================================
    Contact Split Section
    ======================================== */
-.contact-section {
-    position: relative;
-    background-color: var(--muted);
-    padding: 0;
-}
 
-/* The Graphic Background */
-.section-bg {
-    @apply absolute inset-0 w-full h-full object-cover z-0;
-}
-
-/* Flex Wrapper to split Content and Map */
-.contact-flex-wrapper {
-    @apply flex flex-col relative z-1 p-0 w-full;
-}
-
-@media (min-width: 768px) {
-    .contact-flex-wrapper {
-        @apply flex-row min-h-[500px];
-    }
-}
-
-/* Left Column: Content */
-.contact__content {
-    @apply p-10 flex-1;
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-.contact__content h3 {
-    @apply mt-0 mb-8 inline-block pb-2.5 uppercase font-bold;
-    border-bottom: 2px solid var(--primary);
+/* Overlaid card: pulled up into the intro's padding, inset from the
+   sides, floating above the section background graphic. */
+.contact-card {
+    @apply mx-6 md:mx-[60px] lg:mx-[150px] md:-mt-[200px] mb-16 md:mb-[150px];
 }
 
 .contact__content h4 {
@@ -65,15 +38,6 @@
 .contact__content a {
     color: var(--primary);
     @apply font-bold no-underline;
-}
-
-.contact-block {
-    @apply mb-8;
-}
-
-/* Right Column: Map */
-.contact__map {
-    @apply flex-1 min-h-[400px];
 }
 
 .contact__map iframe {

@@ -1,0 +1,34 @@
+/**
+ * About Page Styles
+ * Note: Hero section is handled by a block above the content region.
+ */
+
+/* ========================================
+   Main two-column (images | programs)
+   ======================================== */
+
+/* On desktop, let the two stacked images share the column height so
+   the image column matches the text column. */
+@media (min-width: 1024px) {
+    .about-main .img-hover-zoom {
+        @apply flex-1 min-h-0;
+    }
+
+    .about-main .img-hover-zoom img {
+        @apply h-full;
+    }
+}
+
+/* ========================================
+   Meet the Team
+   ======================================== */
+
+/* Keep the frosted panel from collapsing so enough of the background
+   photo shows through around it. */
+.about-team {
+    @apply flex items-center;
+}
+
+.about-team > div {
+    @apply w-full;
+}

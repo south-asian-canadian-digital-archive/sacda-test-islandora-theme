@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Theme override for 'exhibit' nodes rendered inside the exhibits view.
+ * Full-width horizontal card: image 40% / content 60%, stacked on mobile.
+ * Background alternation + underline colour come from _exhibits.css
+ * (keyed on the odd/even row classes set by the views template).
+ */
+#}
+
+<article{{ attributes.addClass('exhibit-card', 'flex', 'flex-col', 'md:flex-row', 'w-full', 'overflow-hidden') }}>
+	{{ title_prefix }}
+	{{ title_suffix }}
+
+	{# Image — 40% column; omitted gracefully when the node has no thumbnail #}
+	{% if content.field_thumbnail|render|trim %}
+		<div class="exhibit-card__image img-hover-zoom w-full md:w-[40%] shrink-0">
+			{{ content.field_thumbnail }}
+		</div>
+	{% endif %}
+
+	{# Content — 60% column (full width when no image) #}
+	<div class="exhibit-card__body flex flex-col items-start justify-center gap-6 flex-1 p-8 md:p-[60px]">
+		<h3 class="h3-underline uppercase">
+			{{ node.label }}
+		</h3>
+
+		{% if content.field_description|render|striptags|trim %}
+			<div class="exhibit-card__description leading-relaxed">
+				{{ content.field_description }}
+			</div>
+		{% endif %}
+
+		<a href="{{ url }}" class="btn btn-outline">
+			View Exhibit
+		</a>
+	</div>
+</article>

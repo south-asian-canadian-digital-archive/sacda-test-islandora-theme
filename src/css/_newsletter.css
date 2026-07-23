@@ -1,0 +1,23 @@
+/**
+ * /newsletter — "The Hive" signup + campaign archive.
+ * Flat design: square inputs, no shadows, no rounded corners.
+ */
+
+/* Email input: square, 1px dark border (matches live sacda.ca form). */
+.newsletter__email {
+  border: 1px solid var(--foreground);
+  border-radius: 0;
+  color: var(--foreground);
+}
+.newsletter__email:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.newsletter__email::placeholder {
+  color: color-mix(in srgb, var(--foreground) 60%, transparent);
+}
+
+/* Archive frame: thin flat border around the embedded Mailchimp archive. */
+.newsletter__archive {
+  border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+}

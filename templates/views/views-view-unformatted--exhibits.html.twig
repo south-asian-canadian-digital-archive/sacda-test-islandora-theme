@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for the exhibits view — vertical stack of full-width cards.
+ * Rows get odd/even classes so _exhibits.css can alternate card backgrounds.
+ */
+#}
+<div{{ attributes.addClass('exhibits-list', 'flex', 'flex-col', 'gap-[25px]', 'mt-[60px]') }}>
+	{{ title_prefix }}
+	{% for row in rows %}
+		<div{{ row.attributes.addClass('exhibits-list__row', loop.index is odd ? 'odd' : 'even') }}>
+			{{ row.content }}
+		</div>
+	{% endfor %}
+</div>

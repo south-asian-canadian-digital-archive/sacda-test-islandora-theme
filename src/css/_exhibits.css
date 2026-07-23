@@ -1,0 +1,44 @@
+/**
+ * /exhibits listing — alternating full-width horizontal exhibit cards.
+ *
+ * Row wrappers get `odd`/`even` classes from
+ * templates/views/views-view-unformatted--exhibits.html.twig; alternation is
+ * keyed on those (not on template classes inside the node), so it works
+ * regardless of what the node template renders.
+ */
+
+/* Alternating card backgrounds: odd = light yellow, even = orange. */
+.exhibits-list > .odd .exhibit-card {
+  background-color: var(--light);
+}
+.exhibits-list > .even .exhibit-card {
+  background-color: var(--primary);
+}
+
+/* On orange cards the orange title underline would vanish — switch it to the
+   light-yellow token (same effect as .h3-underline--yellow, applied via the
+   row parity classes since the node template can't know its position). */
+.exhibits-list > .even .exhibit-card .h3-underline {
+  text-decoration-color: var(--light) !important;
+}
+
+/* Make the thumbnail fill its 40% column edge-to-edge. Drupal wraps the image
+   in field/media markup of varying depth, so stretch every wrapper. */
+.exhibit-card__image :is(div, article, figure, a, picture) {
+  height: 100%;
+  width: 100%;
+}
+.exhibit-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Stacked (mobile) layout: give the image a sensible height instead of the
+   collapsed height:100% chain. */
+@media (max-width: 767px) {
+  .exhibit-card__image img {
+    height: auto;
+  }
+}

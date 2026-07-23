@@ -9,6 +9,9 @@
 @import "./_media_viewer.css";
 @import "./_mirador.css";
 @import "./_collections.css";
+@import "./_about.css";
+@import "./_exhibits.css";
+@import "./_newsletter.css";
 @import "./_advanced_search.css";
 
 @source "../../templates/**/*.twig";
