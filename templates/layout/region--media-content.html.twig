@@ -2,7 +2,8 @@
   <div class="media-content-wrapper relative *:h-full">
     {{ content }}
 
-    <div id="media-scroll-indicator" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-white/80 drop-shadow transition-all duration-500 ease-in-out z-20 pointer-events-none opacity-0 translate-y-4">
+    {# h-auto! opts out of the wrapper's *:h-full so the indicator hugs the bottom edge #}
+    <div id="media-scroll-indicator" class="h-auto! absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-white/80 drop-shadow transition-all duration-500 ease-in-out z-20 pointer-events-none opacity-0 translate-y-4">
       <span class="text-[11px] font-medium tracking-wide">Scroll down to view more</span>
       <svg class="w-3.5 h-3.5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
