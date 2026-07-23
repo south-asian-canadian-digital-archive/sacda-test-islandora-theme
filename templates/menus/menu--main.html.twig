@@ -29,7 +29,7 @@
 						</a>
 						{% if item.below %}
 							{# Desktop caret indicator - hidden on mobile #}
-							<span class="sacda-nav-caret hidden md:inline-block align-middle ml-0.5" aria-hidden="true">
+							<span class="sacda-nav-caret align-middle ml-0.5" aria-hidden="true">
 								<svg class="w-3 h-3 transition-transform duration-200 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 									<path d="m6 9 6 6 6-6"/>
 								</svg>
@@ -47,7 +47,10 @@
 			</ul>
 		{% else %}
 			{# Submenu - fresh markup, does not reuse the caller's attributes object #}
-			<ul class="sacda-submenu absolute left-0 top-full hidden group-hover:flex group-focus-within:flex flex-col bg-white border border-foreground min-w-[12rem] z-50 m-0 p-0 list-none">
+			{# Display toggling lives in _base.css (unlayered) — Drupal core ships an
+			   unlayered `.hidden` that beats layered Tailwind utilities like
+			   group-hover:flex, so utility classes cannot drive this dropdown. #}
+			<ul class="sacda-submenu absolute left-0 top-full flex-col bg-white border border-foreground min-w-[12rem] z-50 m-0 p-0 list-none">
 				{% for item in items %}
 					<li class="sacda-submenu-item list-none m-0 p-0">
 						<a href="{{ item.url }}" class="sacda-submenu-link block px-4 py-2 uppercase no-underline text-foreground hover:bg-light whitespace-nowrap" {% if item.in_active_trail %} aria-current="page" {% endif %}>

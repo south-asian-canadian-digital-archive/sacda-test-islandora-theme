@@ -345,3 +345,34 @@
 .img-hover-zoom:hover img {
   transform: scale(1.05);
 }
+
+/* --- Main-menu dropdown (unlayered on purpose) ---
+   Drupal core ships an unlayered `.hidden { display: none }` which beats ALL
+   layered Tailwind utilities (group-hover:flex etc.), so dropdown visibility
+   must be driven here, outside Tailwind's layers. Positioning/visual utilities
+   on .sacda-submenu still come from the template. */
+.sacda-submenu {
+  display: none;
+}
+@media (hover: hover) {
+  .sacda-has-children:hover > .sacda-submenu {
+    display: flex;
+  }
+}
+.sacda-has-children:focus-within > .sacda-submenu {
+  display: flex;
+}
+
+/* Desktop-only caret (was `hidden md:inline-block`, defeated by core .hidden). */
+.sacda-nav-caret {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sacda-nav-caret {
+    display: inline-block;
+  }
+}
+/* The mobile accordion has its own chevron on the toggle button. */
+.sacda-mobile-menu .sacda-nav-caret {
+  display: none;
+}
