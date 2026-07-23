@@ -304,22 +304,36 @@
         display: none;
     }
 
-    /* Full-panel collapse toggle for the filters sidebar */
-    .filters-toggle {
-        @apply flex items-center w-full text-left p-4 cursor-pointer bg-transparent border-0 text-foreground;
+    /* Full-panel collapse toggle for the filters sidebar.
+       Scoped under .result-facets (like the facet-button rules) so it beats
+       Drupal core's unlayered <button> resets. */
+    .result-facets .filters-heading {
+        @apply m-0;
     }
 
-    .filters-toggle::after {
-        @apply font-black ml-auto text-base transition-transform duration-[250ms] ease-in-out;
+    .result-facets .filters-toggle {
+        @apply flex items-center w-full text-left p-4 m-0 cursor-pointer select-none appearance-none bg-transparent border-0 text-foreground transition-colors;
+    }
+
+    .result-facets .filters-toggle:hover {
+        @apply bg-muted;
+    }
+
+    .result-facets .filters-toggle:focus-visible {
+        @apply outline-2 outline-offset-[-2px] outline-ring;
+    }
+
+    .result-facets .filters-toggle::after {
+        @apply font-black ml-auto text-base leading-none text-muted-foreground transition-transform duration-[250ms] ease-in-out;
         font-family: "Font Awesome 6 Free";
         content: "\f078";
     }
 
-    .filters--collapsed .filters-toggle::after {
+    .result-facets.filters--collapsed .filters-toggle::after {
         @apply rotate-180;
     }
 
-    .filters--collapsed .filters-content {
+    .result-facets.filters--collapsed .filters-content {
         display: none;
     }
 
