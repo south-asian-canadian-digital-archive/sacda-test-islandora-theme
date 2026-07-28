@@ -18,7 +18,7 @@
 @source "../../templates/**/*.twig";
 @source "../../templates/**/*.html";
 @source "../js/**/*.js";
-@source "../../../../modules/custom/sacda_hero/templates/**/*.twig";
+@source "../../../../../modules/custom/sacda_modules/templates/**/*.twig";
 
 @custom-variant dark (&:is(.dark *));
 
