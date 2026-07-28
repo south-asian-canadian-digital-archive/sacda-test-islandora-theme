@@ -20,6 +20,7 @@
 #}
 
 {% block content %}
+<main role="main">
 
 	{# Hive logo + intro + signup #}
 	<section class="newsletter__info bg-light">
@@ -50,6 +51,14 @@
 		</div>
 	</section>
 
+	{# The content region carries the node itself (system_main_block), so it must be
+	   rendered or the node body is silently dropped and admins get no contextual
+	   edit links. Sits between the signup and the archive so editable copy can
+	   introduce the past issues. #}
+	<div class="newsletter-body content">
+		{{ page.content }}
+	</div>
+
 	{# Past issues — Mailchimp public campaign archive #}
 	<section class="py-10 md:py-16">
 		<div class="w-full lg:w-[70%] mx-auto px-4">
@@ -69,4 +78,5 @@
 			</p>
 		</div>
 	</section>
+</main>
 {% endblock %}
