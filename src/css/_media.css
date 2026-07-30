@@ -1,0 +1,128 @@
+/**
+ * /about/media — press coverage, publications, and conference talks.
+ *
+ * Ported from the old sacda.ca media page: each item is a row with an embedded
+ * preview on the left and the write-up on the right, stacking on mobile. The
+ * preview keeps the old orange border, which is what visually ties the
+ * heterogeneous PDF/video/audio embeds together.
+ */
+
+.media-items-list > * {
+  padding: 4rem 0;
+}
+.media-items-list > *:first-child {
+  padding-top: 0;
+}
+.media-items-list > *:last-child {
+  padding-bottom: 0;
+}
+
+.media-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- Preview frame -------------------------------------------------------- */
+
+.media-item__frame {
+  flex: 1.5;
+  min-width: 0;
+}
+
+.media-item__frame :is(iframe, video, img) {
+  display: block;
+  width: 100%;
+  border: 3px solid var(--primary);
+  border-radius: 2px;
+}
+
+.media-item__frame iframe,
+.media-item__frame--document iframe {
+  height: 60vh;
+}
+
+/* Audio has no visual surface of its own; give the player the same dark plate
+   the old site used so the row doesn't collapse to a bare control strip. */
+.media-item__frame--audio {
+  background-color: #444649;
+  border: 3px solid var(--primary);
+  border-radius: 2px;
+  padding: 1.5rem;
+}
+.media-item__frame--audio :is(audio, iframe, video) {
+  width: 100%;
+  border: 0;
+}
+
+/* Items whose binary is missing still render — don't leave a naked empty box. */
+.media-item__frame--empty {
+  display: none;
+}
+
+/* --- Text ----------------------------------------------------------------- */
+
+.media-item__info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  min-width: 0;
+}
+
+.media-item__title {
+  font-size: 1.25rem !important;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  text-transform: none !important;
+}
+
+.media-item__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.media-item__meta a {
+  text-decoration-color: var(--primary);
+}
+
+.media-item__description {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-top: 1rem;
+}
+
+.media-item__source {
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.6;
+  width: fit-content;
+  margin-top: 1rem;
+  text-decoration-color: var(--primary);
+  transition: opacity 0.2s ease-out;
+}
+.media-item__source:hover {
+  opacity: 1;
+  color: var(--primary);
+}
+.media-item__source::after {
+  content: " →";
+}
+
+/* --- Breakpoints ---------------------------------------------------------- */
+
+@media (min-width: 768px) {
+  .media-item {
+    flex-direction: row;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+
+  .media-item__frame iframe,
+  .media-item__frame--document iframe {
+    height: 39vw;
+  }
+}

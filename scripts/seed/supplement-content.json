@@ -1,0 +1,285 @@
+{
+  "exhibits": [
+    {
+      "title": "(DIS)Enfranchisement – 1907-1946: The Forty Year Struggle for the Vote",
+      "description": "In 1907, South Asians living in Canada were denied the right to vote, despite the fact that South Asians had a formidable presence in Canada beginning in 1897. Forty years of lobbying, community rallying, fundraising and protesting finally resulted in South Asians gaining the right to vote in 1947.",
+      "url": "https://sacda.ca/exhibits/disenfranchisement/",
+      "image": "komagata.jpg"
+    },
+    {
+      "title": "Komagata Maru: Continuing the Journey",
+      "description": "The Komagata Maru: Continuing the Journey exhibit was initially created by the Simon Fraser University Library in 2011 and was updated with an additional collection of items in 2015 to commemorate the 101st anniversary. The exhibit was transferred to, and subsequently redesigned by, the South Asian Studies Institute at the University of the Fraser Valley in 2021.",
+      "url": "https://sacda.ca/exhibits/km/index.php",
+      "image": "disinfranchisement.jpg"
+    },
+    {
+      "title": "Labour History Exhibit",
+      "description": "The South Asian Canadian population in BC has a long and complex relationship with the labour movement. From early exclusionary practices to a recognition that racism is a tool of the boss to divide workers, the tenacity and strength of the community has always been forward- looking. As a result, over the last 100+ years the labour movement has benefited from strong South Asian leaders, activists and items.",
+      "url": "https://sacda.ca/exhibits/union-zindabad",
+      "image": "labour.jpg"
+    },
+    {
+      "title": "Legal History Exhibit",
+      "description": "Canada, known for its multicultural society and commitment to human rights, has a history marked by discriminatory laws, policies, and practices targeted at various communities. This platform aims to shed light on the development of racist laws and practices against South Asians in Canada. Exploring the historical records, we seek to illuminate the adversities, obstacles, and victories of the South Asian community in dealing with systemic prejudice.",
+      "url": "https://sacda.ca/exhibits/legal-history",
+      "image": "lh.jpg"
+    },
+    {
+      "title": "South Asian Canadian Muslims in British Columbia",
+      "description": "South Asian Canadian Muslims in Canada are a diverse group who have advocated for spaces to practice their religion and faced challenges along the way. This project records their stories to deepen understanding of the South Asian Canadian Muslim experience, especially in British Columbia (BC).",
+      "url": "https://sacda.ca/exhibits/sacmbc",
+      "image": "sacmbc.jpg"
+    },
+    {
+      "title": "Emergence: Out of the Shadows",
+      "description": "For Kayden, Jag, and Amar, awakening to and expressing their sexuality within conservative South Asian families was a lonely and terrifying experience. Heart-wrenching and healing, their distinct coming-out paths offer comfort, compassion, and inspiration to individuals and communities struggling with acceptance.",
+      "url": "https://sacda.ca/exhibits/emergence",
+      "image": "emergence.webp"
+    }
+  ],
+  "team": [
+    {
+      "title": "Satwinder Bains, PhD",
+      "role": "Director",
+      "bio": "Dr. Satwinder Kaur Bains is the Director of the South Asian Studies Institute and is an Associate Professor in Social Cultural Media Studies. Her current research interests include migration, settlement, and integration; race, racism, and ethnicity; and Punjabi Canadian cultural historiographies.",
+      "groups": [
+        "South Asian Studies Institute"
+      ],
+      "image": "satwinder-bains.png",
+      "weight": 0
+    },
+    {
+      "title": "Thamilini Jothilingam, MFA",
+      "role": "Digital Archivist (Novermber 2021 - Present)",
+      "bio": "Thamilini Jothilingam is the Digital Asset Archivist for the South Asian Canadian Digital Archive. Her research and archival interests center at the confluence of art and anthropology, with a focus on gender, memory, cultural heritage, visual histories, and epistemic justice.",
+      "groups": [
+        "South Asian Studies Institute"
+      ],
+      "image": "thami-jothilingam_.png",
+      "weight": 1
+    },
+    {
+      "title": "Arnav Mehta",
+      "role": "Research Assistant (September 2022 - Present)",
+      "bio": "Arnav Mehta is a 2nd-year student in B.Sc. with a major in computing science at UFV. Arnav is a research assistant SASI, where he handles updating and upkeep of SASI websites as a web developer. Arnav worked on development of multiple pages for the website, southasiancanadianheritage.ca and other SASI websites. He also worked on creating digital exhibits for SACDA.",
+      "groups": [
+        "South Asian Studies Institute"
+      ],
+      "image": "Arnav_Headshot_2024.JPG",
+      "weight": 2
+    },
+    {
+      "title": "Raaynaa Madaan",
+      "role": "Research Assistant (June 2022 - Present)",
+      "bio": "Raaynaa Madaan is a third-year undergraduate student at UFV majoring in psychology in the Bachelor of Liberal Arts Program. She is working as a Research Assistant at SASI for the South Asian Canadian Archive (SACDA) Project, responsible for conducting background research to characterize and classify archival records into item-level metadata. Raaynaa aspires to work in the field of research and this project provided her with a much-needed experience and knowledge of the rich history of the South Asian Community in Canada. Beyond her academic pursuits, she takes pride in her ability to communicate effectively, lead teams, and make decisions efficiently. Shei's open-minded and loves to learn about new things!",
+      "groups": [
+        "South Asian Studies Institute"
+      ],
+      "image": "raaynaa-madaan.jpg",
+      "weight": 3
+    },
+    {
+      "title": "Abigail Lindeman",
+      "role": "Practicum Student (March 2025)",
+      "bio": "Abigail Lindeman is a practicum student with the Department of Information and Technology Studies at the University of the Fraser Valley. With a major in Records Management, Abigail was excited to be able to get hands-on experience in archives. She worked on digitizing, editing, and preserving archival materials from the Chandra Bodalia Collection for the South Asian Canadian Digital Archive (SACDA).",
+      "groups": [
+        "South Asian Studies Institute"
+      ],
+      "image": "AbigailL.jpg",
+      "weight": 4
+    },
+    {
+      "title": "Scott Giesbrecht",
+      "role": "Practicum Student (March 2025)",
+      "bio": "Scott Giesbrecht is a practicum student with the Library and Information Technology program at the University of the Fraser Valley. He was responsible for digitizing, editing and preserving archival materials. Scott specifically worked with materials from the largest archival project, the Chandra Bodalia collection, for the South Asian Canadian Digital Archive (SACDA).",
+      "groups": [
+        "South Asian Studies Institute"
+      ],
+      "image": "Scott.jpg",
+      "weight": 5
+    },
+    {
+      "title": "Dr. Tzu-I Chung",
+      "role": "Curator, History, Royal BC Museum",
+      "bio": "Dr. Tzu-I Chung is a cultural and social historian, broadly interested in transnational migration within the context of historical, cultural and economic interactions between North America and Asia-Pacific and of cultural and economic globalization.",
+      "groups": [
+        "Project Management"
+      ],
+      "image": "chung.png",
+      "weight": 6
+    },
+    {
+      "title": "Mo Dhaliwal",
+      "role": "Director of Strategy at Skyrocket",
+      "bio": "Mo collaborates with creative minds across the country and continues to create moving experiences for clients and community. His long-standing passion for technology, and his hunger for new experiences led him to Silicon Valley where he honed his talents in software development and Internet marketing.",
+      "groups": [
+        "Project Management"
+      ],
+      "image": "mo.png",
+      "weight": 7
+    },
+    {
+      "title": "Dr. Balbir Gurm",
+      "role": "Faculty of Health at Kwantlen Polytechnic University",
+      "bio": "Dr. Gurm is the founding editor-in-chief of Transformative Dialogues: Teaching and Learning Journal. Balbir has been honoured with the Teaching Excellence Award from the College of Registered Nurses of British Columbia and the University of Texas.",
+      "groups": [
+        "Project Management",
+        "Advisory Committee"
+      ],
+      "image": "balbir.png",
+      "weight": 8
+    },
+    {
+      "title": "Sharanjit Kaur Sandhra",
+      "role": "Coordinator",
+      "bio": "Sharanjit Kaur Sandhra is the Coordinator at the South Asian Studies Institute at the University of the Fraser Valley, co-curator of exhibits at the Sikh Heritage Museum, located in the National Historic Site Gur Sikh Temple in Abbotsford, BC and a sessional faculty in the Department of History at UFV.",
+      "groups": [
+        "Project Management"
+      ],
+      "image": "sharan.png",
+      "weight": 9
+    },
+    {
+      "title": "David Alexander",
+      "role": "Acting Vice President of Collections and Research, Royal BC Museum",
+      "bio": "David Alexander is the Acting Vice President of Collections and Research at the Royal BC Museum where he oversees a broad portfolio including museum collections, repatriation, research, registration, conservation, preservation and the BC Archives.",
+      "groups": [
+        "Advisory Committee"
+      ],
+      "image": "david-alexander.jpg",
+      "weight": 10
+    },
+    {
+      "title": "Mary-Anne MacDougall",
+      "role": "Librarian, UFV",
+      "bio": "Mary-Anne MacDougall has been the information services & special collections librarian at UFV since 2001 where she is involved in the coordination of digital project management and information services. She is also the liaison librarian to the History, Political Science and Philosophy departments as well as to the SASI at UFV.",
+      "groups": [
+        "Advisory Committee"
+      ],
+      "image": "maryanne.jpg",
+      "weight": 11
+    },
+    {
+      "title": "Dave Stewart",
+      "role": "Digital manager, Royal BC Museum",
+      "bio": "Dave Stewart is the Digital Manager at the Royal BC Museum. He manages a small but mighty team who oversee all the institution’s web assets and their collection management systems for the many collections: museum, archives, library and genealogy.",
+      "groups": [
+        "Advisory Committee"
+      ],
+      "image": "stewart.jpg",
+      "weight": 12
+    }
+  ],
+  "media": [
+    {
+      "title": "University of Fraser Valley archive is digitizing the work of Indo-Canadian photojournalist Chandra Bodalia",
+      "description": "Chandra Bodalia had an eye for the streets of Metro Vancouver, covering many cultural events, politics and sports around the Lower Mainland. Satwinder Bains speaks with Glora Macarenko about why his work elevated public attention of minority communities",
+      "author": "On The Coast with Gloria Macarenko",
+      "link": "https://www.cbc.ca/listen/live-radio/1-46-on-the-coast/clip/16135922-university-fraser-valley-archive-digitizing-work-indi-canadian-photojournalist",
+      "date": "2025-03-24",
+      "category": "Media",
+      "file": "on_the_coast.mp3",
+      "kind": "audio",
+      "weight": 0
+    },
+    {
+      "title": "Preserving South Asian Canadian Heritage: The South Asian Canadian Digital Archive",
+      "description": "SASI is pleased to announce that the work of SACDA has been featured on the Association of Canadian Archivists (ACA) website. The Association of Canadian Archivists (ACA), founded in 1975, is a non-profit organization that represents the needs and interests of archives and records professionals throughout Canada. They provide members with opportunities to network with archives and records professionals across the country, develop professional skills and expertise, and participate in national and international advocacy initiatives",
+      "author": "SASI",
+      "link": "https://blogs.ufv.ca/sasi/2025/03/18/preserving-south-asian-canadian-heritage-the-south-asian-canadian-digital-archive/",
+      "date": "2025-03-18",
+      "category": "Publications",
+      "file": "preserving-sach.pdf",
+      "kind": "pdf",
+      "weight": 1
+    },
+    {
+      "title": "UFV honours South Asian Canadian history by preserving photographer's legacy for future generations",
+      "description": "(Abbotsford) March 4 - Dr. Satwinder Bains, Director of the South Asian Studies Institute (SASI) at the University of the Fraser Valley (UFV), has partnered with the Royal BC Museum and the BC Archives to sort, preserve and digitize more than three million historical photos. Prolific BC photojournalist Chandravadan “Chandra” Bodalia passed away in 2017, leaving his life’s work in the care of his family. To ensure the preservation of his legacy, his family members have entrusted the 400 carefully stored boxes to SASI",
+      "author": "UFV",
+      "link": "https://blogs.ufv.ca/blog/2025/03/ufv-honours-south-asian-canadian-history-by-preserving-photographers-legacy-for-future-generations/",
+      "date": "2025-03-17",
+      "category": "Publications",
+      "file": "bodalia1.pdf",
+      "kind": "pdf",
+      "weight": 2
+    },
+    {
+      "title": "South Asian Canadian Legacy Project (Global News)",
+      "description": "Raising awareness and knowledge of the valuable contributions of South Asian Canadians to British Columbia's diverse cultures, history, heritage, politics, economy and society",
+      "author": "Global News",
+      "link": "https://globalnews.ca/video/8759471/global-news-hour-at-6-bc-april-13/",
+      "date": "2022-04-13",
+      "category": "Media",
+      "file": "globalnews_sacda.mp4",
+      "kind": "video",
+      "weight": 3
+    },
+    {
+      "title": "South Asian Canadian Legacy Project (Omni TV Punjabi)",
+      "description": "People from the South Asian community have been coming to Canada for more than 100 years, and over a century the community has made its contributions to Canadian society. But until now the South Asian pioneers when the struggle was not taught to the next generation. But now University of Fraser Valley, with the help of the BC government, the contribution of the South Asian community to Canadian history will be made part of student education from kindergarten to 12th grade",
+      "author": "Omni TV Punjabi",
+      "link": "https://m.facebook.com/watch/?v=313313497552710&extid=NS-UNK-UNK-UNK-IOS_GK0T-GK1C&ref=sharing",
+      "date": "2022-04-12",
+      "category": "Media",
+      "file": "omni.mp4",
+      "kind": "video",
+      "weight": 4
+    },
+    {
+      "title": "Connecting the Dots: Building Support for GLAM Partners in Digital Repository Networks",
+      "description": "The South Asian Canadian Digital Archive (SACDA), an initiative of the South Asian Studies Institute at the University of the Fraser Valley, is a pan-Canadian digital archive that documents the history and heritage of the South Asian diaspora in Canada. SACDA partners with memory institutions, individuals, families, and organizations to digitize, describe, and provide online public access to heritage materials created by, or relevant to, the South Asian Canadian diaspora. With extensive community engagement and a focus on social histories, with collaborative tools as praxis, SACDA seeks to transform existing knowledge infrastructures and foster knowledge diversity and equity. Thus, knowledge, from creation to sharing, becomes a community-driven project that informs, and is informed by, the collective histories",
+      "author": "Dr. Satwinder Kaur Bains, Laura Moberg, Thamilini Jothilingam, and Sunni Nishimura",
+      "link": "https://www.youtube.com/watch?v=VLtTSNBKf7w",
+      "date": "2023-04-28",
+      "category": "Conference Presentations",
+      "file": "AABC_ARMA VI Conference_ SACDA.mp4",
+      "kind": "video",
+      "weight": 5
+    },
+    {
+      "title": "One photographer's legacy writes a new chapter of Canadian history",
+      "description": "It was a rainy October day in Vancouver, BC when Dr. Satwinder Bains, director of UFV’s South Asian Studies Institute, stepped into a garage full of three million photos. “There's maybe 100 boxes in there,” the photographer’s son, Vimal Bodalia, had guessed on the phone. It was 2021. Chandravadan “Chandra” Bodalia had passed away four years earlier, leaving his extensive body of work to the care of his family. For years, the boxes shared garage space with Vimal's collection of classic cars. Fearing possible damage, the Bodalias knew the photos needed to be professionally cared for — so they reached out to the South Asian Studies Institute (SASI)",
+      "author": "UFV",
+      "link": "https://blogs.ufv.ca/blog/2025/02/one-photographers-legacy-writes-a-new-chapter-of-canadian-history/",
+      "date": "2025-02-24",
+      "category": "Publications",
+      "file": "bodalia2.pdf",
+      "kind": "pdf",
+      "weight": 6
+    },
+    {
+      "title": "SACDA releases inaugural newsletter - The Hive",
+      "description": "January 27, 2025, marked the official launch of the South Asian Canadian Digital Archive's (SACDA) newsletter - The Hive. SACDA is honored to be able to launch The Hive in the month of January - a month which celebrates Tamil Heritage Month, Lohri, Pongal and Makar Sankranti, which are occasions of community, renewal, harvest and togetherness",
+      "author": "SASI",
+      "link": "https://blogs.ufv.ca/sasi/2025/02/11/sacda-releases-inaugural-newsletter-the-hive/",
+      "date": "2025-02-11",
+      "category": "Publications",
+      "file": "hive-launch.pdf",
+      "kind": "pdf",
+      "weight": 7
+    },
+    {
+      "title": "SASI receives $300,000 USD Mellon Foundation grant",
+      "description": "The SASI is thrilled and proud to announce that it has been awarded by the Council on Library and Information Resources (CLIR) for the project Histories of South Asians in Canada: A Visual Ethnographic Documentation of renowned South Asian Canadian photojournalist, Chandra Bodalia remarkable collection. The Digitizing Hidden Collections: Amplifying Unheard Voices Awards are generously funded by the Mellon Foundation which focuses on thematic digitization efforts, prioritizing materials that deepen public understanding of historically marginalized communities and unrecognized perspectives",
+      "author": "SASI",
+      "link": "https://blogs.ufv.ca/sasi/2024/11/14/bodalia/",
+      "date": "2024-11-14",
+      "category": "Publications",
+      "file": "SASI-receives-Mellon-Foundation-grant.pdf",
+      "kind": "pdf",
+      "weight": 8
+    },
+    {
+      "title": "Unearthing forgotten histories: The hidden legacy of South Asian workers at Fraser Mills",
+      "description": "The story of Fraser Mills is one of successful settlement, where pioneers created a bustling industrial hub. However, a closer look shows a crucial piece of the story is missing — one that’s being properly written thanks to a partnership between the City of Coquitlam Archives and UFV’s South Asian Studies Institute",
+      "author": "ufv.ca",
+      "link": "https://blogs.ufv.ca/blog/2024/10/unearthing-forgotten-histories-the-hidden-legacy-of-south-asian-workers-at-fraser-mills/",
+      "date": "2024-10-15",
+      "category": "Publications",
+      "file": "unearthing histories.pdf",
+      "kind": "pdf",
+      "weight": 9
+    }
+  ]
+}

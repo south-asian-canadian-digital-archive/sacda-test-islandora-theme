@@ -2,39 +2,42 @@
 /**
  * @file
  * Theme override for 'team_member' nodes rendered inside the team_members view.
- * Card layout: photo on top, name + role below, truncated bio.
+ *
+ * Reproduces the old sacda.ca card: portrait photo, then an orange name plate
+ * pulled up so it overlaps the bottom of the photo, then a truncated bio.
+ * The overlap and photo aspect come from _team.css — Drupal's field/media
+ * wrappers sit between this markup and the <img>, so the sizing can't be
+ * expressed with utility classes on this element alone.
  */
 #}
 
-<article{{ attributes.addClass('team-member-card', 'flex', 'flex-col', 'h-full', 'bg-background', 'border', 'border-border', 'overflow-hidden') }}>
+<article{{ attributes.addClass('team-member-card', 'flex', 'flex-col', 'h-full') }}>
 	{{ title_prefix }}
 	{{ title_suffix }}
 
 	{# Photo #}
-	<div class="team-member-card__photo aspect-square bg-muted overflow-hidden">
-		{% if content.field_photo|render|trim %}
+	{% if content.field_photo|render|trim %}
+		<div class="team-member-card__photo">
 			{{ content.field_photo }}
-		{% endif %}
-	</div>
+		</div>
+	{% else %}
+		<div class="team-member-card__photo team-member-card__photo--empty" aria-hidden="true"></div>
+	{% endif %}
 
-	<div class="flex flex-col flex-1 p-6">
-		{# Name #}
-		<h3 class="text-xl font-black uppercase mb-1">
-			{{ node.label }}
+	{# Orange name plate, overlapping the photo above it #}
+	<div class="team-member-card__title">
+		<h3>
+			<span class="team-member-card__name">{{ node.label }}</span>
+			{% if node.field_role.value %}
+				<span class="team-member-card__role">{{ node.field_role.value }}</span>
+			{% endif %}
 		</h3>
-
-		{# Role #}
-		{% if content.field_role|render|striptags|trim %}
-			<div class="text-sm font-semibold text-primary uppercase tracking-wide mb-4">
-				{{ content.field_role }}
-			</div>
-		{% endif %}
-
-		{# Truncated bio #}
-		{% if not node.field_bio.isEmpty() %}
-			<div class="text-base text-foreground/75 leading-relaxed">
-				{{ node.field_bio.value|striptags|truncate(180, true, '...') }}
-			</div>
-		{% endif %}
 	</div>
+
+	{# Truncated bio #}
+	{% if not node.field_bio.isEmpty() %}
+		<div class="team-member-card__bio">
+			{{ node.field_bio.value|striptags|trim|truncate(180, true, '…') }}
+		</div>
+	{% endif %}
 </article>

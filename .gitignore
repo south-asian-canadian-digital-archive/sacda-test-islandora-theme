@@ -27,3 +27,7 @@ olivero
 
 # Claude Code local (worktrees, settings)
 .claude/
+
+# Reference copy of the old CollectiveAccess site (its own repo:
+# sacda-tst-frontend). Kept locally for porting; never committed here.
+old_stuff/

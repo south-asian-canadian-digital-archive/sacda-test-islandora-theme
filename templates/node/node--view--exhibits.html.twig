@@ -8,19 +8,23 @@
  */
 #}
 
-<article{{ attributes.addClass('exhibit-card', 'flex', 'flex-col', 'md:flex-row', 'w-full', 'overflow-hidden') }}>
+{# The 40/60 split lands at 960px (the old site's breakpoint), not Tailwind's
+   md: — at 768px the text column is too cramped for these descriptions.
+   960px isn't a default Tailwind stop, so the row direction is handled in
+   _exhibits.css rather than with a utility class here. #}
+<article{{ attributes.addClass('exhibit-card', 'flex', 'flex-col', 'w-full', 'overflow-hidden') }}>
 	{{ title_prefix }}
 	{{ title_suffix }}
 
 	{# Image — 40% column; omitted gracefully when the node has no thumbnail #}
 	{% if content.field_thumbnail|render|trim %}
-		<div class="exhibit-card__image img-hover-zoom w-full md:w-[40%] shrink-0">
+		<div class="exhibit-card__image img-hover-zoom w-full shrink-0">
 			{{ content.field_thumbnail }}
 		</div>
 	{% endif %}
 
 	{# Content — 60% column (full width when no image) #}
-	<div class="exhibit-card__body flex flex-col items-start justify-center gap-6 flex-1 p-8 md:p-[60px]">
+	<div class="exhibit-card__body flex flex-col items-start justify-center gap-6 flex-1 p-8">
 		<h3 class="h3-underline uppercase">
 			{{ node.label }}
 		</h3>
@@ -31,8 +35,16 @@
 			</div>
 		{% endif %}
 
-		<a href="{{ url }}" class="btn btn-outline">
-			View Exhibit
-		</a>
+		{# Exhibits either link out to a legacy micro-site or resolve to the
+		   bundled static exhibit streamed by sacda_modules at /exhibits/{nid}. #}
+		{% if node.field_external_url.uri %}
+			<a href="{{ node.field_external_url.0.url }}" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+				{{ 'View Exhibit'|t }}
+			</a>
+		{% else %}
+			<a href="{{ url }}" class="btn btn-outline">
+				{{ 'View Exhibit'|t }}
+			</a>
+		{% endif %}
 	</div>
 </article>

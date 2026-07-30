@@ -1,0 +1,146 @@
+/**
+ * /about/team — grouped grid of team member cards.
+ *
+ * Ported from the old sacda.ca team page. The signature detail is the orange
+ * name plate that overlaps the bottom of the portrait: the plate is inset from
+ * the right and pulled up by half its own height, so it reads as a label laid
+ * over the photo rather than a caption beneath it.
+ *
+ * Drupal wraps field output in extra markup (div.field > article.media >
+ * figure > img), so photo sizing has to reach through those wrappers rather
+ * than sit on the <img> alone — same problem _exhibits.css works around.
+ */
+
+/* Group headings ("Advisory Committee", …) between grids. Generous space above
+   so a heading reads as starting a new block rather than trailing the previous
+   grid; the gap below is deliberately tight to bind it to its own grid. */
+.team-group__heading {
+  margin-top: 90px;
+  margin-bottom: 12px;
+}
+.team-group__heading:first-of-type {
+  margin-top: 0;
+}
+
+.team-members-grid {
+  gap: 60px;
+  margin: 50px 0 0;
+}
+
+/* --- Photo ---------------------------------------------------------------- */
+
+.team-member-card__photo {
+  width: 100%;
+  /* Tall portrait crop on mobile, matching the old 125vw block. */
+  height: 125vw;
+  background-color: var(--muted);
+  overflow: hidden;
+}
+
+.team-member-card__photo :is(div, article, figure, a, picture) {
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.team-member-card__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Headshots are framed with headroom; anchor to the top so faces survive the
+     crop instead of being centred out of frame. */
+  object-position: top;
+}
+
+/* --- Orange name plate ---------------------------------------------------- */
+
+.team-member-card__title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 60px;
+  padding: 20px 40px;
+  width: calc(100% - 60px);
+  background-color: var(--primary);
+  text-align: left;
+  /* Pull up over the photo. */
+  transform: translateY(-50%);
+  position: relative;
+  z-index: 1;
+}
+
+.team-member-card__title h3 {
+  /* _base.css forces h3 to 16px uppercase !important, so match its specificity. */
+  font-size: 0.9rem !important;
+  text-align: left !important;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.team-member-card__name {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.team-member-card__role {
+  display: block;
+  font-weight: 400;
+  text-transform: none;
+  opacity: 0.85;
+}
+
+/* --- Bio ------------------------------------------------------------------ */
+
+.team-member-card__bio {
+  text-align: left;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  /* The name plate's translateY leaves a gap below it; claw some back. */
+  margin-top: -20px;
+}
+
+/* --- Breakpoints ---------------------------------------------------------- */
+
+/* --- "Show more" control -------------------------------------------------- */
+
+/* Created by dist/team-show-more.js, so it only exists when JS can also
+   un-hide the cards it collapses. */
+.team-show-more__wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+/* The reveal moves focus to the first new card; suppress the resulting outline
+   on the card wrapper itself, which isn't otherwise an interactive element. */
+.team-listing [tabindex="-1"]:focus {
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .team-member-card__photo {
+    /* Two columns: roughly half the viewport, kept portrait. */
+    height: 62vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .team-members-grid {
+    column-gap: 30px;
+  }
+  .team-member-card__photo {
+    /* Old site's 4-up ratio. */
+    height: calc(110vw / 5);
+  }
+  .team-member-card__title {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .team-members-grid {
+    row-gap: 100px;
+  }
+}

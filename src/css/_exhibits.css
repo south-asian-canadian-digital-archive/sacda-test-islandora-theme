@@ -35,10 +35,28 @@
   object-fit: cover;
 }
 
-/* Stacked (mobile) layout: give the image a sensible height instead of the
-   collapsed height:100% chain. */
-@media (max-width: 767px) {
+/* Stacked (mobile/tablet) layout: give the image a sensible height instead of
+   the collapsed height:100% chain. */
+@media (max-width: 959px) {
   .exhibit-card__image img {
     height: auto;
+    max-height: 600px;
+  }
+}
+
+/* The 40/60 split lands at 960px, matching the old sacda.ca layout. Below that
+   the text column is too narrow for these descriptions, so the card stays
+   stacked. 960px isn't a Tailwind breakpoint, hence plain CSS here. */
+@media (min-width: 960px) {
+  .exhibit-card {
+    flex-direction: row;
+  }
+  .exhibit-card__image {
+    width: 40%;
+    flex-basis: 40%;
+  }
+  .exhibit-card__body {
+    flex-basis: 60%;
+    padding: 60px;
   }
 }

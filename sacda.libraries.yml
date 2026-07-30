@@ -10,6 +10,7 @@ global:
     dist/media-height.js: {}
     dist/scroll-indicator.js: {}
     dist/search.util.js: {}
+    dist/team-show-more.js: {}
   css:
     theme:
       dist/styles.css: {}

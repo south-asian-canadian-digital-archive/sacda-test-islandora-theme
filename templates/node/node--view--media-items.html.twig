@@ -2,48 +2,86 @@
 /**
  * @file
  * Theme override for a 'media_item' node rendered within the media_items view
- * (/about/media). Two-column layout: media on the left (Islandora viewers
- * attach via the rendered field_media), title + description on the right.
- * Stacks vertically on mobile.
+ * (/about/media).
+ *
+ * Old sacda.ca layout: media preview on the left (~40%), text on the right,
+ * stacking on mobile. The CTA label depends on what the item actually is, so
+ * it's keyed off the media bundle rather than the editorial category — a
+ * "Publications" item is still a PDF you read.
  */
 #}
 
-<article{{ attributes.addClass('media-item', 'py-8') }}>
+{# Two Twig traps here, both silent:
+   - Guard on isEmpty(), not on `.entity` being truthy. On an empty field list
+     Twig falls through to FieldItemList::getEntity(), which returns the parent
+     *node* — yielding a bundle of 'media_item' instead of nothing.
+   - bundle() must be called as a method: a Media entity also has a `bundle`
+     *field*, so `entity.bundle` resolves to that field item list instead. #}
+{% set media_bundle = node.field_media.isEmpty() ? '' : node.field_media.entity.bundle() %}
+{% set cta = {
+	'video': 'Watch video'|t,
+	'audio': 'Listen to audio'|t,
+	'document': 'Read article'|t,
+}[media_bundle]|default('View source'|t) %}
+
+<article{{ attributes.addClass('media-item') }}>
 	{{ title_prefix }}
 	{{ title_suffix }}
 
-	<div
-		class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+	{# Preview.
 
-		{# Left Column: Media (image / video / audio via native viewers) #}
-		<div class="bg-muted overflow-hidden border border-border">
-			{{ content.field_media }}
-		</div>
+	   Deliberately NOT `{{ content.field_media }}`: the media bundles' default
+	   view displays are Islandora metadata dumps (name, MIME type, file size),
+	   which render a table of facts instead of the document. Embedding the
+	   source file directly reproduces the old sacda.ca preview. #}
+	{% set m = media_bundle ? node.field_media.entity : null %}
+	{% set src = m ? {
+		'document': m.field_media_document,
+		'video': m.field_media_video_file,
+		'audio': m.field_media_audio_file,
+	}[media_bundle] : null %}
+	{% set file_uri = src and not src.isEmpty() and src.entity ? src.entity.uri.value : null %}
 
-		{# Right Column: Title + Description #}
-		<div>
-			<h2 class="mb-4">
-				{{ node.label }}
-			</h2>
-
-			<div class="h-px bg-border w-full mb-6"></div>
-
-			{% if content.field_description|render|striptags|trim %}
-				<div class="text-base md:text-lg text-foreground/75 leading-relaxed">
-					{{ content.field_description }}
-				</div>
-			{% endif %}
-
-			{% if content.field_category|render|striptags|trim %}
-				<div class="mt-6 text-sm text-muted-foreground">
-					{{ content.field_category }}
-				</div>
-			{% endif %}
-		</div>
-
+	<div class="media-item__frame media-item__frame--{{ media_bundle|default('empty') }}">
+		{% if file_uri and media_bundle == 'document' %}
+			{# #toolbar=0&navpanes=0 hides the built-in PDF chrome, as before. #}
+			<iframe src="{{ file_url(file_uri) }}#toolbar=0&navpanes=0" title="{{ node.label }}" loading="lazy"></iframe>
+		{% elseif file_uri and media_bundle == 'video' %}
+			<video src="{{ file_url(file_uri) }}" controls preload="metadata"></video>
+		{% elseif file_uri and media_bundle == 'audio' %}
+			<audio src="{{ file_url(file_uri) }}" controls preload="metadata"></audio>
+		{% endif %}
 	</div>
 
-	<div class="hidden">
-		{{ content|without('field_media', 'field_description', 'field_category', 'field_weight') }}
+	{# Text #}
+	<div class="media-item__info">
+		<h3 class="media-item__title">{{ node.label }}</h3>
+
+		<div class="media-item__meta">
+			{% if node.field_author.value %}
+				<span class="media-item__byline">
+					{{ 'by'|t }}
+					{% if node.field_source_link.uri %}
+						<a href="{{ node.field_source_link.0.url }}" target="_blank" rel="noopener noreferrer">{{ node.field_author.value }}</a>
+					{% else %}
+						{{ node.field_author.value }}
+					{% endif %}
+				</span>
+			{% endif %}
+
+			{% if node.field_publication_date.value %}
+				<span class="media-item__date">{{ node.field_publication_date.value|date('F j, Y') }}</span>
+			{% endif %}
+		</div>
+
+		{% if node.field_description.value %}
+			<p class="media-item__description">{{ node.field_description.value }}</p>
+		{% endif %}
+
+		{% if node.field_source_link.uri %}
+			<a class="media-item__source" href="{{ node.field_source_link.0.url }}" target="_blank" rel="noopener noreferrer">
+				{{ cta }}
+			</a>
+		{% endif %}
 	</div>
 </article>

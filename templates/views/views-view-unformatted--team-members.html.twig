@@ -1,14 +1,49 @@
 {#
 /**
  * @file
- * Theme override for the team_members view - responsive card grid wrapper.
+ * Theme override for the team_members view (/about/team).
+ *
+ * `groups` is built by sacda_preprocess_views_view_unformatted__team_members()
+ * (includes/team.inc) rather than by Views' own grouping, which can't key off a
+ * field when the row plugin renders whole entities. Each group is its own grid
+ * with a heading above it, matching the old sacda.ca layout.
+ *
+ * Grid is 1 -> 2 -> 4 columns; the old site jumped straight to 4 at 768px, and
+ * the intermediate step keeps the portrait cards from stretching on tablets.
  */
 #}
-<div{{ attributes.addClass('team-members-grid', 'grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'gap-8') }}>
-	{{ title_prefix }}
-	{% for row in rows %}
-		<div{{ row.attributes.addClass('h-full') }}>
-			{{ row.content }}
-		</div>
-	{% endfor %}
-</div>
+
+{% set grid_classes = 'team-members-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4' %}
+
+{{ title_prefix }}
+
+{% if groups is defined and groups %}
+	{# .team-listing is the hook for dist/team-show-more.js, which reveals cards
+	   progressively across all the grids. It expects headings and grids to be
+	   direct children in document order. #}
+	<div class="team-listing">
+		{% for group in groups %}
+			{% if group.title %}
+				<h2 class="team-group__heading">{{ group.title }}</h2>
+			{% endif %}
+			<div class="{{ grid_classes }}">
+				{% for row in group.rows %}
+					<div{{ row.attributes.addClass('h-full') }}>
+						{{ row.content }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+{% else %}
+	{# No grouping data — fall back to a single flat grid. #}
+	<div{{ attributes.addClass('team-members-grid', 'grid', 'grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-4') }}>
+		{% for row in rows %}
+			<div{{ row.attributes.addClass('h-full') }}>
+				{{ row.content }}
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}
+
+{{ title_suffix }}

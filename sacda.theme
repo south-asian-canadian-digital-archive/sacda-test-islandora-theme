@@ -16,6 +16,8 @@ require_once __DIR__ . '/includes/carousel.inc';
 require_once __DIR__ . '/includes/theme_settings.inc';
 require_once __DIR__ . '/includes/theme_settings_callbacks.inc';
 require_once __DIR__ . '/includes/suggestions.inc';
+require_once __DIR__ . '/includes/team.inc';
+require_once __DIR__ . '/includes/info_pages.inc';
 
 /**
  * Implements hook_form_system_theme_settings_alter().

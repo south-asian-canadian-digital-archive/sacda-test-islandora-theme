@@ -4,6 +4,53 @@
  */
 
 /* ========================================
+   Sub-navigation (/about, /about/team, /about/media)
+   ======================================== */
+
+/* The three About pages each carried their own hand-rolled copy of this nav
+   with different classes, so they didn't visually agree. Markup now comes from
+   templates/macros/about-subnav.twig and is styled here once. */
+
+.about-subnav {
+    border-bottom: 1px solid var(--border);
+    background-color: var(--background);
+}
+
+.about-subnav ul {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0 1rem;
+    max-width: 80rem;
+}
+
+.about-subnav a {
+    display: inline-block;
+    padding: 1rem 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    transition:
+        color 0.2s ease-out,
+        border-color 0.2s ease-out;
+}
+
+.about-subnav a:hover {
+    color: var(--primary);
+    border-bottom-color: color-mix(in oklch, var(--primary) 50%, transparent);
+}
+
+.about-subnav a.is-active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+/* ========================================
    Main two-column (images | programs)
    ======================================== */
 
