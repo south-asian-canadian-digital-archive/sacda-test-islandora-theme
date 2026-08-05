@@ -19,7 +19,9 @@
 {% set image_string = image_content|render|raw %}
 {% set display_has_image = '<img' in image_string or 'img' in image_string %}
 
-{% set url = fields.search_api_url.content|striptags|trim|raw %}
+{# Resolved in sacda_preprocess_views_view_fields(); the old inline read of
+   fields.search_api_url is now just one of its fallbacks. #}
+{% set url = row_url|default('') %}
 
 {# Is this result a Collection? field_model holds the Islandora model term name. #}
 {% set model_string = fields.field_model.content|striptags|trim %}
@@ -58,6 +60,22 @@
 	{% endif %}
 {% endset %}
 
+{# The real-image branch arrives already wrapped in Drupal's own <a>; the
+   placeholder does not, so it gets one here — otherwise records with no
+   thumbnail have a large dead zone where every other card is clickable.
+   aria-hidden/tabindex="-1" because the title link below is the accessible
+   name for this result; without it every card would get two identical tab
+   stops. #}
+{% set card_media %}
+	{% if display_has_image %}
+		{{ image_content|raw }}
+	{% elseif url %}
+		<a href="{{ url }}" tabindex="-1" aria-hidden="true">{{ media_placeholder }}</a>
+	{% else %}
+		{{ media_placeholder }}
+	{% endif %}
+{% endset %}
+
 {{ title_prefix }}
 {{ title_suffix }}
 
@@ -66,11 +84,7 @@
 	{# Image Container #}
 	<div class="relative aspect-square bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-center [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105">
 		{% if is_collection %}{{ collection_badge }}{% endif %}
-		{% if display_has_image %}
-			{{ image_content|raw }}
-		{% else %}
-			{{ media_placeholder }}
-		{% endif %}
+		{{ card_media }}
 	</div>
 
 	{# Info section #}
@@ -92,11 +106,7 @@
 		{# Image Container #}
 		<div class="relative w-1/2 bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-center [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105">
 			{% if is_collection %}{{ collection_badge }}{% endif %}
-			{% if display_has_image %}
-				{{ image_content|raw }}
-			{% else %}
-				{{ media_placeholder }}
-			{% endif %}
+			{{ card_media }}
 		</div>
 
 		{# Info section #}

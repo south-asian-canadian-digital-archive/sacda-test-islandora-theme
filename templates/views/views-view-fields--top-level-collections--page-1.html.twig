@@ -18,12 +18,23 @@
 {% set image_string = image_field|render|raw %}
 {% set has_image = '<img' in image_string %}
 
-{# Image Container #}
+{# Resolved in sacda_preprocess_views_view_fields(). #}
+{% set url = row_url|default('') %}
+
+{# Image Container. The real-image branch arrives already wrapped in Drupal's
+   own <a>; the placeholder does not, so it gets one here — otherwise
+   collections with no cover image are only clickable on their title bar.
+   aria-hidden/tabindex="-1" so the title link stays the single tab stop. #}
 <div class="collection__item__img aspect-4/3 bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover">
+	{% set placeholder_img %}
+		<img src="{{ default_image }}" alt="{{ title_field|striptags|trim }}" class="w-full h-full object-cover">
+	{% endset %}
 	{% if has_image %}
 		{{ image_field|raw }}
+	{% elseif url %}
+		<a href="{{ url }}" tabindex="-1" aria-hidden="true">{{ placeholder_img }}</a>
 	{% else %}
-		<img src="{{ default_image }}" alt="{{ title_field|striptags|trim }}" class="w-full h-full object-cover">
+		{{ placeholder_img }}
 	{% endif %}
 </div>
 
