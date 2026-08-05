@@ -18,6 +18,7 @@ require_once __DIR__ . '/includes/theme_settings_callbacks.inc';
 require_once __DIR__ . '/includes/suggestions.inc';
 require_once __DIR__ . '/includes/team.inc';
 require_once __DIR__ . '/includes/info_pages.inc';
+require_once __DIR__ . '/includes/pdf_preview.inc';
 
 /**
  * Implements hook_form_system_theme_settings_alter().
@@ -156,7 +157,49 @@ function sacda_preprocess_views_view_fields(array &$variables): void {
         }
       }
     }
+
+    $variables['row_url'] = _sacda_views_row_url($variables);
   }
+}
+
+/**
+ * Resolves the canonical URL for a views row.
+ *
+ * The card templates only get a clickable thumbnail when Drupal rendered a real
+ * image field, because Drupal wraps that field in its own <a>. The placeholder
+ * branches emit bare markup, so they need an explicit URL. The two views expose
+ * it differently, hence the fallback chain.
+ *
+ * @return string|null
+ *   The row's URL, or NULL if none could be resolved.
+ */
+function _sacda_views_row_url(array $variables): ?string {
+  // 1. solr_search_content renders a search_api_url field for exactly this.
+  if (isset($variables['fields']['search_api_url'])) {
+    $url = trim(strip_tags((string) $variables['fields']['search_api_url']->content));
+    if ($url !== '') {
+      return $url;
+    }
+  }
+
+  // 2. Derive from the row object. top_level_collections rows carry the node;
+  // search_api rows carry the indexed item, whose value is the entity.
+  $row = $variables['row'] ?? NULL;
+  $entity = $row->_entity ?? NULL;
+  if (!$entity && isset($row->_object) && method_exists($row->_object, 'getValue')) {
+    $entity = $row->_object->getValue();
+  }
+  if ($entity instanceof \Drupal\Core\Entity\EntityInterface && $entity->hasLinkTemplate('canonical')) {
+    return $entity->toUrl()->toString();
+  }
+
+  // 3. Last resort: the title field is already a link in both views.
+  $title = (string) ($variables['fields']['title']->content ?? '');
+  if ($title !== '' && preg_match('/href="([^"]+)"/', $title, $matches)) {
+    return \Drupal\Component\Utility\Html::decodeEntities($matches[1]);
+  }
+
+  return NULL;
 }
 
 function sacda_preprocess_region(&$variables) {
@@ -170,6 +213,13 @@ function sacda_preprocess_region(&$variables) {
     if ($node instanceof \Drupal\node\NodeInterface) {
       $variables['node_bundle'] = $node->bundle();
     }
+
+    // The About page templates set their own container width (max-w-7xl) around
+    // {{ page.content }}, so the region must not re-cap it at max-w-5xl — that
+    // squeezed the team/media grids well inside the band widths around them.
+    $path = \Drupal::service('path.current')->getPath();
+    $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+    $variables['self_widthed_content'] = str_starts_with($alias, '/about');
   }
 }
 

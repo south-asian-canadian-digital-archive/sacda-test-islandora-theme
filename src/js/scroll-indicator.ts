@@ -8,6 +8,16 @@
       const indicator = document.getElementById('media-scroll-indicator');
       if (!indicator) return;
 
+      // The hint only makes sense when the viewer actually fills the screen and
+      // hides what's below it. The collapsed PDF poster card is short, so the
+      // metadata is already visible and "scroll down to view more" would be
+      // both wrong and overlapping the card.
+      const wrapper = indicator.closest('.media-content-wrapper');
+      if (wrapper && wrapper.getBoundingClientRect().height < window.innerHeight * 0.7) {
+        indicator.remove();
+        return;
+      }
+
       let shown = false;
       let dismissed = false;
 

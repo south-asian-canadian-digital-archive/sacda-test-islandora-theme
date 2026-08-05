@@ -2,12 +2,60 @@
 {{title_suffix}}
 
 {#
-  Render the field ITEM (.0) rather than the field itself: the theme's generic
-  field.html.twig wraps content in `mb-4`/`prose` divs that have no height, which
-  breaks the height chain and collapses the viewer. Going straight to the item
-  makes the pdf module's <iframe> a direct child of this full-height box.
-  The iframe's own height comes from the pdf_default formatter (set to 100%).
+  Poster card for the `pdfjs` media view mode. Data comes from
+  includes/pdf_preview.inc; see that file for why this isn't a formatter setting.
+
+  The viewer is emitted inside a <template>, NOT hidden with a class: a hidden
+  iframe still loads, which is exactly the eager PDF fetch this replaces.
+  src/js/pdf-preview.ts clones it in on demand.
+
+  The iframe is rendered as the field ITEM (.0) rather than the field, because
+  the theme's generic field.html.twig wraps content in mb-4/prose divs that have
+  no height, which breaks the height chain and collapses the viewer. The
+  iframe's own height comes from the pdf_default formatter (set to 100%).
+
+  h-auto! opts the collapsed state out of region--media-content's `*:h-full`,
+  which would otherwise stretch the card to the full region height.
 #}
-<div class="bg-black" style="height: calc(100vh - var(--header-height, 80px) - 1rem);">
-{{ content.field_media_document.0 }}
+{% set field = pdf_field_name ? content[pdf_field_name] : null %}
+
+<div class="pdf-preview h-auto!" data-pdf-preview>
+
+	<div class="pdf-preview__card" data-pdf-preview-poster>
+		<div class="pdf-preview__poster">
+			{% if pdf_poster_url %}
+				<img src="{{ pdf_poster_url }}" alt="" aria-hidden="true" loading="lazy">
+			{% else %}
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+				</svg>
+			{% endif %}
+		</div>
+
+		<div class="pdf-preview__info">
+			<p class="pdf-preview__meta">
+				{{ 'PDF'|t }}{% if pdf_filesize %} <span aria-hidden="true">·</span> {{ pdf_filesize }}{% endif %}
+			</p>
+			{% if pdf_filename %}
+				<p class="pdf-preview__filename" title="{{ pdf_filename }}">{{ pdf_filename }}</p>
+			{% endif %}
+
+			<div class="pdf-preview__actions">
+				{% if field %}
+					<button type="button" class="btn btn-primary" data-pdf-preview-open>{{ 'View document'|t }}</button>
+				{% endif %}
+				{% if pdf_viewer_url %}
+					<a href="{{ pdf_viewer_url }}" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+						{{ 'Open in new tab'|t }} <span aria-hidden="true">↗</span>
+					</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	{% if field %}
+		<div class="pdf-preview__viewer" data-pdf-preview-viewer hidden></div>
+		<template data-pdf-preview-template>{{ field.0 }}</template>
+	{% endif %}
+
 </div>
