@@ -18,17 +18,18 @@
 
 .about-subnav ul {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
+    gap: clamp(1.5rem, 4vw, 3rem);
     list-style: none;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
     max-width: 80rem;
 }
 
 .about-subnav a {
     display: inline-block;
-    padding: 1rem 0;
+    padding: 1.25rem 0;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -74,6 +75,7 @@
    photo shows through around it. */
 .about-team {
     @apply flex items-center;
+    min-height: 60vh;
 }
 
 .about-team > div {

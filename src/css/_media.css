@@ -8,7 +8,7 @@
  */
 
 .media-items-list > * {
-  padding: 4rem 0;
+  padding: clamp(3rem, 7vw, 5rem) 0;
 }
 .media-items-list > *:first-child {
   padding-top: 0;
@@ -37,9 +37,19 @@
   border-radius: 2px;
 }
 
-.media-item__frame iframe,
+/* Size the embed from its own width rather than the viewport's. The old rules
+   chained 60vh / 39vw, which fought the two-column layout: at wide viewports
+   the frame is roughly a third of the screen, so a viewport-derived height had
+   no relationship to the box it was filling. */
+.media-item__frame iframe {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* Documents are pages, not widescreen video — give them a page-shaped preview. */
 .media-item__frame--document iframe {
-  height: 60vh;
+  height: auto;
+  aspect-ratio: 3 / 4;
 }
 
 /* Audio has no visual surface of its own; give the player the same dark plate
@@ -119,10 +129,5 @@
     flex-direction: row;
     gap: 3rem;
     align-items: flex-start;
-  }
-
-  .media-item__frame iframe,
-  .media-item__frame--document iframe {
-    height: 39vw;
   }
 }

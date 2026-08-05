@@ -10,9 +10,11 @@
 {# Outer width control for everything in the content region (the node AND any
    sibling blocks like the citation block, so nothing runs full-bleed):
    - search page: full width, it manages its own layout.
+   - About pages: their page--about*.html.twig already wraps {{ page.content }}
+     in its own container, so a second cap here would narrow them.
    - everything else: the standard content width, matching the rest of the
      site (max-w-5xl). #}
-{% if route_name == 'view.solr_search_content.page_1' %}
+{% if route_name == 'view.solr_search_content.page_1' or self_widthed_content %}
   {# full width — no wrapper constraints #}
 {% else %}
   {% set layout_classes = layout_classes|merge(['max-w-5xl', 'mx-auto', 'px-4', 'md:px-16']) %}
