@@ -8,9 +8,11 @@
 	{% import '@sacda/macros/about-subnav.twig' as subnav %}
 	{{ subnav.render('about') }}
 
-	{# Intro band #}
+	{# Intro band. The <section> stays full-bleed so the tint spans the viewport;
+	   every inner wrapper on this page uses the sitewide content container
+	   (max-w-5xl + px-4/md:px-16) so copy lines up with the rest of the site. #}
 	<section class="bg-light py-20 md:py-28 lg:py-32">
-		<div class="max-w-5xl mx-auto px-6 md:px-10 text-center">
+		<div class="max-w-5xl mx-auto px-4 md:px-16 text-center">
 			<h2>A PAN-CANADIAN DIGITAL ARCHIVE</h2>
 			<p class="text-lg text-secondary leading-relaxed mt-4">
 				The South Asian Canadian Digital Archive (SACDA) collects, digitizes, and preserves materials connected to the South Asian diaspora across Canada. From photographs and documents to oral histories and community records, SACDA safeguards the stories of South Asian Canadians for future generations.
@@ -24,13 +26,16 @@
 	{# The content region carries the node itself (system_main_block), so it must be
 	   rendered or the node body is silently dropped and admins get no contextual
 	   edit links. Sits after the hardcoded intro so editable copy reads as part of
-	   it; nothing here is layout-coupled, unlike the contact card. #}
-	<div class="about-body content">
+	   it; nothing here is layout-coupled, unlike the contact card.
+
+	   region--content.html.twig skips its own max-w cap on /about* pages
+	   (self_widthed_content), so the container has to be supplied here. #}
+	<div class="about-body content max-w-5xl mx-auto px-4 md:px-16">
 		{{ page.content }}
 	</div>
 
 	{# Main two-column: stacked images left, program sections right #}
-	<section class="about-main grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-20 md:py-28 lg:py-32 gap-10 lg:gap-16">
+	<section class="about-main grid grid-cols-1 lg:grid-cols-2 max-w-5xl mx-auto px-4 md:px-16 py-20 md:py-28 lg:py-32 gap-10 lg:gap-16">
 
 		<div class="flex flex-col gap-6 lg:gap-8">
 			<div class="img-hover-zoom">
@@ -73,7 +78,7 @@
 
 	{# Supporters band #}
 	<section class="bg-light py-20 md:py-28 lg:py-32">
-		<div class="max-w-7xl mx-auto px-6 md:px-10 text-center">
+		<div class="max-w-5xl mx-auto px-4 md:px-16 text-center">
 			<h3 class="h3-underline uppercase">PROUDLY SUPPORTED BY</h3>
 			{# w-auto alone lets a wide logo (the BCHDP/UBC lockup is ~8:1) push
 			   past the container; max-w-full + object-contain caps it instead. #}
@@ -88,18 +93,26 @@
 	{# Meet the Team #}
 	<section class="about-team relative w-full">
 		<img src="{{ base_path ~ directory }}/static/graphics/about/team-bg.jpg" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover z-0">
-		<div class="relative z-1 bg-white/75 xl:bg-white/95 m-6 md:m-12 xl:m-24 p-8 md:p-14 xl:p-20 text-center">
-			<h2>MEET THE TEAM</h2>
-			<p class="text-lg text-secondary leading-relaxed mt-4 mb-8">
-				SACDA is built by a dedicated team of archivists, researchers, students, and community members who work together to preserve South Asian Canadian history.
-			</p>
-			{{ btn.link('Learn More', '/about/team', { variant: 'primary', full_width: true }) }}
+		{# Two wrappers on purpose: the photo stays full-bleed while the outer div
+		   is the standard container, so the frosted panel's edges land exactly on
+		   the content column the other sections' copy sits in. Capping the panel
+		   itself instead would make it 5xl *including* the gutters — i.e. wider
+		   than the text above and below it. (It originally carried a plain `m-*`,
+		   so it just grew with the viewport.) #}
+		<div class="relative z-1 max-w-5xl mx-auto px-4 md:px-16 py-6 md:py-12 xl:py-24">
+			<div class="bg-white/75 xl:bg-white/95 p-8 md:p-14 xl:p-20 text-center">
+				<h2>MEET THE TEAM</h2>
+				<p class="text-lg text-secondary leading-relaxed mt-4 mb-8">
+					SACDA is built by a dedicated team of archivists, researchers, students, and community members who work together to preserve South Asian Canadian history.
+				</p>
+				{{ btn.link('Learn More', '/about/team', { variant: 'primary', full_width: true }) }}
+			</div>
 		</div>
 	</section>
 
 	{# Contribute CTA #}
 	<section class="bg-light py-20 md:py-28 lg:py-32 text-center">
-		<div class="max-w-5xl mx-auto px-6 md:px-10">
+		<div class="max-w-5xl mx-auto px-4 md:px-16">
 			<h2>HELP TELL OUR STORY</h2>
 			<p class="text-lg text-secondary leading-relaxed mt-4 mb-8">
 				Do you have access to materials and/or oral histories of significance you could contribute to our digital archives?

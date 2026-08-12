@@ -8,12 +8,15 @@
  * field when the row plugin renders whole entities. Each group is its own grid
  * with a heading above it, matching the old sacda.ca layout.
  *
- * Grid is 1 -> 2 -> 4 columns; the old site jumped straight to 4 at 768px, and
- * the intermediate step keeps the portrait cards from stretching on tablets.
+ * Grid is 1 -> 2 -> 3 -> 4 columns; the old site jumped straight to 4 at 768px,
+ * and the intermediate steps keep the portrait cards from stretching on tablets.
+ * The 3-column step matters now that the page is capped at max-w-5xl: at 768px
+ * the container is only ~640px wide inside its gutters, so 4-up would leave
+ * ~150px cards with no room for the name plate.
  */
 #}
 
-{% set grid_classes = 'team-members-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4' %}
+{% set grid_classes = 'team-members-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' %}
 
 {{ title_prefix }}
 
@@ -37,7 +40,7 @@
 	</div>
 {% else %}
 	{# No grouping data — fall back to a single flat grid. #}
-	<div{{ attributes.addClass('team-members-grid', 'grid', 'grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-4') }}>
+	<div{{ attributes.addClass(grid_classes|split(' ')) }}>
 		{% for row in rows %}
 			<div{{ row.attributes.addClass('h-full') }}>
 				{{ row.content }}

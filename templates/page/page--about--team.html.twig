@@ -6,7 +6,9 @@
 	{{ subnav.render('team') }}
 
 	<main role="main" class="py-16 md:py-24 lg:py-28">
-		<div class="content max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+		{# Sitewide content container. region--content.html.twig skips its own cap
+		   on /about* (self_widthed_content), so it is applied here. #}
+		<div class="content max-w-5xl mx-auto px-4 md:px-16">
 			{{ page.content }}
 		</div>
 	</main>

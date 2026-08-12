@@ -11,6 +11,8 @@
    with different classes, so they didn't visually agree. Markup now comes from
    templates/macros/about-subnav.twig and is styled here once. */
 
+/* The bar itself is full-bleed (border + background span the viewport); only
+   the list is capped, at the sitewide content width. */
 .about-subnav {
     border-bottom: 1px solid var(--border);
     background-color: var(--background);
@@ -23,8 +25,15 @@
     gap: clamp(1.5rem, 4vw, 3rem);
     list-style: none;
     margin: 0 auto;
-    padding: 0 1.5rem;
-    max-width: 80rem;
+    /* Matches the px-4 / md:px-16 gutters used by the page containers. */
+    padding: 0 1rem;
+    max-width: 64rem;
+}
+
+@media (min-width: 768px) {
+    .about-subnav ul {
+        padding: 0 4rem;
+    }
 }
 
 .about-subnav a {

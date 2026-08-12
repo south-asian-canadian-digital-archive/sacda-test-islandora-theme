@@ -5,7 +5,9 @@
 	{% import '@sacda/macros/about-subnav.twig' as subnav %}
 	{{ subnav.render('media') }}
 
-	<main role="main" class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-16 md:py-24 lg:py-28">
+	{# Sitewide content container. region--content.html.twig skips its own cap
+	   on /about* (self_widthed_content), so it is applied here. #}
+	<main role="main" class="max-w-5xl mx-auto px-4 md:px-16 py-16 md:py-24 lg:py-28">
 		{{ page.content }}
 	</main>
 {% endblock %}
