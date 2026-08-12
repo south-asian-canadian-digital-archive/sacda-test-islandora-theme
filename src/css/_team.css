@@ -32,10 +32,14 @@
 /* Portrait crop driven by the card's own width, not the viewport's. The old
    rule chained viewport-width heights per breakpoint (125vw / 62vw /
    110vw/5), which only lined up with the column count at the exact widths it
-   was tuned for and went badly out of proportion between them. */
+   was tuned for and went badly out of proportion between them.
+
+   4/5 rather than the 3/4 this started at: squarer reads better in a 4-up
+   grid, and it crops less off the sides of the landscape headshots (five of
+   the team shots are landscape originals). */
 .team-member-card__photo {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   background-color: var(--muted);
   overflow: hidden;
 }
