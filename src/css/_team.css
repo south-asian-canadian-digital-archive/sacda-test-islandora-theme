@@ -18,7 +18,10 @@
   margin-top: clamp(3rem, 8vw, 5.5rem);
   margin-bottom: 0.75rem;
 }
-.team-group__heading:first-of-type {
+/* Scoped to the first .team-group, not :first-of-type — every heading is now
+   the only h2 inside its own .team-group wrapper, so :first-of-type would match
+   all of them and collapse the space between sections. */
+.team-listing > .team-group:first-child > .team-group__heading {
   margin-top: 0;
 }
 
@@ -157,11 +160,13 @@
 /* --- "Show more" control -------------------------------------------------- */
 
 /* Created by dist/team-show-more.js, so it only exists when JS can also
-   un-hide the cards it collapses. */
+   un-hide the cards it collapses. One per .team-group, sitting under that
+   group's grid — tighter above than the heading gap below it, so the button
+   binds to the grid it expands rather than floating between sections. */
 .team-show-more__wrapper {
   display: flex;
   justify-content: center;
-  margin-top: clamp(2.5rem, 6vw, 3.75rem);
+  margin-top: clamp(2rem, 4vw, 2.75rem);
 }
 
 /* The reveal moves focus to the first new card; suppress the resulting outline

@@ -5,8 +5,9 @@
  *
  * `groups` is built by sacda_preprocess_views_view_unformatted__team_members()
  * (includes/team.inc) rather than by Views' own grouping, which can't key off a
- * field when the row plugin renders whole entities. Each group is its own grid
- * with a heading above it, matching the old sacda.ca layout.
+ * field when the row plugin renders whole entities. Each group is its own
+ * .team-group — heading, grid, and its own "show more" button (added by
+ * dist/team-show-more.js) — matching the old sacda.ca layout.
  *
  * Grid is 1 -> 2 -> 3 -> 4 columns; the old site jumped straight to 4 at 768px,
  * and the intermediate steps keep the portrait cards from stretching on tablets.
@@ -18,23 +19,31 @@
 
 {% set grid_classes = 'team-members-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' %}
 
+{# Headings come from the team_group taxonomy, but the Advisory Committee's is a
+   closed historical roster and the old sacda.ca page dated it. The date range
+   lives here rather than in the term label so the term stays a plain grouping
+   key (and so changing it is a git edit, not an unexportable content edit). #}
+{% set heading_suffixes = {'Advisory Committee': ' (2020 - 2022)'} %}
+
 {{ title_prefix }}
 
 {% if groups is defined and groups %}
-	{# .team-listing is the hook for dist/team-show-more.js, which reveals cards
-	   progressively across all the grids. It expects headings and grids to be
-	   direct children in document order. #}
+	{# .team-listing is the hook for dist/team-show-more.js. It collapses each
+	   .team-group independently, so a long group can't push the next group's
+	   heading below the fold. #}
 	<div class="team-listing">
 		{% for group in groups %}
-			{% if group.title %}
-				<h2 class="team-group__heading">{{ group.title }}</h2>
-			{% endif %}
-			<div class="{{ grid_classes }}">
-				{% for row in group.rows %}
-					<div{{ row.attributes.addClass('h-full') }}>
-						{{ row.content }}
-					</div>
-				{% endfor %}
+			<div class="team-group">
+				{% if group.title %}
+					<h2 class="team-group__heading">{{ group.title }}{{ heading_suffixes[group.title]|default('') }}</h2>
+				{% endif %}
+				<div class="{{ grid_classes }}">
+					{% for row in group.rows %}
+						<div{{ row.attributes.addClass('h-full') }}>
+							{{ row.content }}
+						</div>
+					{% endfor %}
+				</div>
 			</div>
 		{% endfor %}
 	</div>
