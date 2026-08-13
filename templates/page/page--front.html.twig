@@ -91,9 +91,9 @@
 
 			<div class="home-exhibits">
 				{% set exhibits = [
-					{ title: 'Komagata Maru Exhibit', link: 'https://sacda.ca/exhibits/komagata-maru', image: theme_path ~ '/static/homepage/Komogata-Maru-Exhibit_South-Asian-Canadian.jpg' },
-					{ title: 'Labour History Exhibit', link: 'https://sacda.ca/exhibits/labour-history', image: theme_path ~ '/static/homepage/Labour-History-Exhibit_South-Asian-Canadian.jpg' },
-					{ title: 'The Vote Exhibit', link: 'https://sacda.ca/exhibits/the-vote', image: theme_path ~ '/static/homepage/The-Vote-Exhibit_South-Asian-Canadian.jpg' }
+					{ title: 'Komagata Maru Exhibit', link: '/exhibits/komagata-maru', image: theme_path ~ '/static/homepage/Komogata-Maru-Exhibit_South-Asian-Canadian.jpg' },
+					{ title: 'Labour History Exhibit', link: '/exhibits/labour-history', image: theme_path ~ '/static/homepage/Labour-History-Exhibit_South-Asian-Canadian.jpg' },
+					{ title: 'The Vote Exhibit', link: '/exhibits/the-vote', image: theme_path ~ '/static/homepage/The-Vote-Exhibit_South-Asian-Canadian.jpg' }
 				] %}
 
 				{% for exhibit in exhibits %}
@@ -203,7 +203,7 @@
 					Do you have access to materials and/or oral histories of significance you could contribute to our digital archives?
 				</p>
 				<div class="flex justify-center">
-					{{ btn.link('Contribute to SACDA', 'https://sacda.ca/contribute', { variant: 'outline' }) }}
+					{{ btn.link('Contribute to SACDA', '/contact', { variant: 'outline' }) }}
 				</div>
 			</div>
 		</section>

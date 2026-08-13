@@ -63,9 +63,9 @@
 
 	{# Copyright section #}
 	<div class="absolute bottom-6 w-full self-center text-center text-sm text-background md:w-fit md:self-start lg:w-fit lg:self-start">
-		{{ btn.link('Statement of Use and Takedown Policy', 'https://sacda.ca/policy/takedown', { variant: 'text', class: 'hover:text-secondary' }) }}
+		{{ btn.link('Statement of Use and Takedown Policy', '/policy/takedown', { variant: 'text', class: 'hover:text-secondary' }) }}
 		|
-		{{ btn.link('Media', 'https://sacda.ca/index.php/About/media', { variant: 'text', class: 'hover:text-secondary' }) }}
+		{{ btn.link('Media', '/about/media', { variant: 'text', class: 'hover:text-secondary' }) }}
 		&copy;
 		{{ current_year|default('now'|date('Y')) }}
 		{{ site_name|default('South Asian Canadian Digital Archive') }}. All rights reserved.
