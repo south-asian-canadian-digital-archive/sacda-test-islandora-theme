@@ -18,6 +18,18 @@
     background-color: var(--background);
 }
 
+/* The highlighted region sits directly above the bar and carries a sitewide
+   `mb-8`, but on these pages its only visible child is the breadcrumb — the
+   messages block inside it is display:none whenever there are no messages
+   (see _system.css). That left ~3rem of empty space between a one-line
+   breadcrumb and the tabs. Scoped to the About pages via the sibling test so
+   the sitewide spacing is untouched everywhere else; all three About
+   templates now emit the subnav as a sibling of the region, not inside
+   <main>, which is what makes one rule enough. */
+.region-highlighted:has(+ .about-subnav) {
+    margin-bottom: 0.75rem;
+}
+
 .about-subnav ul {
     display: flex;
     flex-wrap: wrap;

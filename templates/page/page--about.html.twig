@@ -2,16 +2,20 @@
 
 {% block content %}
 	{% import '@sacda/macros/button.twig' as btn %}
-<main role="main">
 
-
+	{# Outside <main>, matching page--about--team and page--about--media: the
+	   subnav is section navigation, not page content, and keeping the three
+	   templates structurally identical is what lets _about.css tighten the gap
+	   above it with one rule. #}
 	{% import '@sacda/macros/about-subnav.twig' as subnav %}
 	{{ subnav.render('about') }}
+
+<main role="main">
 
 	{# Intro band. The <section> stays full-bleed so the tint spans the viewport;
 	   every inner wrapper on this page uses the sitewide content container
 	   (max-w-5xl + px-4/md:px-16) so copy lines up with the rest of the site. #}
-	<section class="bg-light py-20 md:py-28 lg:py-32">
+	<section class="bg-light pt-12 md:pt-16 lg:pt-20 pb-20 md:pb-28 lg:pb-32">
 		<div class="max-w-5xl mx-auto px-4 md:px-16 text-center">
 			<h2>A PAN-CANADIAN DIGITAL ARCHIVE</h2>
 			<p class="text-lg text-secondary leading-relaxed mt-4">
@@ -118,7 +122,7 @@
 				Do you have access to materials and/or oral histories of significance you could contribute to our digital archives?
 			</p>
 			<div class="flex justify-center">
-				{{ btn.link('Contribute to SACDA', 'https://sacda.ca/contribute', { variant: 'outline' }) }}
+				{{ btn.link('Contribute to SACDA', '/contact', { variant: 'outline' }) }}
 			</div>
 		</div>
 	</section>
