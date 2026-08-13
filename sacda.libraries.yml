@@ -11,6 +11,7 @@ global:
     dist/pdf-preview.js: {}
     dist/scroll-indicator.js: {}
     dist/search.util.js: {}
+    dist/team-bio-read-more.js: {}
     dist/team-show-more.js: {}
   css:
     theme:

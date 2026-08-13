@@ -34,10 +34,14 @@
 		</h3>
 	</div>
 
-	{# Truncated bio #}
+	{# Bio. The full text is always in the DOM; dist/team-bio-read-more.js clamps
+	   it to a few lines and adds the "Read more" toggle, so with JS off the bio
+	   reads in full rather than being cut off with no way to expand it. #}
 	{% if not node.field_bio.isEmpty() %}
 		<div class="team-member-card__bio">
-			{{ node.field_bio.value|striptags|trim|truncate(180, true, '…') }}
+			<div class="team-member-card__bio-text">
+				{{ node.field_bio.value|striptags|trim }}
+			</div>
 		</div>
 	{% endif %}
 </article>

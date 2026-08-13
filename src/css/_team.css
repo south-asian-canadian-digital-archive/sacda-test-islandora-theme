@@ -34,12 +34,13 @@
    110vw/5), which only lined up with the column count at the exact widths it
    was tuned for and went badly out of proportion between them.
 
-   4/5 rather than the 3/4 this started at: squarer reads better in a 4-up
+   9/10 rather than the 3/4 this started at: squarer reads better in a 4-up
    grid, and it crops less off the sides of the landscape headshots (five of
-   the team shots are landscape originals). */
+   the team shots are landscape originals). Went 3/4 → 4/5 → 9/10; each step
+   was toward square, so don't read the shrinking numerator as the opposite. */
 .team-member-card__photo {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 9 / 10;
   background-color: var(--muted);
   overflow: hidden;
 }
@@ -106,6 +107,49 @@
   line-height: 1.6;
   /* The name plate's translateY leaves a gap below it; claw some back. */
   margin-top: -20px;
+}
+
+/* Clamp applied by dist/team-bio-read-more.js, which also adds the toggle — so
+   the bio is only ever cut short when something on the page can restore it.
+   Line-clamp rather than a character truncation in Twig: every card is trimmed
+   to the same height however the text happens to wrap, and the full bio stays
+   in the DOM for search and for JS-off readers. */
+.team-member-card__bio-text.is-clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  overflow: hidden;
+}
+
+/* A link-styled control rather than a button: it sits at the end of a
+   paragraph, where a filled button would read as the card's primary action —
+   competing with the member's name plate. Underlined body-colour text rather
+   than the orange --primary, which is too light to carry text on white. */
+.team-member-card__bio-toggle {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* `display` on the rule above would otherwise beat the UA's [hidden] rule, and
+   the toggle is hidden that way when a bio turns out to fit. */
+.team-member-card__bio-toggle[hidden] {
+  display: none;
+}
+
+.team-member-card__bio-toggle:hover,
+.team-member-card__bio-toggle:focus-visible {
+  text-decoration-thickness: 2px;
 }
 
 /* --- Breakpoints ---------------------------------------------------------- */
