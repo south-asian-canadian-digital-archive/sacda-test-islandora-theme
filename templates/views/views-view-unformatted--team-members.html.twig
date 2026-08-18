@@ -35,7 +35,7 @@
 		{% for group in groups %}
 			<div class="team-group">
 				{% if group.title %}
-					<h2 class="team-group__heading">{{ group.title }}{{ heading_suffixes[group.title]|default('') }}</h2>
+					<h2 class="team-group__heading">{{ group.title|t }}{{ heading_suffixes[group.title]|default('') }}</h2>
 				{% endif %}
 				<div class="{{ grid_classes }}">
 					{% for row in group.rows %}

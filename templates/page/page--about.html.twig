@@ -3,13 +3,6 @@
 {% block content %}
 	{% import '@sacda/macros/button.twig' as btn %}
 
-	{# Outside <main>, matching page--about--team and page--about--media: the
-	   subnav is section navigation, not page content, and keeping the three
-	   templates structurally identical is what lets _about.css tighten the gap
-	   above it with one rule. #}
-	{% import '@sacda/macros/about-subnav.twig' as subnav %}
-	{{ subnav.render('about') }}
-
 <main role="main">
 
 	{# Intro band. The <section> stays full-bleed so the tint spans the viewport;

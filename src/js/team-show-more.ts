@@ -34,10 +34,10 @@ declare global {
 	}
 }
 
-/** Cards visible per group before any interaction. */
-const INITIAL_VISIBLE = 8;
-/** Additional cards revealed per click. */
-const STEP = 8;
+/** One desktop row is visible per group before any interaction. */
+const INITIAL_VISIBLE = 4;
+/** Reveal one additional desktop row per click. */
+const STEP = 4;
 
 function t(s: string): string {
 	return window.Drupal?.t ? window.Drupal.t(s) : s;

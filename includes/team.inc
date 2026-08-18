@@ -11,12 +11,12 @@
  * unnamed group.
  *
  * Doing it here also handles something Views grouping structurally cannot: a
- * member belonging to several groups is listed under each of them, which the
- * old sacda.ca team page relied on (one member sits in both Project Management
- * and the Advisory Committee).
+ * member belonging to several groups is listed under each applicable public
+ * roster without relying on Views' single grouping key.
  *
- * Groups are ordered by taxonomy term weight, so reordering them is a taxonomy
- * edit rather than a code change, and a newly added term appears automatically.
+ * The public page has two rosters: team members and the Advisory Committee.
+ * Project Management is a legacy classification and is folded into Advisory
+ * Committee so existing nodes are fixed even before their content is updated.
  */
 
 /**
@@ -32,7 +32,18 @@ function sacda_preprocess_views_view_unformatted__team_members(array &$variables
     return;
   }
 
-  $buckets = [];
+  $buckets = [
+    'team' => [
+      'title' => 'Team Members',
+      'rows' => [],
+      'seen' => [],
+    ],
+    'advisory' => [
+      'title' => 'Advisory Committee',
+      'rows' => [],
+      'seen' => [],
+    ],
+  ];
   $ungrouped = [];
 
   foreach ($variables['rows'] as $i => $row) {
@@ -48,28 +59,32 @@ function sacda_preprocess_views_view_unformatted__team_members(array &$variables
       continue;
     }
 
-    // A member with several groups is intentionally repeated under each.
+    $entity_id = (string) $node->id();
     foreach ($terms as $term) {
-      $tid = $term->id();
-      if (!isset($buckets[$tid])) {
-        $buckets[$tid] = [
-          'title' => $term->label(),
-          'weight' => (int) $term->getWeight(),
-          'rows' => [],
-        ];
+      $group = match ($term->label()) {
+        'Advisory Committee', 'Project Management' => 'advisory',
+        default => 'team',
+      };
+
+      // A legacy Project Management + Advisory assignment must not render the
+      // same person twice in the merged Advisory Committee roster.
+      if (!isset($buckets[$group]['seen'][$entity_id])) {
+        $buckets[$group]['rows'][] = $row;
+        $buckets[$group]['seen'][$entity_id] = TRUE;
       }
-      $buckets[$tid]['rows'][] = $row;
     }
   }
 
+  $buckets = array_filter($buckets, static fn(array $bucket): bool => (bool) $bucket['rows']);
   if (!$buckets) {
     return;
   }
 
-  uasort($buckets, static fn(array $a, array $b) => $a['weight'] <=> $b['weight']);
-
   $groups = array_values(array_map(
-    static fn(array $b) => ['title' => $b['title'], 'rows' => $b['rows']],
+    static fn(array $bucket): array => [
+      'title' => $bucket['title'],
+      'rows' => $bucket['rows'],
+    ],
     $buckets
   ));
 
