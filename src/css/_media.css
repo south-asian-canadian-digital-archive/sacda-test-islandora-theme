@@ -28,6 +28,7 @@
 .media-item__frame {
   flex: 1.5;
   min-width: 0;
+  position: relative;
 }
 
 .media-item__frame :is(iframe, video, img) {
@@ -68,6 +69,66 @@
 /* Items whose binary is missing still render — don't leave a naked empty box. */
 .media-item__frame--empty {
   display: none;
+}
+
+/* New-tab control floats above every available media preview. */
+.media-item__open {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  color: white;
+  background: rgb(0 0 0 / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 999px;
+  box-shadow: 0 0.2rem 0.75rem rgb(0 0 0 / 0.25);
+  transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.media-item__open:hover {
+  color: white;
+  background: var(--primary);
+  transform: translateY(-1px);
+}
+
+.media-item__open:focus-visible {
+  color: white;
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+.media-item__open svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.media-item__open-tooltip {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: max-content;
+  max-width: 10rem;
+  padding: 0.35rem 0.55rem;
+  color: white;
+  background: #27272a;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.2rem);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.media-item__open:hover .media-item__open-tooltip,
+.media-item__open:focus-visible .media-item__open-tooltip {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* --- Text ----------------------------------------------------------------- */
