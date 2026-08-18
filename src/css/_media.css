@@ -74,7 +74,7 @@
 /* New-tab control floats above every available media preview. */
 .media-item__open {
   position: absolute;
-  top: 0.75rem;
+  bottom: 0.75rem;
   right: 0.75rem;
   z-index: 2;
   display: grid;
@@ -108,7 +108,7 @@
 
 .media-item__open-tooltip {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  bottom: calc(100% + 0.5rem);
   right: 0;
   width: max-content;
   max-width: 10rem;

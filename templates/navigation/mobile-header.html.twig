@@ -182,6 +182,17 @@
 	}
 
 	/* Accordion submenus - parent link and toggle side by side, submenu wraps below */
+	.sacda-mobile-menu .sacda-main-menu,
+	.sacda-mobile-menu .sacda-nav-list,
+	.sacda-mobile-menu .sacda-nav-item {
+		width: 100%;
+		min-width: 0;
+	}
+
+	.sacda-mobile-menu .sacda-nav-list {
+		align-items: stretch;
+	}
+
 	.sacda-mobile-menu .sacda-nav-item.sacda-has-children {
 		display: flex;
 		flex-wrap: wrap;
@@ -190,6 +201,7 @@
 
 	.sacda-mobile-menu .sacda-nav-item.sacda-has-children > a {
 		flex: 1;
+		min-width: 0;
 	}
 
 	/* Neutralize the desktop dropdown positioning inside the mobile menu */
@@ -197,6 +209,9 @@
 		display: none;
 		position: static;
 		width: 100%;
+		min-width: 0;
+		max-width: 100%;
+		box-sizing: border-box;
 		border: none;
 		flex-direction: column;
 	}
@@ -214,6 +229,8 @@
 	.sacda-mobile-menu .sacda-submenu a {
 		font-size: 1rem;
 		padding: 0.75rem 0 0.75rem 1.5rem;
+		white-space: normal;
+		overflow-wrap: anywhere;
 	}
 
 	/* Login region styling */
