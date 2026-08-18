@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Url;
 
 require_once __DIR__ . '/includes/colors.inc';
 require_once __DIR__ . '/includes/footer.inc';
@@ -104,6 +105,57 @@ function sacda_preprocess_page(array &$variables): void {
     }
   }
   $variables['show_filters_sidebar'] = $show_filters;
+}
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ *
+ * Drupal's menu breadcrumb omits the current page, so the About child routes
+ * otherwise stop at About. Islandora builds repository breadcrumbs from
+ * field_member_of, which preserves collection ancestry but has no relationship
+ * to the /collections landing page. Complete those two public hierarchies here.
+ */
+function sacda_preprocess_breadcrumb(array &$variables): void {
+  if (empty($variables['breadcrumb'])) {
+    return;
+  }
+
+  $path = \Drupal::service('path.current')->getPath();
+  $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+
+  $about_children = [
+    '/about/team' => t('Team'),
+    '/about/media' => t('Media'),
+  ];
+  if (isset($about_children[$alias])) {
+    $variables['breadcrumb'][] = ['text' => $about_children[$alias]];
+    return;
+  }
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (!$node instanceof \Drupal\node\NodeInterface ||
+      !str_starts_with($alias, '/collections/')) {
+    return;
+  }
+
+  $has_collections = array_filter(
+    $variables['breadcrumb'],
+    static function (array $item): bool {
+      if (!isset($item['url'])) {
+        return FALSE;
+      }
+      $url = $item['url'] instanceof Url
+        ? $item['url']->toString()
+        : (string) $item['url'];
+      return $url === '/collections';
+    }
+  );
+  if (!$has_collections) {
+    array_splice($variables['breadcrumb'], 1, 0, [[
+      'text' => t('Collections'),
+      'url' => Url::fromUserInput('/collections'),
+    ]]);
+  }
 }
 
 /**
