@@ -465,6 +465,38 @@
     text-decoration: none !important;
 }
 
+.home-exhibits[hidden] {
+    display: none !important;
+}
+
+.home-exhibits-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.home-exhibits-control {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--foreground);
+    background: transparent;
+    color: var(--foreground);
+    cursor: pointer;
+}
+
+.home-exhibits-control:hover,
+.home-exhibits-control:focus-visible {
+    border-color: var(--primary);
+    background: var(--primary);
+}
+
 @media screen and (min-width: 768px) {
     .home-collection {
         margin-bottom: 0;

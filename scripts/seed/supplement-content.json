@@ -4,37 +4,43 @@
       "title": "(DIS)Enfranchisement – 1907-1946: The Forty Year Struggle for the Vote",
       "description": "In 1907, South Asians living in Canada were denied the right to vote, despite the fact that South Asians had a formidable presence in Canada beginning in 1897. Forty years of lobbying, community rallying, fundraising and protesting finally resulted in South Asians gaining the right to vote in 1947.",
       "url": "https://sacda.ca/exhibits/disenfranchisement/",
-      "image": "komagata.jpg"
+      "image": "komagata.jpg",
+      "promoted": true
     },
     {
       "title": "Komagata Maru: Continuing the Journey",
       "description": "The Komagata Maru: Continuing the Journey exhibit was initially created by the Simon Fraser University Library in 2011 and was updated with an additional collection of items in 2015 to commemorate the 101st anniversary. The exhibit was transferred to, and subsequently redesigned by, the South Asian Studies Institute at the University of the Fraser Valley in 2021.",
       "url": "https://sacda.ca/exhibits/km/index.php",
-      "image": "disinfranchisement.jpg"
+      "image": "disinfranchisement.jpg",
+      "promoted": true
     },
     {
       "title": "Labour History Exhibit",
       "description": "The South Asian Canadian population in BC has a long and complex relationship with the labour movement. From early exclusionary practices to a recognition that racism is a tool of the boss to divide workers, the tenacity and strength of the community has always been forward- looking. As a result, over the last 100+ years the labour movement has benefited from strong South Asian leaders, activists and items.",
       "url": "https://sacda.ca/exhibits/union-zindabad",
-      "image": "labour.jpg"
+      "image": "labour.jpg",
+      "promoted": true
     },
     {
       "title": "Legal History Exhibit",
       "description": "Canada, known for its multicultural society and commitment to human rights, has a history marked by discriminatory laws, policies, and practices targeted at various communities. This platform aims to shed light on the development of racist laws and practices against South Asians in Canada. Exploring the historical records, we seek to illuminate the adversities, obstacles, and victories of the South Asian community in dealing with systemic prejudice.",
       "url": "https://sacda.ca/exhibits/legal-history",
-      "image": "lh.jpg"
+      "image": "lh.jpg",
+      "promoted": false
     },
     {
       "title": "South Asian Canadian Muslims in British Columbia",
       "description": "South Asian Canadian Muslims in Canada are a diverse group who have advocated for spaces to practice their religion and faced challenges along the way. This project records their stories to deepen understanding of the South Asian Canadian Muslim experience, especially in British Columbia (BC).",
       "url": "https://sacda.ca/exhibits/sacmbc",
-      "image": "sacmbc.jpg"
+      "image": "sacmbc.jpg",
+      "promoted": false
     },
     {
       "title": "Emergence: Out of the Shadows",
       "description": "For Kayden, Jag, and Amar, awakening to and expressing their sexuality within conservative South Asian families was a lonely and terrifying experience. Heart-wrenching and healing, their distinct coming-out paths offer comfort, compassion, and inspiration to individuals and communities struggling with acceptance.",
       "url": "https://sacda.ca/exhibits/emergence",
-      "image": "emergence.webp"
+      "image": "emergence.webp",
+      "promoted": false
     }
   ],
   "team": [

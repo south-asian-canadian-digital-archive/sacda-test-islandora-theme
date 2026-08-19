@@ -139,6 +139,7 @@ foreach ($data['exhibits'] as $row) {
   $node = $upsert('exhibit', $row['title']);
   $node->set('field_description', $row['description']);
   $node->set('field_external_url', ['uri' => $row['url'], 'title' => '']);
+  $node->setPromoted(!empty($row['promoted']));
 
   if ($media = $make_media($exhibit_img_dir . '/' . $row['image'], 'image')) {
     $node->set('field_thumbnail', ['target_id' => $media->id()]);

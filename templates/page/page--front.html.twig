@@ -62,7 +62,7 @@
 								Engage with the rich history of the South Asian Canadian diaspora. Explore stories of immigration, community building, cultural preservation, and the enduring contributions of South Asian Canadians to the fabric of our nation.
 							</p>
 							<div class="flex flex-col md:flex-row gap-5 mt-10 md:mt-14">
-								{{ btn.link('About', 'https://sacda.ca/about', { variant: 'outline', class: 'w-full md:w-auto' }) }}
+								{{ btn.link('About', '/about', { variant: 'outline', class: 'w-full md:w-auto' }) }}
 								{{ btn.link('Advanced Search', '/search', { variant: 'outline', class: 'w-full md:w-auto' }) }}
 							</div>
 						</div>
@@ -89,24 +89,33 @@
 		<section class="home-collection px-4 md:px-24 py-10">
 			<h2>Featured Exhibits</h2>
 
-			<div class="home-exhibits">
-				{% set exhibits = [
-					{ title: 'Komagata Maru Exhibit', link: '/exhibits/komagata-maru', image: theme_path ~ '/static/homepage/Komogata-Maru-Exhibit_South-Asian-Canadian.jpg' },
-					{ title: 'Labour History Exhibit', link: '/exhibits/labour-history', image: theme_path ~ '/static/homepage/Labour-History-Exhibit_South-Asian-Canadian.jpg' },
-					{ title: 'The Vote Exhibit', link: '/exhibits/the-vote', image: theme_path ~ '/static/homepage/The-Vote-Exhibit_South-Asian-Canadian.jpg' }
-				] %}
-
-				{% for exhibit in exhibits %}
-					<div class="home-exhibits-item">
-						<a href="{{ exhibit.link }}">
-							<img src="{{ exhibit.image }}" alt="{{ exhibit.title }}">
-							<div class="home-exhibits-title">
-								<h3>{{ exhibit.title }}</h3>
+			{% if featured_exhibits %}
+				<div class="home-exhibits-rotator" data-exhibits-rotator data-slide-count="{{ (featured_exhibits|length / 3)|round(0, 'ceil') }}">
+					<div class="home-exhibits-viewport" aria-live="polite">
+						{% for exhibit_group in featured_exhibits|batch(3) %}
+							<div class="home-exhibits" data-exhibits-slide{% if not loop.first %} hidden{% endif %}>
+								{% for exhibit in exhibit_group %}
+									<div class="home-exhibits-item">
+										<a href="{{ exhibit.url }}">
+											<img src="{{ exhibit.image }}" alt="{{ exhibit.image_alt }}" loading="lazy">
+											<div class="home-exhibits-title"><h3>{{ exhibit.title }}</h3></div>
+										</a>
+									</div>
+								{% endfor %}
 							</div>
-						</a>
+						{% endfor %}
 					</div>
-				{% endfor %}
-			</div>
+
+					{% if featured_exhibits|length > 3 %}
+						<div class="home-exhibits-controls" aria-label="Featured exhibit slides">
+							<button type="button" class="home-exhibits-control" data-exhibits-previous aria-label="Previous exhibits"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+							<span data-exhibits-status>1 / {{ (featured_exhibits|length / 3)|round(0, 'ceil') }}</span>
+							<button type="button" class="home-exhibits-control" data-exhibits-next aria-label="Next exhibits"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+							<button type="button" class="home-exhibits-control" data-exhibits-pause aria-label="Pause exhibit rotation" aria-pressed="false"><i class="fa fa-pause" aria-hidden="true"></i></button>
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
 		</section>
 
 		{# 4. Explore Themes (Asymmetric Grid) #}
