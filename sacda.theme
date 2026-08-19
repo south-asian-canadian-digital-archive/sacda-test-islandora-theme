@@ -76,6 +76,10 @@ function sacda_preprocess_page(array &$variables): void {
   _sacda_add_color_variables($variables);
   _sacda_preprocess_carousel($variables, $theme_path);
 
+  // Recreate the original newsletter's Mailchimp-driven issue cards without
+  // exposing the private API key used by the retired Pawtucket theme.
+  _sacda_preprocess_newsletter($variables, $theme_path);
+
   // Determine if filters sidebar has actual content
   $show_filters = FALSE;
   if (!empty($variables['page']['filters'])) {

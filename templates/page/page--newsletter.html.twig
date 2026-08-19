@@ -1,81 +1,51 @@
 {% extends '@sacda/page/page.html.twig' %}
 
-{#
-	Newsletter page — "The Hive" (SACDA's Mailchimp newsletter).
-
-	Source of truth is Mailchimp (account us4, u=3c616907ab5cf63924a62f942,
-	audience id=383fd0ae1e). Verified 2026-07-23:
-
-	- Public campaign archive (iframed below — sends no X-Frame-Options /
-	  frame-ancestors, so embedding works):
-	  https://us4.campaign-archive.com/home/?u=3c616907ab5cf63924a62f942&id=383fd0ae1e
-
-	- RSS feed of past issues (application/rss+xml, but NO CORS headers, so it
-	  cannot be fetched from browser JS — a client-side Svelte island would need
-	  a server-side proxy or Drupal Feeds/Views aggregation):
-	  https://us4.campaign-archive.com/feed?u=3c616907ab5cf63924a62f942&id=383fd0ae1e
-
-	- Signup form action (same one the old sacda.ca /Contribute/Items page used):
-	  https://sacda.us4.list-manage.com/subscribe/post?u=3c616907ab5cf63924a62f942&id=383fd0ae1e&f_id=000f56e2f0
-#}
-
+{# Adapted from old_stuff/views/Contribute/form_html.php. #}
 {% block content %}
-<main role="main">
-
-	{# Hive logo + intro + signup #}
-	<section class="newsletter__info bg-light">
-		<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 px-8 py-16 md:py-[8rem]">
-
-			{# Left — the Hive logo #}
-			<div class="w-full md:w-1/2 flex justify-center">
-				<img src="{{ base_path ~ directory }}/static/graphics/contribute/SACDA_Hive.png" alt="The Hive — the SACDA newsletter" class="max-w-full h-auto md:max-w-[420px]">
-			</div>
-
-			{# Right — intro + signup form #}
-			<div class="w-full md:w-1/2 flex flex-col gap-6">
-				<p class="text-lg leading-relaxed">
-					The Hive shares stories from the archive, new collections and exhibits, community events, and behind-the-scenes updates from the SACDA team. Get each new issue delivered straight to your inbox.
-				</p>
-				<form action="https://sacda.us4.list-manage.com/subscribe/post?u=3c616907ab5cf63924a62f942&amp;id=383fd0ae1e&amp;f_id=000f56e2f0" method="post" target="_blank" class="newsletter__form flex flex-col sm:flex-row gap-4 w-full">
+<main role="main" class="newsletter-page">
+	<section class="newsletter__info">
+		<div class="newsletter__info__img">
+			<img src="{{ base_path ~ directory }}/static/graphics/contribute/SACDA_Hive.png" alt="The Hive — SACDA's newsletter">
+		</div>
+		<div class="newsletter__info__content">
+			<form action="https://sacda.us4.list-manage.com/subscribe/post?u=3c616907ab5cf63924a62f942&amp;id=383fd0ae1e&amp;f_id=000f56e2f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="newsletter__signup__form">
+				<p>We are thrilled to introduce The Hive, our newsletter! In each issue, The Hive will bring you stories from our archive 🗃️, updates on collaborations 🤝🏽, and insights into how we're preserving the rich and diverse histories of South Asian Canadian communities. Signup below!</p>
+				<div class="newsletter__form">
 					<label for="mce-EMAIL" class="sr-only">Email address</label>
-					<input type="email" name="EMAIL" id="mce-EMAIL" required placeholder="Your email address" class="newsletter__email flex-1 h-[50px] px-4 bg-white">
-					{# Mailchimp honeypot — must stay present and empty #}
-					<div style="position: absolute; left: -5000px;" aria-hidden="true">
-						<input type="text" name="b_3c616907ab5cf63924a62f942_383fd0ae1e" tabindex="-1" value="">
+					<input type="email" name="EMAIL" id="mce-EMAIL" required placeholder="your_email@example.com" autocomplete="email" class="newsletter__email">
+					<div class="newsletter__honeypot" aria-hidden="true">
+						<input type="text" name="b_3c616907ab5cf63924a62f942_383fd0ae1e" tabindex="-1" value="" autocomplete="off">
 					</div>
-					<button type="submit" class="btn btn-default">
-						Subscribe
-					</button>
-				</form>
-			</div>
+					<button type="submit" name="subscribe" class="btn btn-default">Subscribe</button>
+				</div>
+			</form>
 		</div>
 	</section>
 
-	{# The content region carries the node itself (system_main_block), so it must be
-	   rendered or the node body is silently dropped and admins get no contextual
-	   edit links. Sits between the signup and the archive so editable copy can
-	   introduce the past issues. #}
-	<div class="newsletter-body content">
-		{{ page.content }}
-	</div>
+	{# Preserve the node render array for contextual edit links. #}
+	<div class="newsletter-body content">{{ page.content }}</div>
 
-	{# Past issues — Mailchimp public campaign archive #}
-	<section class="py-10 md:py-16">
-		<div class="w-full lg:w-[70%] mx-auto px-4">
-			<h2 class="text-center mb-8">PAST ISSUES</h2>
-			<div class="newsletter__archive overflow-hidden">
-				<iframe
-					src="https://us4.campaign-archive.com/home/?u=3c616907ab5cf63924a62f942&amp;id=383fd0ae1e"
-					title="The Hive newsletter archive"
-					loading="lazy"
-					class="w-full border-0"
-					style="height: 70vh; min-height: 500px;"></iframe>
+	<section class="newsletter-section" aria-label="Newsletter issues">
+		<div class="newsletter-list-wrapper">
+			<h2>Latest Issue</h2>
+			<div class="newsletter-list newsletter-list--latest">
+				{% if newsletter_issues|length %}
+					{% include '@sacda/page/newsletter-card.html.twig' with { issue: newsletter_issues|first } only %}
+				{% else %}
+					<p>Newsletter issues are temporarily unavailable.</p>
+				{% endif %}
 			</div>
-			<p class="text-center mt-4">
-				<a href="https://us4.campaign-archive.com/home/?u=3c616907ab5cf63924a62f942&amp;id=383fd0ae1e" target="_blank" rel="noopener" class="underline hover:text-primary">
-					Open the newsletter archive in a new tab
-				</a>
-			</p>
+		</div>
+
+		<div class="newsletter-list-wrapper">
+			<h2>Past Issues</h2>
+			<div class="newsletter-list">
+				{% for issue in newsletter_issues|slice(1) %}
+					{% include '@sacda/page/newsletter-card.html.twig' with { issue: issue } only %}
+				{% else %}
+					<a href="{{ newsletter_archive_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-default">View the newsletter archive</a>
+				{% endfor %}
+			</div>
 		</div>
 	</section>
 </main>

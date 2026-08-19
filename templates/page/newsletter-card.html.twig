@@ -1,0 +1,8 @@
+<a class="newsletter-card" href="{{ issue.url }}" target="_blank" rel="noopener noreferrer">
+	<div class="newsletter__item__img"><img src="{{ issue.image }}" alt="" loading="lazy"></div>
+	<div class="newsletter__item__title">
+		<h3>{{ issue.title }}</h3>
+		{% if issue.preview %}<p>{{ issue.preview }}</p>{% endif %}
+		<span>Click to view <i class="fa fa-link" aria-hidden="true"></i></span>
+	</div>
+</a>

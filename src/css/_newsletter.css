@@ -1,23 +1,41 @@
-/**
- * /newsletter — "The Hive" signup + campaign archive.
- * Flat design: square inputs, no shadows, no rounded corners.
- */
+/** /newsletter — adapted from old_stuff/views/Contribute/form_html.php. */
+.newsletter__info { display: flex; flex-direction: column; align-items: center; gap: 4rem; width: 100%; margin: 0 auto; padding: 8rem 2rem 4rem; }
+.newsletter__info__img { width: min(70%, 520px); margin-bottom: 2rem; }
+.newsletter__info__img img { display: block; width: 100%; height: auto; }
+.newsletter__info__content, .newsletter__signup__form { width: 100%; }
+.newsletter__signup__form { margin: 0; }
+.newsletter__signup__form p { color: var(--foreground); text-align: justify; }
+.newsletter__form { position: relative; display: flex; align-items: stretch; gap: 0.5rem; margin-top: 1.5rem; }
+.newsletter__email { min-width: 0; width: 100%; height: 50px; padding: 0 1rem; border: 1px solid var(--foreground); border-radius: 0; background: white; color: var(--foreground); }
+.newsletter__email:focus { outline: 3px solid color-mix(in srgb, var(--primary) 35%, transparent); outline-offset: 1px; border-color: var(--primary); }
+.newsletter__email::placeholder { color: color-mix(in srgb, var(--foreground) 60%, transparent); }
+.newsletter__honeypot { position: absolute; left: -5000px; }
 
-/* Email input: square, 1px dark border (matches live sacda.ca form). */
-.newsletter__email {
-  border: 1px solid var(--foreground);
-  border-radius: 0;
-  color: var(--foreground);
-}
-.newsletter__email:focus {
-  outline: none;
-  border-color: var(--primary);
-}
-.newsletter__email::placeholder {
-  color: color-mix(in srgb, var(--foreground) 60%, transparent);
+.newsletter-section { width: 100%; margin: 0 auto; padding: 4rem 2rem 8rem; }
+.newsletter-list-wrapper { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; margin-bottom: 2rem; }
+.newsletter-list-wrapper h2 { font-size: 2rem; }
+.newsletter-list { display: flex; flex-direction: column; gap: 1rem; width: 100%; }
+.newsletter-card { display: flex; align-items: center; width: 100%; padding: 1rem; border: 1px solid #ccc; border-radius: 5px; color: inherit; text-decoration: none; transition: background-color 0.2s ease; }
+.newsletter-card:hover, .newsletter-card:focus-visible { background-color: #f9f9f9; }
+.newsletter-card:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.newsletter__item__img { flex: 0 0 30%; aspect-ratio: 1; margin-right: 1rem; overflow: hidden; }
+.newsletter__item__img img { width: 100%; height: 100%; object-fit: cover; object-position: left; }
+.newsletter__item__title { flex: 1; min-width: 0; }
+.newsletter__item__title h3 { margin: 0; font-size: 1.5rem !important; text-transform: none !important; }
+.newsletter__item__title p { margin: 0.4rem 0 0; font-size: 1rem; line-height: 1.5; }
+.newsletter__item__title span { display: inline-block; margin-top: 0.5rem; color: var(--foreground); font-size: 1rem; font-weight: 700; }
+
+@media (max-width: 639px) {
+  .newsletter__info { gap: 2rem; padding: 4rem 1rem 2rem; }
+  .newsletter__form, .newsletter-card { flex-direction: column; }
+  .newsletter__form .btn, .newsletter__item__img { width: 100%; }
+  .newsletter__item__img { margin: 0 0 1rem; }
 }
 
-/* Archive frame: thin flat border around the embedded Mailchimp archive. */
-.newsletter__archive {
-  border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+@media (min-width: 1024px) {
+  .newsletter__info { width: 70%; flex-direction: row; }
+  .newsletter__info__img, .newsletter__info__content { width: 30vw; margin-bottom: 0; }
+  .newsletter-section { width: 70%; }
 }
+
+@media (min-width: 1200px) { .newsletter-section { width: 60%; } }
