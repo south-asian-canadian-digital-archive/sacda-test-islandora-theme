@@ -309,7 +309,7 @@
     border-color: var(--foreground) !important;
   }
 
-  .advanced-search-actions input[type="submit"][value="Reset"]:hover,
+    .advanced-search-actions input[type="submit"][value="Reset"]:hover,
   .advanced-search-actions input[type="submit"][value*="reset" i]:hover {
     background-color: var(--foreground) !important;
     color: var(--background) !important;
@@ -320,6 +320,59 @@
     .advanced-search-actions input[type="submit"][value*="reset" i] {
       padding-left: 50px !important;
       padding-right: 50px !important;
+    }
+  }
+
+  /* On phones each search term becomes two intentional rows: field + relation,
+     then text input + its add/remove controls. This avoids the five desktop
+     columns squeezing the text field to an unusable width. */
+  @media (max-width: 767px) {
+    .advanced-search-grid {
+      grid-template-columns: minmax(0, 1fr) max-content !important;
+      gap: 0.5rem !important;
+      align-items: end !important;
+    }
+
+    .grid-col-search,
+    .grid-col-value {
+      grid-column: 1 !important;
+      min-width: 0 !important;
+    }
+
+    .grid-col-include,
+    .grid-col-actions {
+      grid-column: 2 !important;
+    }
+
+    .grid-col-conjunction {
+      grid-column: 1 / -1 !important;
+    }
+
+    .grid-col-search,
+    .grid-col-include,
+    .grid-col-value,
+    .grid-col-actions {
+      width: 100% !important;
+    }
+
+    .grid-col-search select,
+    .grid-col-include select,
+    .grid-col-value input[type="text"] {
+      width: 100% !important;
+      min-width: 0 !important;
+    }
+
+    .grid-col-search select {
+      max-width: none !important;
+    }
+
+    .grid-col-actions {
+      width: max-content !important;
+    }
+
+    .advanced-search-actions {
+      margin-top: 1rem !important;
+      flex-wrap: wrap !important;
     }
   }
 

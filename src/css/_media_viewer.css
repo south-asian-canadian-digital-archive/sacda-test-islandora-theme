@@ -57,65 +57,47 @@
     object-fit: contain;
 }
 
-/* ---- PDF poster card ------------------------------------------------------
- * The pdfjs block sits in media_content, above the node's own content, so an
- * always-on full-height viewer buried every record's metadata below the fold.
- * Collapsed, this is a compact card; expanded (JS adds .is-expanded) it becomes
- * the same full-height stage as the other viewers.
+/* ---- PDF first-page viewer ------------------------------------------------
+ * PDF derivative images are ordinary JPEGs, whereas the site's image viewer
+ * consumes IIIF manifests. Use the same stage geometry here rather than trying
+ * to initialise a second Mirador instance around a non-IIIF thumbnail.
  */
-
-/* Collapsed, this is a short band sitting directly above the record metadata,
-   with no viewer edge to separate the two — hence the bottom rule. */
-.pdf-preview:not(.is-expanded) {
-    border-bottom: 1px solid var(--border);
-    background: var(--background);
+.pdf-preview__stage {
+    @apply relative flex w-full items-center justify-center overflow-hidden bg-muted;
+    height: calc(100vh - var(--header-height, 80px) - 1rem);
+    min-height: 24rem;
 }
 
-/* justify-center matters: the poster is shrink-0 and the info column sizes to
-   its content, so without it the pair packs to the flex start of a centred
-   56rem box and the whole card reads as shifted left on wide screens. */
-.pdf-preview__card {
-    @apply mx-auto flex flex-col items-center justify-center gap-8 px-6 py-12 sm:flex-row sm:items-stretch;
-    max-width: 56rem;
-}
-
-.pdf-preview__poster {
-    @apply flex shrink-0 items-center justify-center overflow-hidden;
-    width: min(15rem, 60vw);
-    aspect-ratio: 3 / 4;
-    background: var(--muted);
-    border: 1px solid var(--border);
-}
-
-.pdf-preview__poster img {
+.pdf-preview__stage img {
     @apply h-full w-full;
-    object-fit: cover;
-    object-position: top;
+    object-fit: contain;
+    object-position: center;
 }
 
 /* Fallback glyph when the node has no ThumbnailImage derivative. */
-.pdf-preview__poster svg {
-    width: 40%;
-    height: 40%;
+.pdf-preview__fallback {
+    width: min(12rem, 40%);
+    height: min(12rem, 40%);
     color: var(--muted-foreground);
     opacity: 0.5;
 }
 
-.pdf-preview__info {
-    @apply flex min-w-0 flex-col justify-center gap-2 text-center sm:text-left;
-}
-
-.pdf-preview__meta {
-    @apply text-xs font-semibold uppercase tracking-wider;
-    color: var(--muted-foreground);
-}
-
-.pdf-preview__filename {
-    @apply text-lg font-semibold break-words;
-}
-
 .pdf-preview__actions {
-    @apply mt-4 flex flex-col flex-wrap gap-3 sm:flex-row;
+    @apply absolute bottom-4 left-1/2 z-10 flex w-max max-w-[calc(100%-2rem)] -translate-x-1/2 flex-wrap justify-center gap-3;
+}
+
+@media (max-width: 639px) {
+    .pdf-preview__stage {
+        min-height: 20rem;
+    }
+
+    .pdf-preview__actions {
+        @apply bottom-3 gap-2;
+    }
+
+    .pdf-preview__actions .btn {
+        @apply px-3 text-xs;
+    }
 }
 
 /* ---- Expanded state ---- */

@@ -101,16 +101,16 @@
 </div>
 
 {# Wrapper with group for hover effects (list mode) #}
-<div class="group cursor-pointer">
+	<div class="group cursor-pointer">
     <div class="flex! gap-4 items-start">
 		{# Image Container #}
-		<div class="relative w-1/2 bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-center [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105">
+		<div class="relative w-1/2 shrink-0 aspect-square bg-muted overflow-hidden [&_a]:block [&_a]:w-full [&_a]:h-full [&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-center [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105">
 			{% if is_collection %}{{ collection_badge }}{% endif %}
 			{{ card_media }}
 		</div>
 
 		{# Info section #}
-		<div class="py-1 w-1/2 h-full">
+		<div class="py-1 w-1/2 min-w-0 h-full break-words">
 			<div class="text-sm leading-tight mb-1 [&_a]:text-foreground [&_a]:inline-block group-hover:[&_a]:underline group-hover:[&_a]:decoration-primary [&_a]:transition-colors">
 				{{ title_field|raw }}
 			</div>

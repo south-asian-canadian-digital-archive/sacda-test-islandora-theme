@@ -75,6 +75,7 @@ function sacda_preprocess_page(array &$variables): void {
   _sacda_preprocess_footer_social($variables);
   _sacda_add_color_variables($variables);
   _sacda_preprocess_carousel($variables, $theme_path);
+  _sacda_preprocess_featured_exhibits($variables);
 
   // Recreate the original newsletter's Mailchimp-driven issue cards without
   // exposing the private API key used by the retired Pawtucket theme.
@@ -109,6 +110,88 @@ function sacda_preprocess_page(array &$variables): void {
     }
   }
   $variables['show_filters_sidebar'] = $show_filters;
+}
+
+/**
+ * Supplies promoted exhibit cards to the front-page rotator.
+ *
+ * The cards are real exhibit nodes so editorial promotion controls the home
+ * page. The front-page Twig template intentionally has no fallback hardcoded
+ * list; an empty result means no exhibits have been promoted yet.
+ */
+function _sacda_preprocess_featured_exhibits(array &$variables): void {
+  if (!$variables['is_front']) {
+    return;
+  }
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $ids = $storage->getQuery()
+    ->accessCheck(TRUE)
+    ->condition('type', 'exhibit')
+    ->condition('status', 1)
+    ->condition('promote', 1)
+    ->sort('created', 'DESC')
+    ->sort('nid', 'DESC')
+    ->execute();
+
+  if (!$ids) {
+    $variables['featured_exhibits'] = [];
+    return;
+  }
+
+  $url_generator = \Drupal::service('file_url_generator');
+  $exhibits = [];
+  foreach ($storage->loadMultiple($ids) as $exhibit) {
+    $image = _sacda_exhibit_thumbnail($exhibit, $url_generator);
+    if (!$image) {
+      continue;
+    }
+
+    $url = $exhibit->toUrl()->toString();
+    if ($exhibit->hasField('field_external_url') && !$exhibit->get('field_external_url')->isEmpty()) {
+      $url = $exhibit->get('field_external_url')->first()->getUrl()->toString();
+    }
+
+    $exhibits[] = [
+      'title' => $exhibit->label(),
+      'url' => $url,
+      'image' => $image['url'],
+      'image_alt' => $image['alt'] ?: $exhibit->label(),
+    ];
+  }
+
+  $variables['featured_exhibits'] = $exhibits;
+}
+
+/**
+ * Gets the source image and alt text from an exhibit's thumbnail media.
+ */
+function _sacda_exhibit_thumbnail(\Drupal\node\NodeInterface $exhibit, $url_generator): ?array {
+  if (!$exhibit->hasField('field_thumbnail') || $exhibit->get('field_thumbnail')->isEmpty()) {
+    return NULL;
+  }
+
+  $media = $exhibit->get('field_thumbnail')->entity;
+  if (!$media) {
+    return NULL;
+  }
+
+  foreach (['field_media_image', 'field_image', 'thumbnail'] as $field_name) {
+    if (!$media->hasField($field_name) || $media->get($field_name)->isEmpty()) {
+      continue;
+    }
+    $item = $media->get($field_name)->first();
+    $file = $item?->entity;
+    if ($file) {
+      $values = $item->getValue();
+      return [
+        'url' => $url_generator->generateString($file->getFileUri()),
+        'alt' => $values['alt'] ?? '',
+      ];
+    }
+  }
+
+  return NULL;
 }
 
 /**
